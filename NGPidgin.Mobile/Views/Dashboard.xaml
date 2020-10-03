@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NGPidgin.Mobile.Controls"
+             mc:Ignorable="d"
+             x:Class="NGPidgin.Mobile.Views.Dashboard"
+             Title="Dashboard">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F0F0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="280"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>                
+
+                <Frame Grid.Row="1" CornerRadius="15" Margin="20,-35,20,20" Padding="0">
+                    <StackLayout Padding="20,10">
+                        <Label Text="Daily Tip" FontSize="18" TextColor="#07461D" />
+                        <Label Text="'The pikin wen dey follow papa drag bald head, na headache dey kill am'" />
+                        <Label Text="@ngpidgin" FontSize="Small" HorizontalTextAlignment="End" />
+                    </StackLayout>
+                </Frame>
+                
+                <Path Fill="#4B9C7F" Stroke="#4B9C7F" Aspect="Fill" Data="m580.1585,97.15205l-380.99679,0l0,180.5626c189.49839,-26.99808 190.49839,68.79766 380.99679,29.70809l0,-210.27069z" />
+
+                <StackLayout Grid.Row="0" Padding="20,20,20,10">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Grid.Row="1" Grid.Column="1">
+                                <Frame CornerRadius="100" HeightRequest="30" WidthRequest="30" Padding="0" IsClippedToBounds="True">
+                                    <Image Source="avatar_default.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Frame>
+                            </StackLayout>
+                            <Label Grid.Row="1" Grid.Column="2" Text="My Padi, how far?" TextColor="White" VerticalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="My Padi," FontAttributes="Bold" />
+                                        <Span Text=" how far?" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout Margin="0,20,0,0">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Search" FontSize="Title" TextColor="White" />
+                                    <Span Text=" for words and sentences" TextColor="#EAEAEA" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Frame HasShadow="True" Padding="0">
+                            <local:MyEntry Placeholder="wetin you dey find?" BackgroundColor="White" />
+                        </Frame>
+                        <ImageButton x:Name="btn_twitter" Source="twitter_btn_rounded.png" Margin="0,0,25,0" HeightRequest="50" WidthRequest="50" HorizontalOptions="End" Padding="10" BackgroundColor="Transparent" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

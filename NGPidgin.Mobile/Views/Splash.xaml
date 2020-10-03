@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="NGPidgin.Mobile.Views.Splash">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="40*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="logo_text.png" />
+                    <Label Text="Speak am the Naija way!" HorizontalTextAlignment="Center" />
+                    <Label Text="abeg chilax, we dey load some packages.." Margin="0,50,0,0" HorizontalTextAlignment="Center" />
+                </StackLayout>
+                <StackLayout Grid.Row="1">
+                    <Path Fill="#4B9C7F" Stroke="#4B9C7F" Aspect="Fill" Data="m587.1585,448.15266l-380.99679,0l0,-176.81425c189.49839,26.43762 190.49839,-67.36948 380.99679,-29.09137l0,205.90562z" />
+                    <!--<StackLayout HorizontalOptions="End" VerticalOptions="End">
+                        <Label Text="Version 2.0" TextColor="Red" />
+                        <Label Text="Powered by Dynamic Brain Systems" TextColor="White" />
+                    </StackLayout>-->
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
