@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NGPidgin.Mobile.Controls"
+             mc:Ignorable="d"
+             x:Class="NGPidgin.Mobile.Views.AppNavigationPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid BackgroundColor="#EDEDED">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!--<StackLayout Grid.Row="1" Padding="20,10">
+                <Label Text="M E N U" FontSize="18" TextColor="White" />
+            </StackLayout>-->
+
+                <StackLayout Grid.Row="2" Padding="20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25*" />
+                            <RowDefinition Height="25*" />
+                            <RowDefinition Height="25*" />
+                            <RowDefinition Height="25*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="48*" />
+                        </Grid.ColumnDefinitions>
+
+                        <local:NavCard Text="Home" Row="0" Column="0" Icon="nav_home.png" PageNavId="1" />
+                        <local:NavCard Text="Word List" Row="0" Column="2" Icon="nav_word_list.png" PageNavId="2" />
+
+                        <local:NavCard Text="Translator" Row="1" Column="0" Icon="nav_translator.png" />
+                        <local:NavCard Text="Favourites" Row="1" Column="2" Icon="nav_favorites.png" />
+
+                        <local:NavCard Text="Twitter Feed" Row="2" Column="0" Icon="nav_twitter.png" />
+                        <local:NavCard Text="Settings" Row="2" Column="2" Icon="nav_settings.png" />
+
+                        <local:NavCard Text="About" Row="3" Column="0" Icon="nav_info.png" />
+                        <local:NavCard Text="Exit" Row="3" Column="2" Icon="nav_exit.png" />
+                    </Grid>
+                </StackLayout>
+
+                <Path Fill="#4B9C7F" Stroke="#4B9C7F" Aspect="Fill" Data="m580.1585,97.15205l-380.99679,0l0,180.5626c189.49839,-26.99808 190.49839,68.79766 380.99679,29.70809l0,-210.27069z" />
+
+                <StackLayout Padding="20">
+                    <Label Text="Where you dey go?" FontSize="Large" TextColor="{DynamicResource TextSecondaryLight}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                </StackLayout>
+
+                <AbsoluteLayout Padding="20,20,0,0">
+                    <ImageButton Source="hambugger_back.png" HeightRequest="30" Clicked="BackBtn_Clicked" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start" />
+                </AbsoluteLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

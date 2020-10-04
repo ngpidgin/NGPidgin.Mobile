@@ -15,7 +15,7 @@
                 <StackLayout Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center">
                     <Image Source="logo_text.png" />
                     <Label Text="Speak am the Naija way!" HorizontalTextAlignment="Center" />
-                    <Label Text="abeg chilax, we dey load some packages.." Margin="0,50,0,0" HorizontalTextAlignment="Center" />
+                    <Label Text="abeg chilax, we dey load some packages.." Margin="0,50,0,0" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="{DynamicResource TextSecondaryDark}" />
                 </StackLayout>
                 <StackLayout Grid.Row="1">
                     <Path Fill="#4B9C7F" Stroke="#4B9C7F" Aspect="Fill" Data="m587.1585,448.15266l-380.99679,0l0,-176.81425c189.49839,26.43762 190.49839,-67.36948 380.99679,-29.09137l0,205.90562z" />

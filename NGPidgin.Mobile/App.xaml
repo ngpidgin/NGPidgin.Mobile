@@ -3,13 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NGPidgin.Mobile.Controls"
              mc:Ignorable="d"
              x:Class="NGPidgin.Mobile.App">
 
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
+            <Color x:Key="TextSecondaryLight">#D8FFF1</Color>
+            <Color x:Key="TextSecondaryDark">#214D3D</Color>
+            <Color x:Key="TextPrimary">#000</Color>
             <Color x:Key="NavigationPrimary">#2196F3</Color>
+
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="RobotoRegular.ttf#" />
+            </Style>
+
+            <Style TargetType="local:MyEntry">
+                <Setter Property="FontFamily" Value="RobotoRegular.ttf#" />
+            </Style>
+
+            <Style TargetType="Label" Class="NavCardLabel">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="RobotoBold.ttf#" />
+                <Setter Property="Margin" Value="0,5,0,0" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />

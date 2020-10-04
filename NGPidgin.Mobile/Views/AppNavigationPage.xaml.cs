@@ -10,13 +10,16 @@ using Xamarin.Forms.Xaml;
 namespace NGPidgin.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Dashboard : ContentPage
+    public partial class AppNavigationPage : ContentPage
     {
-        public Dashboard()
+        public AppNavigationPage()
         {
             InitializeComponent();
+        }
 
-            NavigationPage.SetHasNavigationBar(this, false);
+        private void BackBtn_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
         }
     }
 }
