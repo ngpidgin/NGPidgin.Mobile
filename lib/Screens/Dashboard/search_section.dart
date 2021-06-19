@@ -12,10 +12,14 @@ class SearchSection extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       padding: EdgeInsets.only(bottom: 50),
       width: size.width,
-      height: size.height * 0.25,
+      height: size.height * 0.35,
       decoration: BoxDecoration(
-        color: Palette.PrimaryColor,
-      ),
+          color: Palette.PrimaryColor,
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment(1.5, 4.0),
+              colors: <Color>[Palette.PrimaryColor, Colors.black],
+              tileMode: TileMode.repeated)),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,

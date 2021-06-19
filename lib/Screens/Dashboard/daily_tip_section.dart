@@ -15,8 +15,8 @@ class DailyTipSection extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(35),
-              bottomRight: Radius.circular(35)),
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25)),
           boxShadow: [
             BoxShadow(
                 color: Color(0x408F8F8F),
@@ -28,7 +28,7 @@ class DailyTipSection extends StatelessWidget {
         children: [
           Text(
             "Daily Tips",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 20),
             textAlign: TextAlign.left,
           ),
           SizedBox(height: 15),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/components/nav_pages.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/palette_helper.dart';
+import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
+import 'package:ngpidgin/Screens/Favorites/favorites_screen.dart';
+import 'package:ngpidgin/Screens/Translator/translator_screen.dart';
+import 'package:ngpidgin/Screens/Words/words_screen.dart';
 
 class AppNavigator extends StatefulWidget {
   // NormalBottomNavBar({Key key}) : super(key: key);
@@ -12,7 +15,12 @@ class AppNavigator extends StatefulWidget {
 
 class AppNavigatorState extends State<AppNavigator> {
   int _currentIndex = 0;
-  final List<Widget> _children = NavPages().getChildren();
+  final List<Widget> _children = [
+    DashboardScreen(),
+    WordsScreen(),
+    TranslatorScreen(),
+    FavoritesScreen()
+  ];
 
   void onTabTapped(int index) {
     setState(() {

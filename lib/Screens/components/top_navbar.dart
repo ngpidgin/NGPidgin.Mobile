@@ -12,7 +12,6 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Palette.PrimaryColor,
       leading: IconButton(
         icon: Icon(Icons.list),
         onPressed: () => {},

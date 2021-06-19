@@ -30,7 +30,7 @@ class DashboardCardFrame extends StatelessWidget {
                   height: size.height * 0.125,
                   child: Text(
                     title,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                   )),
             ],
           ),
