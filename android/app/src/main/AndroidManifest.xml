@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ngpidgin">
    <application
-        android:label="ngpidgin"
+        android:label="9ja Pidgin"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

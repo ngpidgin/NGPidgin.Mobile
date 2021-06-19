@@ -20,25 +20,27 @@ class WordDetail extends StatelessWidget {
           elevation: 0,
           title: Text(word,
               style: TextStyle(
-                  fontSize: 23,
+                  fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: Colors.white))),
       bottomNavigationBar: BottomNav(),
-      body: Container(
-        height: size.height,
-        child: Column(
-          children: [
-            MeaningSection(
-                word,
-                // "A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)..A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)..A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)"),
-                "A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)"),
-            Expanded(
-              child: ExampleSection(
-                  "1. Jessica is an aje-butter, she will just faint under this hot Nothern sun\n2. This school na for aje-butter only",
-                  "Aje, soft, butti",
-                  "Aje butter"),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          child: Column(
+            children: [
+              MeaningSection(
+                  word,
+                  //"A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)..A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)..A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)"),
+                  "A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)"),
+              Expanded(
+                child: ExampleSection(
+                    "1. Jessica is an aje-butter, she will just faint under this hot Nothern sun\n2. This school na for aje-butter only",
+                    "Aje, soft, butti",
+                    "Aje butter"),
+              )
+            ],
+          ),
         ),
       ),
     );
