@@ -1,4 +1,3 @@
-import 'package:ngpidgin/constants.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -27,8 +26,8 @@ class TextBoxField extends StatelessWidget {
       this.type = TextInputType.text,
       this.placeholder = "",
       this.width = 300,
-      this.bgColor = Palette.PrimaryLightColor,
-      this.textColor = Colors.white,
+      this.bgColor = Colors.white,
+      this.textColor = Colors.black,
       this.rounded = true,
       this.borderRadius = 30,
       this.paddingVertical = 2,
@@ -37,10 +36,10 @@ class TextBoxField extends StatelessWidget {
       this.marginTop = 5,
       this.marginRight = 5,
       this.marginBottom = 5,
-      this.isPassword = false}) {
+      this.isPassword = false,
+      this.onChange}) {
     this.icon = icon;
     this.suffixIcon = suffixIcon;
-    this.onChange = onChange;
   }
 
   @override

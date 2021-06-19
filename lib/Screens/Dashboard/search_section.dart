@@ -44,7 +44,6 @@ class SearchSection extends StatelessWidget {
             TextBoxField(
               placeholder: "Wetin you dey find?",
               width: size.width * 0.8,
-              bgColor: Colors.white,
               icon: Icon(Icons.search),
             )
           ]),
