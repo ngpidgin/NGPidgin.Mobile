@@ -4,10 +4,6 @@ import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 
 class WordsScreen extends StatefulWidget {
-  static const List<Map<String, String>> data0 = [
-    {'word': 'Hey world'},
-    {'word': 'Area'},
-  ];
   static var dataSource = List<String>.generate(1000, (i) => "Aje-Butter $i");
 
   @override
@@ -15,9 +11,11 @@ class WordsScreen extends StatefulWidget {
 }
 
 class _WordsScreenState extends State<WordsScreen> {
+  var data = WordsScreen.dataSource;
+  bool sortAsc = true;
+
   @override
   Widget build(BuildContext context) {
-    var data = WordsScreen.dataSource;
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -26,7 +24,22 @@ class _WordsScreenState extends State<WordsScreen> {
         backgroundColor: Palette.PrimaryColor,
         title: Text("Words"),
         elevation: 0,
-        actions: [Icon(Icons.sort)],
+        actions: [
+          TextButton(
+              child: Icon(Icons.sort_by_alpha, color: Colors.white),
+              onPressed: () {
+                setState(() {
+                  if (sortAsc) {
+                    data.sort((a, b) => a.compareTo(a));
+                    sortAsc = false;
+                  }
+                  // } else {
+                  //   data = data.reversed.toList();
+                  //   sortAsc = true;
+                  // }
+                });
+              })
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -40,9 +53,9 @@ class _WordsScreenState extends State<WordsScreen> {
                   width: size.width * 0.85,
                   onChange: (text) {
                     setState(() {
-                      data.clear();
                       data = WordsScreen.dataSource
-                          .where((e) => e.contains(text))
+                          .where((e) =>
+                              e.toLowerCase().contains(text.toLowerCase()))
                           .toList();
                     });
                   })),
@@ -53,7 +66,7 @@ class _WordsScreenState extends State<WordsScreen> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),
-                  child: WordList(data: data)))
+                  child: WordList(data)))
         ],
       ),
     );

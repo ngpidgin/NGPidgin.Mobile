@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_detail.dart';
 
 class WordList extends StatelessWidget {
-  const WordList({
-    Key? key,
-    required this.data,
-  }) : super(key: key);
-
   final List<String> data;
+  const WordList(this.data);
 
   @override
   Widget build(BuildContext context) {
