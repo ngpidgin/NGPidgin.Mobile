@@ -5,7 +5,7 @@ import 'package:ngpidgin/Screens/Words/example_section.dart';
 import 'package:ngpidgin/Screens/components/bottom_navbar.dart';
 import 'package:ngpidgin/constants.dart';
 
-class WordDetail extends StatelessWidget {
+class WordDetailScreen extends StatelessWidget {
   final int id;
   final String word;
 
@@ -13,14 +13,11 @@ class WordDetail extends StatelessWidget {
   static const String meaning =
       "A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)";
 
-  const WordDetail(this.id, this.word);
+  const WordDetailScreen(this.id, this.word);
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
-// Find the ScaffoldMessenger in the widget tree
-// and use it to show a SnackBar.
 
     return Scaffold(
       backgroundColor: Palette.PrimaryColor,

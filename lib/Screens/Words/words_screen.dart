@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_list.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
@@ -12,7 +14,13 @@ class WordsScreen extends StatefulWidget {
 
 class _WordsScreenState extends State<WordsScreen> {
   var data = WordsScreen.dataSource;
+  bool showSearch = false;
   bool sortAsc = true;
+
+  var actionBtnStyle = ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(
+    EdgeInsets.all(0),
+  ));
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +33,16 @@ class _WordsScreenState extends State<WordsScreen> {
         title: Text("Words"),
         elevation: 0,
         actions: [
-          TextButton(
-              child: Icon(Icons.sort_by_alpha, color: Colors.white),
+          IconButton(
+            icon: Icon(Icons.search, color: Colors.white),
+            onPressed: () {
+              setState(() {
+                showSearch = !showSearch;
+              });
+            },
+          ),
+          IconButton(
+              icon: Icon(Icons.sort_by_alpha, color: Colors.white),
               onPressed: () {
                 setState(() {
                   if (sortAsc) {
@@ -44,21 +60,23 @@ class _WordsScreenState extends State<WordsScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-              padding: EdgeInsets.only(bottom: 20),
-              child: TextBoxField(
-                  placeholder: "filter words sharp sharp",
-                  icon: Icon(Icons.search),
-                  paddingVertical: 0,
-                  width: size.width * 0.85,
-                  onChange: (text) {
-                    setState(() {
-                      data = WordsScreen.dataSource
-                          .where((e) =>
-                              e.toLowerCase().contains(text.toLowerCase()))
-                          .toList();
-                    });
-                  })),
+          showSearch
+              ? Container(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: TextBoxField(
+                      placeholder: "filter words sharp sharp",
+                      icon: Icon(Icons.search),
+                      paddingVertical: 0,
+                      width: size.width * 0.85,
+                      onChange: (text) {
+                        setState(() {
+                          data = WordsScreen.dataSource
+                              .where((e) =>
+                                  e.toLowerCase().contains(text.toLowerCase()))
+                              .toList();
+                        });
+                      }))
+              : Container(),
           Expanded(
               child: Container(
                   decoration: BoxDecoration(

@@ -7,8 +7,6 @@ import 'package:ngpidgin/Screens/Translator/translator_screen.dart';
 import 'package:ngpidgin/Screens/Words/words_screen.dart';
 
 class AppNavigator extends StatefulWidget {
-  // NormalBottomNavBar({Key key}) : super(key: key);
-
   @override
   AppNavigatorState createState() => AppNavigatorState();
 }

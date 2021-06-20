@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Splash/splash_screen.dart';
 import 'package:ngpidgin/Screens/Start/start_screen.dart';
 import 'package:ngpidgin/constants.dart';
 
@@ -12,16 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pidgin App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          backgroundColor: Colors.white,
-          primarySwatch: Colors.blue,
-          accentColor: Palette.PrimaryAltColor,
-          canvasColor: Palette.Lavendar,
-          appBarTheme: AppBarTheme(color: Colors.transparent),
-          fontFamily: "Poppins"),
-      home: StartScreen(),
-    );
+        title: 'Pidgin App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            backgroundColor: Colors.white,
+            primarySwatch: Colors.blue,
+            accentColor: Palette.PrimaryAltColor,
+            canvasColor: Palette.Lavendar,
+            appBarTheme: AppBarTheme(color: Colors.transparent),
+            fontFamily: "Poppins"),
+        home: StartScreen());
   }
 }

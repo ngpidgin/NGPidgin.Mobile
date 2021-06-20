@@ -58,7 +58,8 @@ class StartScreen extends StatelessWidget {
           child: Button(
             "Oya na..",
             () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
                 return AppNavigator();
               }));
             },

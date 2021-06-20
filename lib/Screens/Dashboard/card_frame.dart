@@ -4,7 +4,10 @@ class DashboardCardFrame extends StatelessWidget {
   final Size size;
   final Widget body;
   final String title;
-  DashboardCardFrame(this.size, this.body, this.title);
+  final Alignment? titleAlignment;
+  final Function()? onPressed;
+  DashboardCardFrame(this.size, this.body, this.title,
+      {this.titleAlignment, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class DashboardCardFrame extends StatelessWidget {
       padding: EdgeInsets.only(right: 5),
       child: Card(
           child: InkWell(
-        onTap: () => {print("xxx")},
+        onTap: onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           child: Column(
@@ -26,7 +29,7 @@ class DashboardCardFrame extends StatelessWidget {
                   height: size.height * 0.6,
                   child: body),
               Container(
-                  alignment: Alignment.center,
+                  alignment: titleAlignment ?? Alignment.center,
                   height: size.height * 0.125,
                   child: Text(
                     title,

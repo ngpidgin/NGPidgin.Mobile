@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/Dashboard/card_frame.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/interactions.dart';
 
 class QuickLinkSection extends StatelessWidget {
   final Size cardSize = new Size(110, 130);
@@ -31,11 +33,28 @@ class QuickLinkSection extends StatelessWidget {
                         Text("We don add 83 new words",
                             style: TextStyle(fontSize: 10))
                       ]),
-                  "Synchronize"),
+                  "Synchronize",
+                  titleAlignment: Alignment.centerLeft),
               DashboardCardFrame(
                   cardSize,
                   Image.asset("assets/icons/twitter_outline.png"),
                   "Twitter feed"),
+              DashboardCardFrame(
+                cardSize,
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  SvgPicture.asset("assets/icons/happy_sticker.svg"),
+                  SizedBox(height: 10),
+                  Text("Plenty memes & stickers",
+                      style: TextStyle(fontSize: 10))
+                ]),
+                "Sticky box",
+                titleAlignment: Alignment.centerLeft,
+                onPressed: () {
+                  print("x");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      Interactions.Snacky("We still dey cook this feature.. "));
+                },
+              ),
               DashboardCardFrame(
                   cardSize,
                   Icon(Icons.add,

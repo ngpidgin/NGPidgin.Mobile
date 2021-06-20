@@ -22,5 +22,4 @@ class Palette {
   static const Lavendar = Color(0xFFE3E7F1);
   static const LightGray = Color(0xFFE3E3E3);
   static const PaleGreen = Colors.blueGrey;
-  static const DryPurple = Color(0xFF423250);
 }
