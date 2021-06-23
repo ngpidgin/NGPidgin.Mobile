@@ -9,22 +9,25 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: TopNav(),
-        body: SingleChildScrollView(
-          child: Container(
-              child: Column(
-            children: [
-              SearchSection(),
-              DailyTipSection(),
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
-                child: QuickLinkSection(),
-              ),
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: TopNav(),
+          body: SingleChildScrollView(
+            child: Container(
+                child: Column(
+              children: [
+                SearchSection(),
+                DailyTipSection(),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+                  child: QuickLinkSection(),
+                ),
+              ],
+            )),
           )),
-        ));
+    );
   }
 }

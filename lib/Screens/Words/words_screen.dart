@@ -32,6 +32,7 @@ class _WordsScreenState extends State<WordsScreen> {
         backgroundColor: Palette.PrimaryColor,
         title: Text("Words"),
         elevation: 0,
+        leading: null,
         actions: [
           IconButton(
             icon: Icon(Icons.search, color: Colors.white),

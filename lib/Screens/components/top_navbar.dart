@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ngpidgin/Screens/Settings/settings_screen.dart';
 import 'package:ngpidgin/constants.dart';
 
 class TopNav extends StatelessWidget implements PreferredSizeWidget {
@@ -12,10 +13,10 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      leading: IconButton(
-        icon: Icon(Icons.list),
-        onPressed: () => {},
-      ),
+      // leading: IconButton(
+      //   icon: Icon(Icons.list),
+      //   onPressed: () => {},
+      // ),
       title: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(children: [
@@ -32,7 +33,15 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.lime))
           ])),
-      actions: [Icon(Icons.settings), SizedBox(width: 20)],
+      actions: [
+        IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SettingsScreen();
+              }));
+            })
+      ],
     );
   }
 }

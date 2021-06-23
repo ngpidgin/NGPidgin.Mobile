@@ -20,9 +20,9 @@ class ExampleSection extends StatelessWidget {
               topLeft: Radius.circular(25), topRight: Radius.circular(25))),
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+                width: double.infinity,
                 padding: EdgeInsets.fromLTRB(25, 25, 25, 15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,16 +33,22 @@ class ExampleSection extends StatelessWidget {
                     ])),
             Divider(),
             Container(
+                width: double.infinity,
                 padding: EdgeInsets.fromLTRB(25, 10, 25, 15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Similar words", style: titleStyle),
+                      Text(
+                        "Similar words",
+                        style: titleStyle,
+                        textAlign: TextAlign.start,
+                      ),
                       SizedBox(height: 5),
                       Text(similar),
                     ])),
             Divider(),
             Container(
+                width: double.infinity,
                 padding: EdgeInsets.fromLTRB(25, 10, 25, 15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +56,7 @@ class ExampleSection extends StatelessWidget {
                       Text("Pronunciation", style: titleStyle),
                       SizedBox(height: 5),
                       Text(pronunciation)
-                    ]))
+                    ])),
           ],
         ),
       ),

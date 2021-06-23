@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/palette_helper.dart';
 import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
-import 'package:ngpidgin/Screens/Favorites/favorites_screen.dart';
+import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
 import 'package:ngpidgin/Screens/Translator/translator_screen.dart';
 import 'package:ngpidgin/Screens/Words/words_screen.dart';
 
@@ -12,12 +12,13 @@ class AppNavigator extends StatefulWidget {
 }
 
 class AppNavigatorState extends State<AppNavigator> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   int _currentIndex = 0;
-  final List<Widget> _children = [
+  final _parentScreens = [
     DashboardScreen(),
     WordsScreen(),
     TranslatorScreen(),
-    FavoritesScreen()
+    FavoriteScreen()
   ];
 
   void onTabTapped(int index) {
@@ -29,7 +30,15 @@ class AppNavigatorState extends State<AppNavigator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _children[_currentIndex],
+        body: WillPopScope(
+            onWillPop: () async {
+              if (_navigatorKey.currentState!.canPop()) {
+                _navigatorKey.currentState!.pop();
+                return false;
+              }
+              return true;
+            },
+            child: _parentScreens[_currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
@@ -55,7 +64,7 @@ class AppNavigatorState extends State<AppNavigator> {
             BottomNavigationBarItem(
                 label: "Translator",
                 icon: Icon(
-                  Icons.speaker_outlined,
+                  Icons.volume_up_outlined,
                   color: Colors.blueGrey,
                 )),
             BottomNavigationBarItem(

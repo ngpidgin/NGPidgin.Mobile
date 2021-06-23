@@ -4,8 +4,8 @@ import 'package:ngpidgin/Screens/app.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/constants.dart';
 
-class StartScreen extends StatelessWidget {
-  const StartScreen({Key? key}) : super(key: key);
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +54,7 @@ class StartScreen extends StatelessWidget {
       ),
       Container(
           height: size.height * 0.25,
+          padding: EdgeInsets.all(50),
           alignment: Alignment.center,
           child: Button(
             "Oya na..",
@@ -63,8 +64,8 @@ class StartScreen extends StatelessWidget {
                 return AppNavigator();
               }));
             },
-            bgColor: Palette.PrimaryAltColor,
-            width: size.width * 0.5,
+            bgColor: Palette.PrimaryColor,
+            width: double.infinity,
             textStyle: TextStyle(fontSize: 20, color: Colors.white),
             paddingVertical: 15,
           ))

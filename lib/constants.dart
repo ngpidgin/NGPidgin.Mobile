@@ -23,3 +23,5 @@ class Palette {
   static const LightGray = Color(0xFFE3E3E3);
   static const PaleGreen = Colors.blueGrey;
 }
+
+enum Language { pidgin, english }

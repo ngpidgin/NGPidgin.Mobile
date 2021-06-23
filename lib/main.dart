@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Start/start_screen.dart';
+import 'package:ngpidgin/Screens/Start/language_screen.dart';
 import 'package:ngpidgin/constants.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Pidgin App',
+        title: AppInfo.FullName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             backgroundColor: Colors.white,
@@ -20,6 +20,6 @@ class MyApp extends StatelessWidget {
             canvasColor: Palette.Lavendar,
             appBarTheme: AppBarTheme(color: Colors.transparent),
             fontFamily: "Poppins"),
-        home: StartScreen());
+        home: LanguageScreen());
   }
 }

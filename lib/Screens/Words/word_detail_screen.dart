@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/action_section.dart';
 import 'package:ngpidgin/Screens/Words/meaning_section.dart';
 import 'package:ngpidgin/Screens/Words/example_section.dart';
-import 'package:ngpidgin/Screens/components/bottom_navbar.dart';
 import 'package:ngpidgin/constants.dart';
 
 class WordDetailScreen extends StatelessWidget {
@@ -28,7 +27,6 @@ class WordDetailScreen extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: Colors.white))),
-      bottomNavigationBar: BottomNav(),
       body: SingleChildScrollView(
         child: Container(
           height: size.height,
