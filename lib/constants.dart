@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum Language { none, pidgin, english }
+
 class AppInfo {
   static const Version = "2.0.0";
   static const VersionName = "FadaLang 2.0 (beta)";
@@ -24,4 +26,6 @@ class Palette {
   static const PaleGreen = Colors.blueGrey;
 }
 
-enum Language { pidgin, english }
+class SettingKeys {
+  static const LanguagePreference = "lang_pref";
+}

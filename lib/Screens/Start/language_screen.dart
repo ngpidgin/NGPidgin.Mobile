@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Start/welcome_screen.dart';
 import 'package:ngpidgin/components/button_right_icon.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/language_kit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ngpidgin/globals.dart' as globals;
 
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({Key? key}) : super(key: key);
@@ -10,8 +13,13 @@ class LanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void selectLang(Language lang) {
-      print(lang.toString());
+    void selectLang(Language lang) async {
+      var prefs = await SharedPreferences.getInstance();
+      prefs.setInt(SettingKeys.LanguagePreference, lang.index);
+
+      globals.languagePreference = lang;
+      globals.languageKit =
+          await LanguageKit.initialize(globals.languagePreference);
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return WelcomeScreen();
@@ -24,7 +32,7 @@ class LanguageScreen extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(50),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("Welcome,",
@@ -32,15 +40,11 @@ class LanguageScreen extends StatelessWidget {
             Text("Please select your preffered language of interaction",
                 style: TextStyle(fontSize: 15)),
             SizedBox(height: 30),
-            ButtonIconRight("Pidgin", () {
-              selectLang(Language.pidgin);
-            },
+            ButtonIconRight("Pidgin", () => selectLang(Language.pidgin),
                 width: double.infinity,
                 icon: Icon(Icons.chevron_right_outlined, color: Colors.white),
                 textStyle: btnStyle),
-            ButtonIconRight("English", () {
-              selectLang(Language.english);
-            },
+            ButtonIconRight("English", () => selectLang(Language.english),
                 width: double.infinity,
                 bgColor: Palette.PaleGreen,
                 textStyle: btnStyle),

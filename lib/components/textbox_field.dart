@@ -28,10 +28,10 @@ class TextBoxField extends StatelessWidget {
       this.width = 300,
       this.bgColor = Colors.white,
       this.textColor = Colors.black,
-      this.rounded = true,
+      this.rounded = false,
       this.borderRadius = 30,
       this.paddingVertical = 2,
-      this.paddingHorizontal = 20,
+      this.paddingHorizontal = 15,
       this.marginLeft = 5,
       this.marginTop = 5,
       this.marginRight = 5,
@@ -52,7 +52,7 @@ class TextBoxField extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
             color: bgColor,
-            borderRadius: BorderRadius.circular(rounded ? borderRadius : 0)),
+            borderRadius: BorderRadius.circular(rounded ? borderRadius : 6)),
         child: TextField(
             obscureText: isPassword,
             obscuringCharacter: "•",

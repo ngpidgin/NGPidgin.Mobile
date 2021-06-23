@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/Dashboard/card_frame.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
+import 'package:ngpidgin/globals.dart' as globals;
 
 class QuickLinkSection extends StatelessWidget {
   final Size cardSize = new Size(110, 130);
@@ -30,7 +31,7 @@ class QuickLinkSection extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Palette.PaleGreen)),
                         SizedBox(height: 10),
-                        Text("We don add 83 new words",
+                        Text(globals.languageKit.dashboard_sync_desc,
                             style: TextStyle(fontSize: 10))
                       ]),
                   "Synchronize",
@@ -50,7 +51,6 @@ class QuickLinkSection extends StatelessWidget {
                 "Sticky box",
                 titleAlignment: Alignment.centerLeft,
                 onPressed: () {
-                  print("x");
                   ScaffoldMessenger.of(context).showSnackBar(
                       Interactions.Snacky("We still dey cook this feature.. "));
                 },

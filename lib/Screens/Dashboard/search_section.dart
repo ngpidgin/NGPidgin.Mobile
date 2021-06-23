@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/globals.dart' as globals;
 
 class SearchSection extends StatelessWidget {
   const SearchSection({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class SearchSection extends StatelessWidget {
                 ])),
             SizedBox(height: 10),
             TextBoxField(
-              placeholder: "Wetin you dey find?",
+              placeholder: globals.languageKit.dashboard_search_placeholder,
               width: size.width * 0.8,
               icon: Icon(Icons.search),
             )

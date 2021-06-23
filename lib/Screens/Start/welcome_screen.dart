@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/app.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/globals.dart' as globals;
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                     color: Colors.black)),
             SizedBox(height: 20),
             Text(
-              "Learn our pidgin english and slangs\nfrom people wey sabi",
+              globals.languageKit.welcome_intro,
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
@@ -57,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: EdgeInsets.all(50),
           alignment: Alignment.center,
           child: Button(
-            "Oya na..",
+            globals.languageKit.welcome_btn_text,
             () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
