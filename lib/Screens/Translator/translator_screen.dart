@@ -1,78 +1,97 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Translator/card_frame.dart';
+import 'package:ngpidgin/Screens/Translator/sentence_list.dart';
+import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 
-class TranslatorScreen extends StatelessWidget {
-  const TranslatorScreen({Key? key}) : super(key: key);
+class TranslatorScreen extends StatefulWidget {
+  static var dataSource = List<String>.generate(100, (i) => "Sentences $i");
 
-  void showList(String category) {
-    print(category);
-  }
+  @override
+  _TranslatorScreenState createState() => _TranslatorScreenState();
+}
+
+class _TranslatorScreenState extends State<TranslatorScreen> {
+  List<String> data = TranslatorScreen.dataSource;
+
+  bool showSearch = false;
+  bool sortAsc = true;
+
+  var actionBtnStyle = ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(
+    EdgeInsets.all(0),
+  ));
 
   @override
   Widget build(BuildContext context) {
-    final Color textColor = Colors.white;
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Palette.PrimaryColor,
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-                padding: EdgeInsets.fromLTRB(15, 60, 15, 30),
-                child: Column(children: [
-                  Text(
-                    "Translator",
-                    style: TextStyle(fontSize: 25, color: textColor),
-                  ),
-                  Text(
-                    "Find translations to every day pidgin spoken all over Nigeria, with a mix of slangs and humor",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: textColor),
-                  ),
-                ])),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 25),
-                child: SingleChildScrollView(
-                    child: Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TranslatorCategoryCardFrame(
-                          Icons.forum_outlined, "Social",
-                          onPressed: () => showList("Social")),
-                      TranslatorCategoryCardFrame(
-                          Icons.local_mall_rounded, "Business & Trade",
-                          onPressed: () => showList("Business & Trade")),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TranslatorCategoryCardFrame(
-                          Icons.sports_basketball_rounded, "Sports",
-                          onPressed: () => showList("Sports")),
-                      TranslatorCategoryCardFrame(
-                          Icons.location_city_rounded, "Religion",
-                          onPressed: () => showList("Religion"))
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TranslatorCategoryCardFrame(
-                          Icons.map_outlined, "Travels & Tours",
-                          onPressed: () => showList("Travels & Tours")),
-                      TranslatorCategoryCardFrame(
-                          Icons.ramen_dining_rounded, "Food & Drinks",
-                          onPressed: () => showList("Food & Drinks"))
-                    ],
-                  )
-                ])),
-              ),
-            )
+      appBar: AppBar(
+          backgroundColor: Palette.PrimaryColor,
+          title: Row(
+            children: [
+              Text("Translator"),
+              SizedBox(width: 10),
+              Text("Social",
+                  style: TextStyle(fontSize: 13, color: Palette.Lavendar))
+            ],
+          ),
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search, color: Colors.white),
+              onPressed: () {
+                setState(() {
+                  showSearch = !showSearch;
+                });
+              },
+            ),
+            IconButton(
+                icon: Icon(Icons.sort_by_alpha, color: Colors.white),
+                onPressed: () {
+                  setState(() {
+                    if (sortAsc) {
+                      data.sort((a, b) => a.compareTo(a));
+                      sortAsc = false;
+                    }
+                    // } else {
+                    //   data = data.reversed.toList();
+                    //   sortAsc = true;
+                    // }
+                  });
+                })
           ]),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          showSearch
+              ? Container(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: TextBoxField(
+                      placeholder: "filter sentences sharp sharp",
+                      icon: Icon(Icons.search),
+                      paddingVertical: 0,
+                      width: size.width * 0.85,
+                      onChange: (text) {
+                        setState(() {
+                          data = TranslatorScreen.dataSource
+                              .where((e) =>
+                                  e.toLowerCase().contains(text.toLowerCase()))
+                              .toList();
+                        });
+                      }))
+              : Container(),
+          Expanded(
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Palette.Lavendar,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25))),
+                  child: SentenceList(data)))
+        ],
+      ),
     );
   }
 }

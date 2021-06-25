@@ -3,7 +3,7 @@ import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/palette_helper.dart';
 import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
-import 'package:ngpidgin/Screens/Translator/translator_screen.dart';
+import 'package:ngpidgin/Screens/Translator/translator_category_screen.dart';
 import 'package:ngpidgin/Screens/Words/words_screen.dart';
 
 class AppNavigator extends StatefulWidget {
@@ -17,7 +17,7 @@ class AppNavigatorState extends State<AppNavigator> {
   final _parentScreens = [
     DashboardScreen(),
     WordsScreen(),
-    TranslatorScreen(),
+    TranslatorCategoryScreen(),
     FavoriteScreen()
   ];
 
