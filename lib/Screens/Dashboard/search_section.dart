@@ -43,7 +43,7 @@ class SearchSection extends StatelessWidget {
                 ])),
             SizedBox(height: 10),
             TextBoxField(
-              placeholder: globals.languageKit.dashboard_search_placeholder,
+              placeholder: globals.languageKit.dashboardSearchPlaceholder,
               width: size.width * 0.8,
               icon: Icon(Icons.search),
             )

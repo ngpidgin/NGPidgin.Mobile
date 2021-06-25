@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_list.dart';
 import 'package:ngpidgin/components/textbox_field.dart';

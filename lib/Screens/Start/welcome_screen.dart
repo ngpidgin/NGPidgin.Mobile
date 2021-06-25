@@ -37,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                     color: Colors.black)),
             SizedBox(height: 20),
             Text(
-              globals.languageKit.welcome_intro,
+              globals.languageKit.welcomeIntro,
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
@@ -58,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: EdgeInsets.all(50),
           alignment: Alignment.center,
           child: Button(
-            globals.languageKit.welcome_btn_text,
+            globals.languageKit.welcomeBtnText,
             () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {

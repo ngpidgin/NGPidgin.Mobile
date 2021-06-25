@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Interactions {
-  static SnackBar Snacky(String text,
+  static SnackBar snacky(String text,
       {String buttonText = "Okay",
       Function? onPressed,
       Color? bgColor,

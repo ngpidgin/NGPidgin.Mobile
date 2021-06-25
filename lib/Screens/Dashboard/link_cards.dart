@@ -31,7 +31,7 @@ class QuickLinkSection extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Palette.PaleGreen)),
                         SizedBox(height: 10),
-                        Text(globals.languageKit.dashboard_sync_desc,
+                        Text(globals.languageKit.dashboardSyncDesc,
                             style: TextStyle(fontSize: 10))
                       ]),
                   "Synchronize",
@@ -52,7 +52,7 @@ class QuickLinkSection extends StatelessWidget {
                 titleAlignment: Alignment.centerLeft,
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      Interactions.Snacky("We still dey cook this feature.. "));
+                      Interactions.snacky("We still dey cook this feature.. "));
                 },
               ),
               DashboardCardFrame(

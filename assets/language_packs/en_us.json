@@ -1,8 +1,8 @@
 {
-    "welcome_intro": "Learn our pidgin english and slangs\nfrom experts that understands it perfectly",
-    "welcome_btn_text": "Let's go..",
-    "dashboard_search_placeholder": "What 'you looking for?",
-    "dashboard_daily_tips": "Daily Tips",
-    "dashboard_sync_desc": "We've added 83 new words"
+    "welcomeIntro": "Learn our pidgin english and slangs\nfrom experts that understands it perfectly",
+    "welcomeBtnText": "Let's go..",
+    "dashboardSearchPlaceholder": "What 'you looking for?",
+    "dashboardDailyTips": "Daily Tips",
+    "dashboardSyncDesc": "We've added 83 new words"
 
 }

@@ -28,7 +28,7 @@ class DailyTipSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            globals.languageKit.dashboard_daily_tips,
+            globals.languageKit.dashboardDailyTips,
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.left,
           ),

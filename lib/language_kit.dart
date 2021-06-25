@@ -9,18 +9,18 @@ Future<String> loadAsset(String path) async {
 class LanguageKit {
   LanguageKit();
 
-  String welcome_intro = "";
-  String welcome_btn_text = "";
-  String dashboard_search_placeholder = "";
-  String dashboard_daily_tips = "";
-  String dashboard_sync_desc = "";
+  String welcomeIntro = "";
+  String welcomeBtnText = "";
+  String dashboardSearchPlaceholder = "";
+  String dashboardDailyTips = "";
+  String dashboardSyncDesc = "";
 
   LanguageKit.fromJson(Map<String, dynamic> json)
-      : welcome_intro = json['welcome_intro'],
-        welcome_btn_text = json['welcome_btn_text'],
-        dashboard_search_placeholder = json['dashboard_search_placeholder'],
-        dashboard_daily_tips = json['dashboard_daily_tips'],
-        dashboard_sync_desc = json['dashboard_sync_desc'];
+      : welcomeIntro = json['welcomeIntro'],
+        welcomeBtnText = json['welcomeBtnText'],
+        dashboardSearchPlaceholder = json['dashboardSearchPlaceholder'],
+        dashboardDailyTips = json['dashboardDailyTips'],
+        dashboardSyncDesc = json['dashboardSyncDesc'];
 
   static Future<LanguageKit> initialize(Language lang) async {
     final content = await loadAsset(
