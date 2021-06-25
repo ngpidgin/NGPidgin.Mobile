@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:ngpidgin/components/button_icon.dart';
-import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/constants.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -27,11 +26,26 @@ class _ActionSectionState extends State<ActionSection> {
     setState(() {
       isFav = !isFav;
     });
-    ScaffoldMessenger.of(context).showSnackBar(Interactions.Snacky("'" +
-        widget.word +
-        "' don " +
-        (!isFav ? "comot from" : "join") +
-        " your favorite words"));
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Timer(Duration(seconds: 2), () {
+          Navigator.of(context).pop();
+        });
+
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          content: Text(
+              widget.word +
+                  "' don " +
+                  (!isFav ? "comot from" : "join") +
+                  " your favorite words",
+              style: TextStyle(color: Colors.white, fontSize: 12)),
+        );
+      },
+    );
+    AlertDialog(content: Text("Hey"));
   }
 
   FlutterTts flutterTts = FlutterTts();

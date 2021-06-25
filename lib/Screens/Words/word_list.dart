@@ -14,16 +14,40 @@ class WordList extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
-                highlightColor: Colors.white,
-                child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                    child: Text('${data[index]}')),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WordDetailScreen(index, data[index]);
-                  }));
-                },
-              );
+                  highlightColor: Colors.white,
+                  child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      child: Text('${data[index]}')),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        // barrierDismissible: true,
+                        barrierColor: Color(0x99000000),
+                        builder: (BuildContext context) {
+                          return WordDetailScreen(index, data[index]);
+                        });
+
+                    //   showGeneralDialog(
+                    //       barrierColor: Colors.black.withOpacity(0.5),
+                    //       transitionBuilder: (context, a1, a2, widget) {
+                    //         return Transform.scale(
+                    //           scale: a1.value,
+                    //           child: Opacity(
+                    //             opacity: a1.value,
+                    //             child: WordDetailScreen(index, data[index]),
+                    //           ),
+                    //         );
+                    //       },
+                    //       transitionDuration: Duration(milliseconds: 150),
+                    //       barrierDismissible: true,
+                    //       barrierLabel: '',
+                    //       context: context,
+                    //       pageBuilder: (context, animation1, animation2) {
+                    //         return Container();
+                    //       });
+                    // });
+                  });
             },
             separatorBuilder: (context, index) {
               return Divider(
