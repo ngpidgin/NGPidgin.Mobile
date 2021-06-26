@@ -3,15 +3,15 @@ import 'package:ngpidgin/Screens/Words/word_list.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 
-class WordsScreen extends StatefulWidget {
+class WordScreen extends StatefulWidget {
   static var dataSource = List<String>.generate(1000, (i) => "Aje-Butter $i");
 
   @override
-  _WordsScreenState createState() => _WordsScreenState();
+  _WordScreenState createState() => _WordScreenState();
 }
 
-class _WordsScreenState extends State<WordsScreen> {
-  var data = WordsScreen.dataSource;
+class _WordScreenState extends State<WordScreen> {
+  var data = WordScreen.dataSource;
   bool showSearch = false;
   bool sortAsc = true;
 
@@ -69,7 +69,7 @@ class _WordsScreenState extends State<WordsScreen> {
                       width: size.width * 0.85,
                       onChange: (text) {
                         setState(() {
-                          data = WordsScreen.dataSource
+                          data = WordScreen.dataSource
                               .where((e) =>
                                   e.toLowerCase().contains(text.toLowerCase()))
                               .toList();

@@ -5,7 +5,6 @@ import 'package:ngpidgin/constants.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:ngpidgin/globals.dart';
 import 'package:share/share.dart';
 
 enum TtsState { playing, stopped, paused, continued }
@@ -39,7 +38,7 @@ class _ActionSectionState extends State<ActionSection> {
     });
 
     showDialog(
-      context: context, //myGlobals.scaffoldKey.currentContext ?? context,
+      context: context,
       builder: (BuildContext dialogContext) {
         Timer(Duration(seconds: 2), () {
           Navigator.of(dialogContext).pop();

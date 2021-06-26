@@ -4,7 +4,7 @@ import 'package:ngpidgin/extensions/palette_helper.dart';
 import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
 import 'package:ngpidgin/Screens/Translator/translator_category_screen.dart';
-import 'package:ngpidgin/Screens/Words/words_screen.dart';
+import 'package:ngpidgin/Screens/Words/word_screen.dart';
 
 class AppNavigator extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class AppNavigatorState extends State<AppNavigator> {
   int _currentIndex = 0;
   final _parentScreens = [
     DashboardScreen(),
-    WordsScreen(),
+    WordScreen(),
     TranslatorCategoryScreen(),
     FavoriteScreen()
   ];
