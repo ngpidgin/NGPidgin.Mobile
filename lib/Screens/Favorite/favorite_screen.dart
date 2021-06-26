@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_list.dart';
+import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 
@@ -14,6 +15,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   var data = FavoriteScreen.dataSource;
   bool showSearch = false;
   bool sortAsc = true;
+  bool wordTabActive = true;
+  bool sentenceTabActive = false;
+  Color activeSelectionBg = Palette.PrimaryLightBrightColor;
+  Color inactiveSelectionBg = Palette.PrimaryDarkColor;
+  Color activeSelectionText = Palette.PaleGreen;
+  Color inactiveSelectionText = Palette.PrimaryLightBrightColor;
 
   var actionBtnStyle = ButtonStyle(
       padding: MaterialStateProperty.all<EdgeInsets>(
@@ -78,12 +85,56 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               : Container(),
           Expanded(
               child: Container(
-                  decoration: BoxDecoration(
-                      color: Palette.Lavendar,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))),
-                  child: WordList(data)))
+            height: size.height,
+            child: Column(
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Button(
+                    "Words",
+                    () {
+                      setState(() {
+                        wordTabActive = true;
+                        sentenceTabActive = false;
+                      });
+                    },
+                    bgColor:
+                        wordTabActive ? activeSelectionBg : inactiveSelectionBg,
+                    textColor: wordTabActive
+                        ? activeSelectionText
+                        : inactiveSelectionText,
+                    paddingVertical: 0,
+                    width: 120,
+                  ),
+                  Button(
+                    "Sentences",
+                    () {
+                      setState(() {
+                        wordTabActive = false;
+                        sentenceTabActive = true;
+                      });
+                    },
+                    bgColor: sentenceTabActive
+                        ? activeSelectionBg
+                        : inactiveSelectionBg,
+                    textColor: sentenceTabActive
+                        ? activeSelectionText
+                        : inactiveSelectionText,
+                    paddingVertical: 0,
+                    width: 120,
+                  )
+                ]),
+                Expanded(
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Palette.Lavendar,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25))),
+                      child: WordList(data)),
+                )
+              ],
+            ),
+          ))
         ],
       ),
     );
