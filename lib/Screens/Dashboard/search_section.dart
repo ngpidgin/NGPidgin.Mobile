@@ -18,7 +18,7 @@ class SearchSection extends StatelessWidget {
           color: Palette.PrimaryColor,
           gradient: LinearGradient(
               begin: Alignment.topLeft,
-              end: Alignment(1.5, 4.0),
+              end: Alignment(1.5, 5.5),
               colors: <Color>[Palette.PrimaryColor, Colors.black],
               tileMode: TileMode.repeated)),
       child: Column(

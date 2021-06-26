@@ -5,14 +5,18 @@ import 'package:ngpidgin/constants.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:ngpidgin/globals.dart';
 import 'package:share/share.dart';
 
 enum TtsState { playing, stopped, paused, continued }
 
 class ActionSection extends StatefulWidget {
-  final String word;
-  final String meaning;
-  ActionSection(this.word, this.meaning);
+  final String audioReaderContent;
+  final String shareContent;
+  final bool isFav;
+  final Function toggleFavorite;
+  ActionSection(this.audioReaderContent, this.shareContent, this.isFav,
+      this.toggleFavorite);
 
   @override
   _ActionSectionState createState() => _ActionSectionState();
@@ -21,33 +25,49 @@ class ActionSection extends StatefulWidget {
 class _ActionSectionState extends State<ActionSection> {
   bool isFav = false;
   TtsState ttsState = TtsState.stopped;
+  FlutterTts flutterTts = FlutterTts();
 
   void toggleFavorite() {
+    if (widget.isFav) {
+      // remove
+    } else {
+      // add
+    }
+
     setState(() {
       isFav = !isFav;
     });
 
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
+      context: context, //myGlobals.scaffoldKey.currentContext ?? context,
+      builder: (BuildContext dialogContext) {
         Timer(Duration(seconds: 2), () {
-          Navigator.of(context).pop();
+          Navigator.of(dialogContext).pop();
         });
 
-        return AlertDialog(
-          backgroundColor: Colors.black,
-          content: Text(
-              widget.word +
-                  "' don " +
-                  (!isFav ? "comot from" : "join") +
-                  " your favorite words",
-              style: TextStyle(color: Colors.white, fontSize: 12)),
-        );
+        return Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: AlertDialog(
+                backgroundColor: Color(0x80000000),
+                elevation: 0,
+                content: Text(
+                    "Word don " +
+                        (!isFav ? "comot from" : "join") +
+                        " your favorite words",
+                    style: TextStyle(color: Colors.white, fontSize: 12))));
+
+        // return AlertDialog(
+        //   backgroundColor: Colors.black,
+        //   content: Text(
+        //       "Word don " +
+        //           (!isFav ? "comot from" : "join") +
+        //           " your favorite words",
+        //       style: TextStyle(color: Colors.white, fontSize: 12)),
+        // );
       },
     );
   }
-
-  FlutterTts flutterTts = FlutterTts();
 
   get isPlaying => ttsState == TtsState.playing;
   get isStopped => ttsState == TtsState.stopped;
@@ -133,7 +153,7 @@ class _ActionSectionState extends State<ActionSection> {
       await flutterTts.setLanguage("en-NG");
 
       await flutterTts.awaitSpeakCompletion(true);
-      await flutterTts.speak(widget.meaning);
+      await flutterTts.speak(widget.audioReaderContent);
     }
 
     Future _stop() async {
@@ -156,17 +176,14 @@ class _ActionSectionState extends State<ActionSection> {
           ButtonIcon(
               Icon(Icons.share_outlined,
                   color: Palette.PrimaryLightBrightColor), () {
-            Share.share(
-                "Word: ${widget.word}\nMeaning: ${widget.meaning}\n\nSource: ${AppInfo.FullName}",
-                subject: widget.word);
+            Share.share(widget.shareContent);
           }),
           ButtonIcon(
               Icon(isFav ? Icons.favorite : Icons.favorite_outline,
                   color: isFav
                       ? Color(0xFFFA7C7C)
-                      : Palette.PrimaryLightBrightColor), () {
-            toggleFavorite();
-          }),
+                      : Palette.PrimaryLightBrightColor),
+              () => toggleFavorite()),
           SizedBox(width: 20),
           ButtonIcon(
               Icon(Icons.chevron_left, color: Palette.PrimaryColor), () {},

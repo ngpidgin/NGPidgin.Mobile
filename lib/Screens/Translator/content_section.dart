@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/constants.dart';
 
 class ContentSection extends StatelessWidget {
-  final String word;
-  final String meaning;
-  final String example;
-  final String similar;
-  final String pronunciation;
+  final String sentence;
+  final String translations;
 
-  ContentSection(
-      this.word, this.meaning, this.example, this.similar, this.pronunciation);
+  ContentSection(this.sentence, this.translations);
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +28,11 @@ class ContentSection extends StatelessWidget {
               children: [
                 Text("Sentence", style: titleStyle),
                 SizedBox(height: 5),
-                Text(word, style: TextStyle(fontSize: 18)),
+                Text(sentence, style: TextStyle(fontSize: 18)),
                 SizedBox(height: 20),
                 Text("Translations", style: titleStyle),
                 SizedBox(height: 5),
-                Text(meaning,
+                Text(translations,
                     textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: 15))
               ],
