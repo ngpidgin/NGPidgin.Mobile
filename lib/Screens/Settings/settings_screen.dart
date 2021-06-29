@@ -10,8 +10,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool state_dailyTip = false;
-  bool state_autoSync = false;
+  bool stateDailyTip = false;
+  bool stateAutoSync = false;
   String theme = "default";
 
   @override
@@ -30,7 +30,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -42,23 +41,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ItemRow(
                   "Subscribe to daily tips notifications",
                   Switch(
-                      value: state_dailyTip,
+                      value: stateDailyTip,
                       onChanged: (x) {
                         setState(() {
-                          state_dailyTip = x;
+                          stateDailyTip = x;
                         });
                       })),
               Divider(height: 1),
               ItemRow(
                   "Auto-download content updates",
                   Switch(
-                      value: state_autoSync,
+                      value: stateAutoSync,
                       onChanged: (x) {
                         setState(() {
-                          state_autoSync = x;
+                          stateAutoSync = x;
                         });
                       })),
               Divider(height: 1),
+              Container(
+                  padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
+                  child: Text("APP PREFERENCES",
+                      style: TextStyle(
+                          color: Palette.PaleGreen,
+                          fontWeight: FontWeight.w500))),
               ItemRow(
                   "Preferred language of interaction",
                   DropdownButton<String>(

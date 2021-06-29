@@ -30,7 +30,7 @@ class SearchSection extends StatelessWidget {
                     style: TextStyle(fontFamily: Fonts.Default),
                     children: [
                   TextSpan(
-                      text: "  Search ",
+                      text: " Search ",
                       style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.w400,

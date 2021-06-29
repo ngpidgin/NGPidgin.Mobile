@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Start/language_screen.dart';
 import 'package:ngpidgin/Screens/app.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart' as globals;
 import 'package:ngpidgin/language_kit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -18,43 +18,68 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Widget screen = LanguageScreen();
 
-  @override
-  void initState() {
-    super.initState();
-    setFirstScreen();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   setFirstScreen();
+  // }
 
-  void setFirstScreen() async {
-    final prefs = await SharedPreferences.getInstance();
-    // prefs.remove(SettingKeys.LanguagePreference);
-    final _lang = prefs.getInt(SettingKeys.LanguagePreference);
+  // void setFirstScreen() async {
+  // final prefs = await SharedPreferences.getInstance();
+  // final _lang = prefs.getInt(SettingKeys.LanguagePreference);
 
-    if (_lang != null) {
-      globals.languagePreference = Language.values[_lang];
-      setState(() {
-        if (globals.languagePreference == Language.none)
-          screen = LanguageScreen();
-        else
-          screen = AppNavigator();
-      });
+  // if (_lang != null) {
+  //   globals.languagePreference = Language.values[_lang];
+  //   setState(() {
+  //     if (globals.languagePreference == Language.none)
+  //       screen = LanguageScreen();
+  //     else
+  //       screen = AppNavigator();
+  //   });
 
-      globals.languageKit =
-          await LanguageKit.initialize(globals.languagePreference);
+  //   globals.languageKit =
+  //       await LanguageKit.initialize(globals.languagePreference);
+  // }
+  // }
+
+  Future setFirstScreen() async {
+    final _lang =
+        await SharedPreferencesUtil.getInt(SettingKeys.LanguagePreference);
+
+    if (_lang == null) {
+      return LanguageScreen();
     }
+
+    globals.languagePreference = Language.values[_lang];
+    globals.languageKit =
+        await LanguageKit.initialize(globals.languagePreference);
+
+    if (globals.languagePreference == Language.none)
+      return LanguageScreen();
+    else
+      return AppNavigator();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: AppInfo.FullName,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            backgroundColor: Colors.white,
-            // primarySwatch: Colors.yellow,
-            accentColor: Palette.PrimaryAltColor,
-            canvasColor: Palette.Lavendar,
-            appBarTheme: AppBarTheme(color: Colors.transparent),
-            fontFamily: Fonts.Default),
-        home: screen);
+    return FutureBuilder(
+        future: setFirstScreen(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return MaterialApp(
+                title: AppInfo.FullName,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                    backgroundColor: Colors.white,
+                    // primarySwatch: Colors.yellow,
+                    accentColor: Palette.PrimaryAltColor,
+                    canvasColor: Palette.Lavendar,
+                    appBarTheme: AppBarTheme(color: Colors.transparent),
+                    fontFamily: Fonts.Default),
+                home: snapshot.data as Widget);
+          }
+        });
   }
 }
