@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/models/WordModel.dart';
 
 class WordList extends StatelessWidget {
-  final List<String> data;
+  final List<WordModel> data;
   const WordList(this.data);
 
   @override
@@ -18,35 +19,15 @@ class WordList extends StatelessWidget {
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                      child: Text('${data[index]}')),
+                      child: Text(data[index].word)),
                   onTap: () {
                     showDialog(
                         context: context,
                         // barrierDismissible: true,
                         barrierColor: Color(0x99000000),
                         builder: (BuildContext context) {
-                          return WordDetailDialog(index, data[index]);
+                          return WordDetailDialog(data[index]);
                         });
-
-                    //   showGeneralDialog(
-                    //       barrierColor: Colors.black.withOpacity(0.5),
-                    //       transitionBuilder: (context, a1, a2, widget) {
-                    //         return Transform.scale(
-                    //           scale: a1.value,
-                    //           child: Opacity(
-                    //             opacity: a1.value,
-                    //             child: WordDetailScreen(index, data[index]),
-                    //           ),
-                    //         );
-                    //       },
-                    //       transitionDuration: Duration(milliseconds: 150),
-                    //       barrierDismissible: true,
-                    //       barrierLabel: '',
-                    //       context: context,
-                    //       pageBuilder: (context, animation1, animation2) {
-                    //         return Container();
-                    //       });
-                    // });
                   });
             },
             separatorBuilder: (context, index) {

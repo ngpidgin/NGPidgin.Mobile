@@ -3,6 +3,8 @@ import 'package:ngpidgin/Screens/Words/word_list.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/models/WordModel.dart';
+import 'package:ngpidgin/globals.dart' as globals;
 
 class FavoriteScreen extends StatefulWidget {
   static var dataSource = List<String>.generate(1000, (i) => "Aje-Butter $i");
@@ -124,14 +126,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   )
                 ]),
                 Expanded(
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Palette.Lavendar,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(25),
-                              topRight: Radius.circular(25))),
-                      child: WordList(data)),
-                )
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Palette.Lavendar,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25))),
+                        child: WordList(globals.WordDataset))),
               ],
             ),
           ))

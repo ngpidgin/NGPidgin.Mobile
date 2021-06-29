@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/models/WordModel.dart';
 
 class ContentSection extends StatelessWidget {
-  final String word;
-  final String meaning;
-  final String example;
-  final String similar;
-  final String pronunciation;
-
-  ContentSection(
-      this.word, this.meaning, this.example, this.similar, this.pronunciation);
+  final WordModel model;
+  ContentSection(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +27,12 @@ class ContentSection extends StatelessWidget {
               children: [
                 Text("Word", style: titleStyle),
                 SizedBox(height: 5),
-                Text(word, style: TextStyle(fontSize: 18)),
+                Text(model.word, style: TextStyle(fontSize: 18)),
                 SizedBox(height: 20),
                 Text("Meaning", style: titleStyle),
                 SizedBox(height: 5),
-                Text(meaning,
+                Text(model.meaning,
+                    //"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                     textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: 15))
               ],
@@ -56,7 +52,7 @@ class ContentSection extends StatelessWidget {
                         children: [
                           Text("Example", style: titleStyle),
                           SizedBox(height: 5),
-                          Text(example),
+                          Text(model.example),
                         ])),
                 Divider(),
                 Container(
@@ -71,7 +67,7 @@ class ContentSection extends StatelessWidget {
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(height: 5),
-                          Text(similar),
+                          Text(model.similar),
                         ])),
                 Divider(),
                 Container(
@@ -82,7 +78,7 @@ class ContentSection extends StatelessWidget {
                         children: [
                           Text("Pronunciation", style: titleStyle),
                           SizedBox(height: 5),
-                          Text(pronunciation)
+                          Text(model.pronunciation)
                         ]))
               ],
             ),

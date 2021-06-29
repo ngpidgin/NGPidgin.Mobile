@@ -41,7 +41,6 @@ class SentenceDetailDialog extends StatelessWidget {
               ),
             ),
             Container(
-                height: size.height * 0.11,
                 decoration: BoxDecoration(
                     color: Palette.PrimaryColor,
                     borderRadius: BorderRadius.only(

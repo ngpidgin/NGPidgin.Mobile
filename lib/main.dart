@@ -5,8 +5,28 @@ import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart' as globals;
 import 'package:ngpidgin/language_kit.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Open the database and store the reference.
+  // final database = openDatabase(
+  //   // Set the path to the database. Note: Using the `join` function from the
+  //   // `path` package is best practice to ensure the path is correctly
+  //   // constructed for each platform.
+  //   join(await getDatabasesPath(), 'ngpidgin_database.db'),
+
+  //   // When the database is first created, create a table to store dogs.
+  //   onCreate: (db, version) {
+  //     // Run the CREATE TABLE statement on the database.
+  //     return db.execute(
+  //       'CREATE TABLE "Words" (`Word` TEXT NOT NULL, `Meaning` TEXT NOT NULL, `Example` TEXT, `Similar` TEXT, `Datestamp` TEXT, `Pronunciation` TEXT, PRIMARY KEY(`Word`))',
+  //     );
+  //   },
+  // );
+
   runApp(MyApp());
 }
 

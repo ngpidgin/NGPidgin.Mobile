@@ -5,6 +5,9 @@ import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
 import 'package:ngpidgin/Screens/Translator/translator_category_screen.dart';
 import 'package:ngpidgin/Screens/Words/word_screen.dart';
+import 'package:ngpidgin/models/WordModel.dart';
+import 'package:ngpidgin/globals.dart' as globals;
+import 'package:ngpidgin/extensions/db_helper.dart';
 
 class AppNavigator extends StatefulWidget {
   @override
@@ -20,6 +23,30 @@ class AppNavigatorState extends State<AppNavigator> {
     TranslatorCategoryScreen(),
     FavoriteScreen()
   ];
+
+  void loadDataset() async {
+    await DatabaseHelper.initializeDb().then((value) async {
+      final db = await DatabaseHelper.loadDatabase();
+      final List<Map<String, dynamic>> maps =
+          await db.query('Words', orderBy: "Word asc");
+
+      globals.WordDataset = List.generate(maps.length, (i) {
+        return WordModel.create(
+            word: maps[i]['Word'],
+            meaning: maps[i]['Meaning'],
+            example: maps[i]['Example'],
+            similar: maps[i]['Similar'] ?? "...",
+            pronunciation: maps[i]['Pronunciation'] ?? "...",
+            datestamp: maps[i]['Datestamp']);
+      });
+    }).onError((error, stackTrace) => null);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadDataset();
+  }
 
   void onTabTapped(int index) {
     setState(() {
