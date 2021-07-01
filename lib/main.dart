@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Start/language_screen.dart';
+import 'package:ngpidgin/Screens/Start/splash_loader.dart';
 import 'package:ngpidgin/Screens/app.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/db_helper.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/language_kit.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,38 +37,49 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   setFirstScreen();
-  // }
+  Future<void> loadDataset() async {
+    await DatabaseHelper.initializeDb().then((value) async {
+      final db = await DatabaseHelper.loadDatabase();
+      List<Map<String, dynamic>> wMap =
+          await db.query('Words', orderBy: "Word asc");
 
-  // void setFirstScreen() async {
-  // final prefs = await SharedPreferences.getInstance();
-  // final _lang = prefs.getInt(SettingKeys.LanguagePreference);
+      Globals.wordDataset = List.generate(wMap.length, (i) {
+        return WordModel.create(
+            word: wMap[i]['Word'],
+            meaning: wMap[i]['Meaning'],
+            example: wMap[i]['Example'],
+            similar: wMap[i]['Similar'] ?? "...",
+            pronunciation: wMap[i]['Pronunciation'] ?? "...",
+            datestamp: wMap[i]['Datestamp']);
+      });
+      wMap = [];
 
-  // if (_lang != null) {
-  //   globals.languagePreference = Language.values[_lang];
-  //   setState(() {
-  //     if (globals.languagePreference == Language.none)
-  //       screen = LanguageScreen();
-  //     else
-  //       screen = AppNavigator();
-  //   });
+      List<Map<String, dynamic>> sMap = await db.query('SentenceTranslations');
+      Globals.sentenceDataset = List.generate(sMap.length, (i) {
+        return SentenceModel.create(
+            category: sMap[i]['Category'],
+            sentence: sMap[i]['Sentence'],
+            translations: sMap[i]['Translations'],
+            datestamp: sMap[i]['Datestamp']);
+      });
+      sMap = [];
+    }).onError((error, stackTrace) => null);
+  }
 
-  //   globals.languageKit =
-  //       await LanguageKit.initialize(globals.languagePreference);
-  // }
-  // }
+  Future initApp() async {
+    await loadDataset();
+    //await Future.delayed(Duration(seconds: 10));
 
-  Future setFirstScreen() async {
+    // get language choice
     final _lang =
         await SharedPreferencesUtil.getInt(SettingKeys.LanguagePreference);
 
+    // ensure first-time user select a language
     if (_lang == null) {
       return LanguageScreen();
     }
 
+    // load dataset for language kit
     Globals.languagePreference = Language.values[_lang];
     Globals.languageKit =
         await LanguageKit.initialize(Globals.languagePreference);
@@ -79,10 +93,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: setFirstScreen(),
+        future: initApp(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return SplashLoader();
           } else {
             return MaterialApp(
                 title: AppInfo.FullName,

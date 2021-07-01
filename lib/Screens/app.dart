@@ -5,9 +5,6 @@ import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
 import 'package:ngpidgin/Screens/Translator/translator_category_screen.dart';
 import 'package:ngpidgin/Screens/Words/word_screen.dart';
-import 'package:ngpidgin/globals.dart';
-import 'package:ngpidgin/models/dictionary_models.dart';
-import 'package:ngpidgin/extensions/db_helper.dart';
 
 class AppNavigator extends StatefulWidget {
   @override
@@ -23,40 +20,6 @@ class AppNavigatorState extends State<AppNavigator> {
     TranslatorCategoryScreen(),
     FavoriteScreen()
   ];
-
-  void loadDataset() async {
-    await DatabaseHelper.initializeDb().then((value) async {
-      final db = await DatabaseHelper.loadDatabase();
-      final List<Map<String, dynamic>> wMap =
-          await db.query('Words', orderBy: "Word asc");
-
-      Globals.wordDataset = List.generate(wMap.length, (i) {
-        return WordModel.create(
-            word: wMap[i]['Word'],
-            meaning: wMap[i]['Meaning'],
-            example: wMap[i]['Example'],
-            similar: wMap[i]['Similar'] ?? "...",
-            pronunciation: wMap[i]['Pronunciation'] ?? "...",
-            datestamp: wMap[i]['Datestamp']);
-      });
-
-      final List<Map<String, dynamic>> sMap =
-          await db.query('SentenceTranslations');
-      Globals.sentenceDataset = List.generate(sMap.length, (i) {
-        return SentenceModel.create(
-            category: sMap[i]['Category'],
-            sentence: sMap[i]['Sentence'],
-            translations: sMap[i]['Translations'],
-            datestamp: sMap[i]['Datestamp']);
-      });
-    }).onError((error, stackTrace) => null);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadDataset();
-  }
 
   void onTabTapped(int index) {
     setState(() {

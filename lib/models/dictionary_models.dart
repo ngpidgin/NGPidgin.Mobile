@@ -98,3 +98,13 @@ class SentenceModel {
     }
   }
 }
+
+String nullCleanup(String data) => data.isEmpty ? "N/A" : data;
+String stripHtml(String htmlText) {
+  htmlText = htmlText
+      .replaceAll("<br>", "\n")
+      .replaceAll("</br>", "\n")
+      .replaceAll("</li>", "\n");
+  RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+  return htmlText.replaceAll(exp, '');
+}
