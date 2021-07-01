@@ -14,13 +14,15 @@ class LanguageKit {
   String dashboardSearchPlaceholder = "";
   String dashboardDailyTips = "";
   String dashboardSyncDesc = "";
+  String translatorCategoryDesc = "";
 
   LanguageKit.fromJson(Map<String, dynamic> json)
       : welcomeIntro = json['welcomeIntro'],
         welcomeBtnText = json['welcomeBtnText'],
         dashboardSearchPlaceholder = json['dashboardSearchPlaceholder'],
         dashboardDailyTips = json['dashboardDailyTips'],
-        dashboardSyncDesc = json['dashboardSyncDesc'];
+        dashboardSyncDesc = json['dashboardSyncDesc'],
+        translatorCategoryDesc = json['translatorCategoryDesc'];
 
   static Future<LanguageKit> initialize(Language lang) async {
     final content = await loadAsset(

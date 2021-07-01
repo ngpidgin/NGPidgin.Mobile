@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_list.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/extensions/db_helper.dart';
-import 'package:ngpidgin/models/WordModel.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:ngpidgin/globals.dart' as globals;
 
 class WordScreen extends StatefulWidget {
@@ -13,24 +12,9 @@ class WordScreen extends StatefulWidget {
 }
 
 class _WordScreenState extends State<WordScreen> {
-  var data = globals.WordDataset;
+  List<WordModel> data = Globals.wordDataset;
   bool showSearch = false;
   bool sortAsc = true;
-
-  void insertWord() async {
-    final db = await DatabaseHelper.loadDatabase();
-
-    var word = WordModel(
-        DateTime.now().millisecond.toString(),
-        "Hello, good morning, whats up?",
-        "How far my guy?",
-        "i hail",
-        "N/A",
-        DateTime.now().toString());
-
-    await db.insert('Words', word.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.ignore);
-  }
 
   @override
   void initState() {
@@ -93,9 +77,11 @@ class _WordScreenState extends State<WordScreen> {
                         width: size.width * 0.85,
                         onChange: (text) {
                           setState(() {
-                            data = globals.WordDataset.where((e) => e.word
-                                .toLowerCase()
-                                .contains(text.toLowerCase())).toList();
+                            data = Globals.wordDataset
+                                .where((e) => e.word
+                                    .toLowerCase()
+                                    .contains(text.toLowerCase()))
+                                .toList();
                           });
                         }))
                 : Container(),

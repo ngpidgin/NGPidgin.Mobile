@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/app.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/globals.dart' as globals;
+import 'package:ngpidgin/globals.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                     color: Colors.black)),
             SizedBox(height: 20),
             Text(
-              globals.languageKit.welcomeIntro,
+              Globals.languageKit.welcomeIntro,
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
@@ -58,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: EdgeInsets.all(50),
           alignment: Alignment.center,
           child: Button(
-            globals.languageKit.welcomeBtnText,
+            Globals.languageKit.welcomeBtnText,
             () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/sentence_detail_dialog.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class SentenceList extends StatelessWidget {
-  final List<String> data;
+  final List<SentenceModel> data;
   const SentenceList(this.data);
 
   @override
@@ -18,14 +19,14 @@ class SentenceList extends StatelessWidget {
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                      child: Text('${data[index]}')),
+                      child: Text(data[index].sentence)),
                   onTap: () {
                     showDialog(
                         context: context,
                         // barrierDismissible: true,
                         barrierColor: Color(0x99000000),
                         builder: (BuildContext context) {
-                          return SentenceDetailDialog(index, data[index]);
+                          return SentenceDetailDialog(data[index]);
                         });
                   });
             },

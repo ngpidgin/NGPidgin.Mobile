@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/models/WordModel.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class WordList extends StatelessWidget {
   final List<WordModel> data;

@@ -4,7 +4,7 @@ import 'package:ngpidgin/components/button_right_icon.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/language_kit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ngpidgin/globals.dart' as globals;
+import 'package:ngpidgin/globals.dart';
 
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({Key? key}) : super(key: key);
@@ -17,9 +17,9 @@ class LanguageScreen extends StatelessWidget {
       var prefs = await SharedPreferences.getInstance();
       prefs.setInt(SettingKeys.LanguagePreference, lang.index);
 
-      globals.languagePreference = lang;
-      globals.languageKit =
-          await LanguageKit.initialize(globals.languagePreference);
+      Globals.languagePreference = lang;
+      Globals.languageKit =
+          await LanguageKit.initialize(Globals.languagePreference);
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return WelcomeScreen();

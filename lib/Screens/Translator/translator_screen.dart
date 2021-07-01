@@ -2,19 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/sentence_list.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class TranslatorScreen extends StatefulWidget {
-  static var dataSource = List<String>.generate(100, (i) => "Sentences $i");
+  final sentenceCategory category;
+  const TranslatorScreen(this.category);
 
   @override
   _TranslatorScreenState createState() => _TranslatorScreenState();
 }
 
 class _TranslatorScreenState extends State<TranslatorScreen> {
-  List<String> data = TranslatorScreen.dataSource;
-
+  List<SentenceModel> data = [];
   bool showSearch = false;
   bool sortAsc = true;
+
+  @override
+  void initState() {
+    super.initState();
+    data = Globals.sentenceDataset
+        .where((e) => e.category == widget.category.index)
+        .toList();
+  }
 
   var actionBtnStyle = ButtonStyle(
       padding: MaterialStateProperty.all<EdgeInsets>(
@@ -52,7 +62,7 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
                 onPressed: () {
                   setState(() {
                     if (sortAsc) {
-                      data.sort((a, b) => a.compareTo(a));
+                      data.sort((a, b) => a.sentence.compareTo(b.sentence));
                       sortAsc = false;
                     }
                     // } else {
@@ -75,9 +85,10 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
                       width: size.width * 0.85,
                       onChange: (text) {
                         setState(() {
-                          data = TranslatorScreen.dataSource
-                              .where((e) =>
-                                  e.toLowerCase().contains(text.toLowerCase()))
+                          data = Globals.sentenceDataset
+                              .where((e) => e.sentence
+                                  .toLowerCase()
+                                  .contains(text.toLowerCase()))
                               .toList();
                         });
                       }))

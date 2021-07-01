@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/Dashboard/card_frame.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
-import 'package:ngpidgin/globals.dart' as globals;
+import 'package:ngpidgin/globals.dart';
 
 class QuickLinkSection extends StatelessWidget {
   final Size cardSize = new Size(110, 130);
@@ -31,7 +31,7 @@ class QuickLinkSection extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Palette.PaleGreen)),
                         SizedBox(height: 10),
-                        Text(globals.languageKit.dashboardSyncDesc,
+                        Text(Globals.languageKit.dashboardSyncDesc,
                             style: TextStyle(fontSize: 10))
                       ]),
                   "Synchronize",

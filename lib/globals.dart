@@ -1,8 +1,11 @@
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/language_kit.dart';
-import 'package:ngpidgin/models/WordModel.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
-Language languagePreference = Language.none;
-LanguageKit languageKit = LanguageKit();
+class Globals {
+  static Language languagePreference = Language.none;
+  static LanguageKit languageKit = LanguageKit();
 
-List<WordModel> WordDataset = <WordModel>[];
+  static List<WordModel> wordDataset = <WordModel>[];
+  static List<SentenceModel> sentenceDataset = <SentenceModel>[];
+}

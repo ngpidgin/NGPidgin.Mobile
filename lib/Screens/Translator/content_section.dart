@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class ContentSection extends StatelessWidget {
-  final String sentence;
-  final String translations;
-
-  ContentSection(this.sentence, this.translations);
+  final SentenceModel model;
+  ContentSection(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,11 @@ class ContentSection extends StatelessWidget {
               children: [
                 Text("Sentence", style: titleStyle),
                 SizedBox(height: 5),
-                Text(sentence, style: TextStyle(fontSize: 18)),
+                Text(model.sentence, style: TextStyle(fontSize: 18)),
                 SizedBox(height: 20),
                 Text("Translations", style: titleStyle),
                 SizedBox(height: 5),
-                Text(translations,
+                Text(model.translations,
                     textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: 15))
               ],

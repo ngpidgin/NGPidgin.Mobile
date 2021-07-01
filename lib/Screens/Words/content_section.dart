@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/models/WordModel.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class ContentSection extends StatelessWidget {
   final WordModel model;

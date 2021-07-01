@@ -2,26 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/card_frame.dart';
 import 'package:ngpidgin/Screens/Translator/translator_screen.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class TranslatorCategoryScreen extends StatelessWidget {
-  const TranslatorCategoryScreen({Key? key}) : super(key: key);
-
-  static var dataSource =
-      List<String>.generate(1000, (i) => "Sentence to speak on day $i");
-
-  void showList(String category) {
-    // Navigator.push(context, MaterialPageRoute(builder: (x) {
-    //   return SentenceList(dataSource);
-    // }));
-  }
-
   @override
   Widget build(BuildContext context) {
     final Color textColor = Colors.white;
 
-    void showList(String category) {
-      Navigator.push(context, MaterialPageRoute(builder: (x) {
-        return TranslatorScreen();
+    void showList(sentenceCategory category) {
+      Navigator.push(context, MaterialPageRoute(builder: (bc) {
+        return TranslatorScreen(category);
       }));
     }
 
@@ -39,7 +30,7 @@ class TranslatorCategoryScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: textColor),
                   ),
                   Text(
-                    "Find translations to every day pidgin spoken all over Nigeria, with a mix of slangs and humor",
+                    Globals.languageKit.translatorCategoryDesc,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: textColor),
                   ),
@@ -58,33 +49,43 @@ class TranslatorCategoryScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TranslatorCategoryCardFrame(
-                          Icons.forum_outlined, "Social",
-                          onPressed: () => showList("Social")),
+                          Icons.forum_outlined,
+                          SentenceModel.getCategoryDesc(
+                              sentenceCategory.social),
+                          onPressed: () => showList(sentenceCategory.social)),
                       TranslatorCategoryCardFrame(
-                          Icons.local_mall_rounded, "Business & Trade",
-                          onPressed: () => showList("Business & Trade")),
+                          Icons.local_mall_rounded,
+                          SentenceModel.getCategoryDesc(
+                              sentenceCategory.business),
+                          onPressed: () => showList(sentenceCategory.business)),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TranslatorCategoryCardFrame(
-                          Icons.sports_basketball_rounded, "Sports",
-                          onPressed: () => showList("Sports")),
+                          Icons.sports_basketball_rounded,
+                          SentenceModel.getCategoryDesc(
+                              sentenceCategory.sports),
+                          onPressed: () => showList(sentenceCategory.sports)),
                       TranslatorCategoryCardFrame(
-                          Icons.location_city_rounded, "Religion",
-                          onPressed: () => showList("Religion"))
+                          Icons.location_city_rounded,
+                          SentenceModel.getCategoryDesc(
+                              sentenceCategory.religion),
+                          onPressed: () => showList(sentenceCategory.religion))
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TranslatorCategoryCardFrame(
-                          Icons.map_outlined, "Travels & Tours",
-                          onPressed: () => showList("Travels & Tours")),
-                      TranslatorCategoryCardFrame(
-                          Icons.ramen_dining_rounded, "Food & Drinks",
-                          onPressed: () => showList("Food & Drinks"))
+                          Icons.map_outlined,
+                          SentenceModel.getCategoryDesc(
+                              sentenceCategory.travels),
+                          onPressed: () => showList(sentenceCategory.travels)),
+                      TranslatorCategoryCardFrame(Icons.ramen_dining_rounded,
+                          SentenceModel.getCategoryDesc(sentenceCategory.food),
+                          onPressed: () => showList(sentenceCategory.food))
                     ],
                   )
                 ])),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/globals.dart' as globals;
+import 'package:ngpidgin/globals.dart';
 
 class DailyTipSection extends StatelessWidget {
   const DailyTipSection({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class DailyTipSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            globals.languageKit.dashboardDailyTips,
+            Globals.languageKit.dashboardDailyTips,
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.left,
           ),

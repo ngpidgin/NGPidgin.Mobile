@@ -3,10 +3,8 @@ import 'package:ngpidgin/Screens/Start/language_screen.dart';
 import 'package:ngpidgin/Screens/app.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
-import 'package:ngpidgin/globals.dart' as globals;
+import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/language_kit.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,8 +34,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget screen = LanguageScreen();
-
   // @override
   // void initState() {
   //   super.initState();
@@ -70,11 +66,11 @@ class _MyAppState extends State<MyApp> {
       return LanguageScreen();
     }
 
-    globals.languagePreference = Language.values[_lang];
-    globals.languageKit =
-        await LanguageKit.initialize(globals.languagePreference);
+    Globals.languagePreference = Language.values[_lang];
+    Globals.languageKit =
+        await LanguageKit.initialize(Globals.languagePreference);
 
-    if (globals.languagePreference == Language.none)
+    if (Globals.languagePreference == Language.none)
       return LanguageScreen();
     else
       return AppNavigator();
