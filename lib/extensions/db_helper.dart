@@ -8,19 +8,22 @@ class DatabaseHelper {
   static const String dbName = "dictionary_store.db";
   static const String dbAssetPath = "assets/datastore/" + dbName;
 
-  static Future<void> initializeDb() async {
+  static Future<bool> initializeDb() async {
     var dbPath = join((await getDatabasesPath()).toString(), dbName);
     var dbExist = await File(dbPath).exists();
 
-    if (dbExist) {
-      await deleteDatabase(dbPath);
+    if (!dbExist) {
+      // await deleteDatabase(dbPath);
 
       // clone the assets db into the device db store
       ByteData data = await rootBundle.load(dbAssetPath);
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(dbPath).writeAsBytes(bytes);
+      dbExist = true;
     }
+
+    return dbExist;
   }
 
   static Future<Database> loadDatabase() async => openDatabase(

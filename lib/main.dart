@@ -38,31 +38,37 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<void> loadDataset() async {
-    await DatabaseHelper.initializeDb().then((value) async {
-      final db = await DatabaseHelper.loadDatabase();
-      List<Map<String, dynamic>> wMap =
-          await db.query('Words', orderBy: "Word asc");
+    await DatabaseHelper.initializeDb().then((dbExist) async {
+      if (dbExist) {
+        final db = await DatabaseHelper.loadDatabase();
+        List<Map<String, dynamic>> wMap =
+            await db.query('Words', orderBy: "Word asc");
 
-      Globals.wordDataset = List.generate(wMap.length, (i) {
-        return WordModel.create(
-            word: wMap[i]['Word'],
-            meaning: wMap[i]['Meaning'],
-            example: wMap[i]['Example'],
-            similar: wMap[i]['Similar'] ?? "...",
-            pronunciation: wMap[i]['Pronunciation'] ?? "...",
-            datestamp: wMap[i]['Datestamp']);
-      });
-      wMap = [];
+        Globals.wordDataset = List.generate(wMap.length, (i) {
+          return WordModel.create(
+              word: wMap[i]['Word'],
+              meaning: wMap[i]['Meaning'],
+              example: wMap[i]['Example'],
+              similar: wMap[i]['Similar'] ?? "...",
+              pronunciation: wMap[i]['Pronunciation'] ?? "...",
+              datestamp: wMap[i]['Datestamp']);
+        });
+        wMap = [];
 
-      List<Map<String, dynamic>> sMap = await db.query('SentenceTranslations');
-      Globals.sentenceDataset = List.generate(sMap.length, (i) {
-        return SentenceModel.create(
-            category: sMap[i]['Category'],
-            sentence: sMap[i]['Sentence'],
-            translations: sMap[i]['Translations'],
-            datestamp: sMap[i]['Datestamp']);
-      });
-      sMap = [];
+        List<Map<String, dynamic>> sMap =
+            await db.query('SentenceTranslations');
+        Globals.sentenceDataset = List.generate(sMap.length, (i) {
+          return SentenceModel.create(
+              category: sMap[i]['Category'],
+              sentence: sMap[i]['Sentence'],
+              translations: sMap[i]['Translations'],
+              datestamp: sMap[i]['Datestamp']);
+        });
+        sMap = [];
+      } else {
+        // show repair page
+        // download db from server
+      }
     }).onError((error, stackTrace) => null);
   }
 
