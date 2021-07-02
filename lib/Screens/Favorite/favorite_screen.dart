@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Words/word_list.dart';
+import 'package:ngpidgin/Screens/Favorite/favorite_list.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/extensions/db_helper.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 
 class FavoriteScreen extends StatefulWidget {
-  static var dataSource = List<String>.generate(1000, (i) => "Aje-Butter $i");
-
   @override
   _FavoriteScreenState createState() => _FavoriteScreenState();
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  var data = FavoriteScreen.dataSource;
+  List<FavoriteModel> dataSource = [];
+  List<FavoriteModel> data = [];
+
+  void loadDataset() async {
+    final db = await DatabaseHelper.loadDatabase();
+    List<Map<String, dynamic>> fMap =
+        await db.query('Favorites', orderBy: "Content asc");
+
+    dataSource = List.generate(fMap.length, (i) {
+      return FavoriteModel.create(
+          type: fMap[i]['Type'], content: fMap[i]['Content']);
+    });
+
+    setState(() {
+      data =
+          dataSource.where((a) => a.type == favoriteType.word.index).toList();
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    loadDataset();
+  }
+
   bool showSearch = false;
   bool sortAsc = true;
   bool wordTabActive = true;
@@ -53,7 +76,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               onPressed: () {
                 setState(() {
                   if (sortAsc) {
-                    data.sort((a, b) => a.compareTo(a));
+                    data.sort((a, b) => a.content.compareTo(b.content));
                     sortAsc = false;
                   }
                   // } else {
@@ -77,9 +100,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       width: size.width * 0.85,
                       onChange: (text) {
                         setState(() {
-                          data = FavoriteScreen.dataSource
-                              .where((e) =>
-                                  e.toLowerCase().contains(text.toLowerCase()))
+                          data = dataSource
+                              .where((e) => e.content
+                                  .toLowerCase()
+                                  .contains(text.toLowerCase()))
                               .toList();
                         });
                       }))
@@ -96,6 +120,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       setState(() {
                         wordTabActive = true;
                         sentenceTabActive = false;
+                        data = dataSource
+                            .where((a) => a.type == favoriteType.word.index)
+                            .toList();
                       });
                     },
                     bgColor:
@@ -112,6 +139,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       setState(() {
                         wordTabActive = false;
                         sentenceTabActive = true;
+                        data = dataSource
+                            .where((a) => a.type == favoriteType.sentence.index)
+                            .toList();
                       });
                     },
                     bgColor: sentenceTabActive
@@ -131,7 +161,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(25),
                                 topRight: Radius.circular(25))),
-                        child: WordList(Globals.wordDataset))),
+                        child: FavoriteList(data))),
               ],
             ),
           ))

@@ -4,7 +4,6 @@ import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
-import 'package:ngpidgin/globals.dart' as globals;
 
 class WordScreen extends StatefulWidget {
   @override
@@ -15,13 +14,6 @@ class _WordScreenState extends State<WordScreen> {
   List<WordModel> data = Globals.wordDataset;
   bool showSearch = false;
   bool sortAsc = true;
-
-  @override
-  void initState() {
-    super.initState();
-    //insertWord();
-    //if (globals.WordDataset.length == 0) loadDataset();
-  }
 
   var actionBtnStyle = ButtonStyle(
       padding: MaterialStateProperty.all<EdgeInsets>(

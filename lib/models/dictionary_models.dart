@@ -28,6 +28,8 @@ class WordModel {
     };
   }
 
+  static WordModel? nullModel() => null;
+
   // Implement toString to make it easier to see information about
   // each dog when using the print statement.
   @override
@@ -96,6 +98,21 @@ class SentenceModel {
       default:
         return ". . .";
     }
+  }
+}
+
+enum favoriteType { all, word, sentence }
+
+class FavoriteModel {
+  final int type;
+  final String content;
+
+  FavoriteModel(this.type, this.content);
+
+  FavoriteModel.create({required this.type, required this.content});
+
+  Map<String, dynamic> toMap() {
+    return {'type': type, 'content': content};
   }
 }
 
