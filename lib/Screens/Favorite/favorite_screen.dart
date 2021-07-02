@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_list.dart';
 import 'package:ngpidgin/components/button.dart';
-import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/db_helper.dart';
+import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -12,32 +12,29 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<FavoriteModel> dataSource = [];
   List<FavoriteModel> data = [];
+  bool firstLoadComplete = false;
 
-  void loadDataset() async {
-    final db = await DatabaseHelper.loadDatabase();
-    List<Map<String, dynamic>> fMap =
-        await db.query('Favorites', orderBy: "Content asc");
+  Future<void> loadDataset() async {
+    if (Globals.favoriteDataset.length == 0) {
+      final db = await DatabaseHelper.loadDatabase();
+      List<Map<String, dynamic>> fMap =
+          await db.query('Favorites', orderBy: "Content asc");
 
-    dataSource = List.generate(fMap.length, (i) {
-      return FavoriteModel.create(
-          type: fMap[i]['Type'], content: fMap[i]['Content']);
-    });
+      Globals.favoriteDataset = List.generate(fMap.length, (i) {
+        return FavoriteModel.create(
+            type: fMap[i]['Type'], content: fMap[i]['Content']);
+      });
+    }
 
-    setState(() {
-      data =
-          dataSource.where((a) => a.type == favoriteType.word.index).toList();
-    });
+    if (!firstLoadComplete) {
+      data = Globals.favoriteDataset
+          .where((a) => a.type == favoriteType.word.index)
+          .toList();
+      firstLoadComplete = true;
+    }
   }
 
-  @override
-  initState() {
-    super.initState();
-    loadDataset();
-  }
-
-  bool showSearch = false;
   bool sortAsc = true;
   bool wordTabActive = true;
   bool sentenceTabActive = false;
@@ -56,117 +53,103 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Palette.PrimaryColor,
-      appBar: AppBar(
         backgroundColor: Palette.PrimaryColor,
-        title: Text("Favorites"),
-        elevation: 0,
-        leading: null,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
-            onPressed: () {
-              setState(() {
-                showSearch = !showSearch;
-              });
-            },
-          ),
-          IconButton(
-              icon: Icon(Icons.sort_by_alpha, color: Colors.white),
-              onPressed: () {
-                setState(() {
-                  if (sortAsc) {
-                    data.sort((a, b) => a.content.compareTo(b.content));
-                    sortAsc = false;
-                  }
-                  // } else {
-                  //   data = data.reversed.toList();
-                  //   sortAsc = true;
-                  // }
-                });
-              })
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          showSearch
-              ? Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextBoxField(
-                      placeholder: "filter favorites sharp sharp",
-                      icon: Icon(Icons.search),
-                      paddingVertical: 0,
-                      width: size.width * 0.85,
-                      onChange: (text) {
+        appBar: AppBar(
+          backgroundColor: Palette.PrimaryColor,
+          title: Text("Favorites"),
+          elevation: 0,
+          leading: null,
+          actions: [
+            IconButton(
+                icon: Icon(Icons.sort_by_alpha, color: Colors.white),
+                onPressed: () {
+                  setState(() {
+                    if (sortAsc) {
+                      data.sort((a, b) => a.content.compareTo(b.content));
+                      sortAsc = false;
+                    }
+                    // } else {
+                    //   data = data.reversed.toList();
+                    //   sortAsc = true;
+                    // }
+                  });
+                })
+          ],
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+                child: Container(
+              height: size.height,
+              child: Column(
+                children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Button(
+                      "Words",
+                      () {
                         setState(() {
-                          data = dataSource
-                              .where((e) => e.content
-                                  .toLowerCase()
-                                  .contains(text.toLowerCase()))
+                          wordTabActive = true;
+                          sentenceTabActive = false;
+                          data = Globals.favoriteDataset
+                              .where((a) => a.type == favoriteType.word.index)
                               .toList();
                         });
-                      }))
-              : Container(),
-          Expanded(
-              child: Container(
-            height: size.height,
-            child: Column(
-              children: [
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Button(
-                    "Words",
-                    () {
-                      setState(() {
-                        wordTabActive = true;
-                        sentenceTabActive = false;
-                        data = dataSource
-                            .where((a) => a.type == favoriteType.word.index)
-                            .toList();
-                      });
-                    },
-                    bgColor:
-                        wordTabActive ? activeSelectionBg : inactiveSelectionBg,
-                    textColor: wordTabActive
-                        ? activeSelectionText
-                        : inactiveSelectionText,
-                    paddingVertical: 0,
-                    width: 120,
-                  ),
-                  Button(
-                    "Sentences",
-                    () {
-                      setState(() {
-                        wordTabActive = false;
-                        sentenceTabActive = true;
-                        data = dataSource
-                            .where((a) => a.type == favoriteType.sentence.index)
-                            .toList();
-                      });
-                    },
-                    bgColor: sentenceTabActive
-                        ? activeSelectionBg
-                        : inactiveSelectionBg,
-                    textColor: sentenceTabActive
-                        ? activeSelectionText
-                        : inactiveSelectionText,
-                    paddingVertical: 0,
-                    width: 120,
-                  )
-                ]),
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                            color: Palette.Lavendar,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25))),
-                        child: FavoriteList(data))),
-              ],
-            ),
-          ))
-        ],
-      ),
-    );
+                      },
+                      bgColor: wordTabActive
+                          ? activeSelectionBg
+                          : inactiveSelectionBg,
+                      textColor: wordTabActive
+                          ? activeSelectionText
+                          : inactiveSelectionText,
+                      paddingVertical: 0,
+                      width: 120,
+                    ),
+                    Button(
+                      "Sentences",
+                      () {
+                        setState(() {
+                          wordTabActive = false;
+                          sentenceTabActive = true;
+                          data = Globals.favoriteDataset
+                              .where(
+                                  (a) => a.type == favoriteType.sentence.index)
+                              .toList();
+                        });
+                      },
+                      bgColor: sentenceTabActive
+                          ? activeSelectionBg
+                          : inactiveSelectionBg,
+                      textColor: sentenceTabActive
+                          ? activeSelectionText
+                          : inactiveSelectionText,
+                      paddingVertical: 0,
+                      width: 120,
+                    )
+                  ]),
+                  Expanded(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Palette.Lavendar,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(25))),
+                          child: FutureBuilder(
+                              future: loadDataset(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator(
+                                          color: Palette.PrimaryColor));
+                                } else {
+                                  return FavoriteList(data);
+                                }
+                              }))),
+                ],
+              ),
+            ))
+          ],
+        ));
   }
 }

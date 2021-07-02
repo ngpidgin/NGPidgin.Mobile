@@ -6,11 +6,8 @@ import 'package:ngpidgin/models/dictionary_models.dart';
 
 class SentenceDetailDialog extends StatelessWidget {
   final SentenceModel model;
-
-  static const String translations =
-      "A person born with silver spoon in a cool environment, from a rich or wellto do family mostly, soft in appearance and having a totally different life from their opposite (aje-kpako)";
-
-  const SentenceDetailDialog(this.model);
+  final bool isFavorite;
+  const SentenceDetailDialog(this.model, {this.isFavorite = false});
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +43,8 @@ class SentenceDetailDialog extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
-                child: ActionSection(
-                    translations, shareContent, false, () => toggleFavorite))
+                child: ActionSection(model.translations, shareContent,
+                    isFavorite, () => toggleFavorite))
           ],
         ));
   }

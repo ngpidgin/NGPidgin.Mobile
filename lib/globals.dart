@@ -8,4 +8,5 @@ class Globals {
 
   static List<WordModel> wordDataset = <WordModel>[];
   static List<SentenceModel> sentenceDataset = <SentenceModel>[];
+  static List<FavoriteModel> favoriteDataset = <FavoriteModel>[];
 }

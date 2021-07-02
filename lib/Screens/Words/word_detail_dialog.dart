@@ -6,7 +6,8 @@ import 'package:ngpidgin/models/dictionary_models.dart';
 
 class WordDetailDialog extends StatelessWidget {
   final WordModel model;
-  WordDetailDialog(this.model);
+  final bool isFavorite;
+  WordDetailDialog(this.model, {this.isFavorite = false});
 
   void toggleFavorite() {}
 
@@ -40,7 +41,7 @@ class WordDetailDialog extends StatelessWidget {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
                 child: ActionSection(
-                    audioText, shareContent, false, () => toggleFavorite))
+                    audioText, shareContent, isFavorite, () => toggleFavorite))
           ],
         ));
   }

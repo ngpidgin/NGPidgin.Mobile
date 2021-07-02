@@ -40,7 +40,8 @@ class FavoriteList extends StatelessWidget {
                             context: context,
                             barrierColor: Color(0x99000000),
                             builder: (BuildContext dialogContext) =>
-                                WordDetailDialog(item.elementAt(0)));
+                                WordDetailDialog(item.elementAt(0),
+                                    isFavorite: true));
                       }
                     } else {
                       var item = Globals.sentenceDataset.where((a) =>
@@ -49,13 +50,15 @@ class FavoriteList extends StatelessWidget {
 
                       if (item.length == 0) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            Interactions.snacky("Content not found.."));
+                            Interactions.snacky("Sentence not found.."));
+                      } else {
+                        showDialog(
+                            context: context,
+                            barrierColor: Color(0x99000000),
+                            builder: (BuildContext dialogContext) =>
+                                SentenceDetailDialog(item.elementAt(0),
+                                    isFavorite: true));
                       }
-                      showDialog(
-                          context: context,
-                          barrierColor: Color(0x99000000),
-                          builder: (BuildContext dialogContext) =>
-                              SentenceDetailDialog(item.elementAt(0)));
                     }
                   });
             },

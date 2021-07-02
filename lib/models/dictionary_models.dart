@@ -28,8 +28,6 @@ class WordModel {
     };
   }
 
-  static WordModel? nullModel() => null;
-
   // Implement toString to make it easier to see information about
   // each dog when using the print statement.
   @override

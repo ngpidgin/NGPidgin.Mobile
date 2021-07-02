@@ -12,7 +12,7 @@ enum TtsState { playing, stopped, paused, continued }
 class ActionSection extends StatefulWidget {
   final String audioReaderContent;
   final String shareContent;
-  final bool isFav;
+  bool isFav;
   final Function toggleFavorite;
   ActionSection(this.audioReaderContent, this.shareContent, this.isFav,
       this.toggleFavorite);
@@ -22,7 +22,7 @@ class ActionSection extends StatefulWidget {
 }
 
 class _ActionSectionState extends State<ActionSection> {
-  bool isFav = false;
+  // bool isFav = false;
   TtsState ttsState = TtsState.stopped;
   FlutterTts flutterTts = FlutterTts();
 
@@ -34,7 +34,7 @@ class _ActionSectionState extends State<ActionSection> {
     }
 
     setState(() {
-      isFav = !isFav;
+      widget.isFav = !widget.isFav;
     });
 
     showDialog(
@@ -52,18 +52,9 @@ class _ActionSectionState extends State<ActionSection> {
                 elevation: 0,
                 content: Text(
                     "Word don " +
-                        (!isFav ? "comot from" : "join") +
+                        (!widget.isFav ? "comot from" : "join") +
                         " your favorite words",
                     style: TextStyle(color: Colors.white, fontSize: 12))));
-
-        // return AlertDialog(
-        //   backgroundColor: Colors.black,
-        //   content: Text(
-        //       "Word don " +
-        //           (!isFav ? "comot from" : "join") +
-        //           " your favorite words",
-        //       style: TextStyle(color: Colors.white, fontSize: 12)),
-        // );
       },
     );
   }
@@ -178,8 +169,8 @@ class _ActionSectionState extends State<ActionSection> {
             Share.share(widget.shareContent);
           }),
           ButtonIcon(
-              Icon(isFav ? Icons.favorite : Icons.favorite_outline,
-                  color: isFav
+              Icon(widget.isFav ? Icons.favorite : Icons.favorite_outline,
+                  color: widget.isFav
                       ? Color(0xFFFA7C7C)
                       : Palette.PrimaryLightBrightColor),
               () => toggleFavorite()),
