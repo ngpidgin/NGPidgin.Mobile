@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -63,6 +61,13 @@ class ContentSection extends StatelessWidget {
                         fontSize: FontSize(15), lineHeight: LineHeight(1.5))
                   }),
                 ),
+                SizedBox(height: 20),
+                Text(
+                    "Category: ${SentenceModel.getCategoryDesc(sentenceCategory.values[model.category])}",
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: FontSize.small.size,
+                        color: Palette.PaleGreen))
               ],
             ),
           )

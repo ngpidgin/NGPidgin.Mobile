@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_list.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/extensions/db_helper.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
@@ -16,17 +15,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   bool firstLoadComplete = false;
 
   Future<void> loadDataset() async {
-    if (Globals.favoriteDataset.length == 0) {
-      final db = await DatabaseHelper.loadDatabase();
-      List<Map<String, dynamic>> fMap =
-          await db.query(DictionarySchema.Favorites, orderBy: "Content asc");
-
-      Globals.favoriteDataset = List.generate(fMap.length, (i) {
-        return FavoriteModel.create(
-            type: fMap[i]['Type'], content: fMap[i]['Content']);
-      });
-    }
-
     if (!firstLoadComplete) {
       data = Globals.favoriteDataset
           .where((a) => a.type == favoriteType.word.index)

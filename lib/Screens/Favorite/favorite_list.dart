@@ -41,7 +41,12 @@ class FavoriteList extends StatelessWidget {
                             context: context,
                             barrierColor: Color(0x99000000),
                             builder: (BuildContext dialogContext) =>
-                                WordDetailDialog(item, isFavorite: true));
+                                WordDetailDialog(
+                                  item,
+                                  -1,
+                                  isFavorite: true,
+                                  sourceIsFav: true,
+                                ));
                       }
                     } else {
                       SentenceModel item = Globals.sentenceDataset.firstWhere(
@@ -58,7 +63,12 @@ class FavoriteList extends StatelessWidget {
                             context: context,
                             barrierColor: Color(0x99000000),
                             builder: (BuildContext dialogContext) =>
-                                SentenceDetailDialog(item, isFavorite: true));
+                                SentenceDetailDialog(
+                                  item,
+                                  -1,
+                                  isFavorite: true,
+                                  sourceIsFav: true,
+                                ));
                       }
                     }
                   });

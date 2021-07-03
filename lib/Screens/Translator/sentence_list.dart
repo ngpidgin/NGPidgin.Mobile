@@ -23,10 +23,9 @@ class SentenceList extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
-                        // barrierDismissible: true,
                         barrierColor: Color(0x99000000),
                         builder: (BuildContext context) {
-                          return SentenceDetailDialog(data[index]);
+                          return SentenceDetailDialog(data[index], index);
                         });
                   });
             },

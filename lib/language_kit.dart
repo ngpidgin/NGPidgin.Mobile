@@ -15,6 +15,8 @@ class LanguageKit {
   String dashboardDailyTips = "";
   String dashboardSyncDesc = "";
   String translatorCategoryDesc = "";
+  String favoriteAdded = "";
+  String favoriteRemoved = "";
 
   LanguageKit.fromJson(Map<String, dynamic> json)
       : welcomeIntro = json['welcomeIntro'],
@@ -22,6 +24,8 @@ class LanguageKit {
         dashboardSearchPlaceholder = json['dashboardSearchPlaceholder'],
         dashboardDailyTips = json['dashboardDailyTips'],
         dashboardSyncDesc = json['dashboardSyncDesc'],
+        favoriteAdded = json['favoriteAdded'],
+        favoriteRemoved = json['favoriteRemoved'],
         translatorCategoryDesc = json['translatorCategoryDesc'];
 
   static Future<LanguageKit> initialize(Language lang) async {

@@ -7,7 +7,6 @@ import 'package:ngpidgin/extensions/db_helper.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/language_kit.dart';
-import 'package:ngpidgin/models/dictionary_models.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,31 +39,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> loadDataset() async {
     await DatabaseHelper.initializeDb().then((dbExist) async {
       if (dbExist) {
-        final db = await DatabaseHelper.loadDatabase();
-        List<Map<String, dynamic>> wMap =
-            await db.query(DictionarySchema.Words, orderBy: "Word asc");
-
-        Globals.wordDataset = List.generate(wMap.length, (i) {
-          return WordModel.create(
-              word: wMap[i]['Word'],
-              meaning: wMap[i]['Meaning'],
-              example: wMap[i]['Example'],
-              similar: wMap[i]['Similar'] ?? "...",
-              pronunciation: wMap[i]['Pronunciation'] ?? "...",
-              datestamp: wMap[i]['Datestamp']);
-        });
-        wMap = [];
-
-        List<Map<String, dynamic>> sMap =
-            await db.query(DictionarySchema.Sentences);
-        Globals.sentenceDataset = List.generate(sMap.length, (i) {
-          return SentenceModel.create(
-              category: sMap[i]['Category'],
-              sentence: sMap[i]['Sentence'],
-              translations: sMap[i]['Translations'],
-              datestamp: sMap[i]['Datestamp']);
-        });
-        sMap = [];
+        await DatabaseHelper.loadDatasets();
       } else {
         // show repair page
         // download db from server

@@ -12,6 +12,7 @@ class WordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return data.length > 0
         ? ListView.separated(
+            physics: const AlwaysScrollableScrollPhysics(),
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
@@ -26,7 +27,7 @@ class WordList extends StatelessWidget {
                         // barrierDismissible: true,
                         barrierColor: Color(0x99000000),
                         builder: (BuildContext context) {
-                          return WordDetailDialog(data[index]);
+                          return WordDetailDialog(data[index], index);
                         });
                   });
             },

@@ -33,7 +33,7 @@ class DailyTipSection extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           SizedBox(height: 15),
-          Text(
+          SelectableText(
               "Everyone has a plan until they get punched in the mouth. Then they are like 'oh shit', its different around here.",
               style: TextStyle(fontSize: 14)),
           SizedBox(height: 10),

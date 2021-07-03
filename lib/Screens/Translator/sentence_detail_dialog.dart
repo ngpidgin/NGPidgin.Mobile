@@ -2,19 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/content_section.dart';
 import 'package:ngpidgin/Screens/Components/action_section.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
-class SentenceDetailDialog extends StatelessWidget {
-  final SentenceModel model;
-  final bool isFavorite;
-  const SentenceDetailDialog(this.model, {this.isFavorite = false});
+class SentenceDetailDialog extends StatefulWidget {
+  SentenceModel model;
+  int index;
+  bool isFavorite;
+  bool sourceIsFav;
+  SentenceDetailDialog(this.model, this.index,
+      {this.isFavorite = false, this.sourceIsFav = false});
+
+  @override
+  _SentenceDetailDialogState createState() => _SentenceDetailDialogState();
+}
+
+class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
+  changeIndex(bool next) {
+    setState(() {
+      if (next) if (widget.index == Globals.sentenceDataset.length - 1)
+        widget.index = 0;
+      else
+        widget.index++;
+      else {
+        if (widget.index == 0)
+          widget.index = Globals.sentenceDataset.length - 1;
+        else
+          widget.index--;
+      }
+
+      widget.model = Globals.sentenceDataset[widget.index];
+      widget.isFavorite = Globals.favoriteDataset.any((a) =>
+          a.type == favoriteType.sentence.index &&
+          a.content.toLowerCase() == widget.model.sentence.toLowerCase());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final String shareContent =
-        "Sentence: ${model.sentence}\nTranslations: ${model.translations}\n\nSource: ${AppInfo.FullName}";
-    void toggleFavorite() {}
+        "Sentence: ${widget.model.sentence}\nTranslations: ${widget.model.translations}\n\nSource: ${AppInfo.FullName}";
 
     return Container(
         margin: EdgeInsets.all(15),
@@ -32,7 +60,7 @@ class SentenceDetailDialog extends StatelessWidget {
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [ContentSection(model)],
+                    children: [ContentSection(widget.model)],
                   ),
                 ),
               ),
@@ -44,12 +72,14 @@ class SentenceDetailDialog extends StatelessWidget {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
                 child: ActionSection(
-                    favoriteType.sentence,
-                    model.sentence,
-                    model.translations,
-                    shareContent,
-                    isFavorite,
-                    () => toggleFavorite))
+                  favoriteType.sentence,
+                  widget.model.sentence,
+                  widget.model.translations,
+                  shareContent,
+                  widget.isFavorite,
+                  changeIndex: (next) => changeIndex(next),
+                  showNav: !widget.sourceIsFav,
+                ))
           ],
         ));
   }

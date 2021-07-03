@@ -9,7 +9,6 @@ import 'package:ngpidgin/extensions/db_helper.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:share/share.dart';
-import 'package:sqflite/sqflite.dart';
 
 enum TtsState { playing, stopped, paused, continued }
 
@@ -19,9 +18,11 @@ class ActionSection extends StatefulWidget {
   final String audioReaderContent;
   final String shareContent;
   bool isFav;
-  final Function toggleFavorite;
+  bool showNav;
+  final Function(bool next)? changeIndex;
   ActionSection(this.type, this.contentKey, this.audioReaderContent,
-      this.shareContent, this.isFav, this.toggleFavorite);
+      this.shareContent, this.isFav,
+      {this.changeIndex, this.showNav = true});
 
   @override
   _ActionSectionState createState() => _ActionSectionState();
@@ -41,10 +42,7 @@ class _ActionSectionState extends State<ActionSection> {
       Globals.favoriteDataset.removeWhere(
           (a) => a.content.toLowerCase() == widget.contentKey.toLowerCase());
     } else {
-      var item = {
-        "Type": widget.type.index,
-        "Content": "'${widget.contentKey}'"
-      };
+      var item = {"Type": widget.type.index, "Content": "${widget.contentKey}"};
       db.insert(DictionarySchema.Favorites, item);
       Globals.favoriteDataset
           .add(FavoriteModel(widget.type.index, widget.contentKey));
@@ -68,9 +66,9 @@ class _ActionSectionState extends State<ActionSection> {
                 backgroundColor: Color(0x80000000),
                 elevation: 0,
                 content: Text(
-                    "Word don " +
-                        (!widget.isFav ? "comot from" : "join") +
-                        " your favorite words",
+                    widget.isFav
+                        ? Globals.languageKit.favoriteAdded
+                        : Globals.languageKit.favoriteRemoved,
                     style: TextStyle(color: Colors.white, fontSize: 12))));
       },
     );
@@ -158,7 +156,6 @@ class _ActionSectionState extends State<ActionSection> {
       // await flutterTts.setPitch(pitch);
 
       await flutterTts.setLanguage("en-NG");
-
       await flutterTts.awaitSpeakCompletion(true);
       await flutterTts.speak(widget.audioReaderContent);
     }
@@ -192,12 +189,18 @@ class _ActionSectionState extends State<ActionSection> {
                       : Palette.PrimaryLightBrightColor),
               () => toggleFavorite()),
           SizedBox(width: 20),
-          ButtonIcon(
-              Icon(Icons.chevron_left, color: Palette.PrimaryColor), () {},
-              bgColor: Palette.PrimaryLightBrightColor),
-          ButtonIcon(
-              Icon(Icons.chevron_right, color: Palette.PrimaryColor), () {},
-              bgColor: Palette.PrimaryLightBrightColor)
+          widget.showNav
+              ? ButtonIcon(
+                  Icon(Icons.chevron_left, color: Palette.PrimaryColor), () {
+                  widget.changeIndex!(false);
+                }, bgColor: Palette.PrimaryLightBrightColor)
+              : Container(),
+          widget.showNav
+              ? ButtonIcon(
+                  Icon(Icons.chevron_right, color: Palette.PrimaryColor), () {
+                  widget.changeIndex!(true);
+                }, bgColor: Palette.PrimaryLightBrightColor)
+              : Container()
         ]));
   }
 }

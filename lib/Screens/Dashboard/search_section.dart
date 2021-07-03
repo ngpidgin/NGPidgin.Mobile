@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Settings/settings_screen.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
 import 'package:ngpidgin/components/textbox_frame.dart';
 import 'package:ngpidgin/constants.dart';
@@ -61,7 +60,7 @@ class SearchSection extends StatelessWidget {
                     context: context,
                     barrierColor: Color(0x99000000),
                     builder: (BuildContext context) {
-                      return WordDetailDialog(selection);
+                      return WordDetailDialog(selection, -1, sourceIsFav: true);
                     });
               },
               displayStringForOption: (item) => item.word,

@@ -2,20 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Components/action_section.dart';
 import 'package:ngpidgin/Screens/Words/content_section.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
-class WordDetailDialog extends StatelessWidget {
-  final WordModel model;
-  final bool isFavorite;
-  WordDetailDialog(this.model, {this.isFavorite = false});
+class WordDetailDialog extends StatefulWidget {
+  WordModel model;
+  int index;
+  bool isFavorite;
+  bool sourceIsFav;
+  WordDetailDialog(this.model, this.index,
+      {this.isFavorite = false, this.sourceIsFav = false});
 
-  void toggleFavorite() {}
+  @override
+  _WordDetailDialogState createState() => _WordDetailDialogState();
+}
+
+class _WordDetailDialogState extends State<WordDetailDialog> {
+  changeIndex(bool next) {
+    setState(() {
+      if (next) if (widget.index == Globals.wordDataset.length - 1)
+        widget.index = 0;
+      else
+        widget.index++;
+      else {
+        if (widget.index == 0)
+          widget.index = Globals.wordDataset.length - 1;
+        else
+          widget.index--;
+      }
+
+      widget.model = Globals.wordDataset[widget.index];
+      widget.isFavorite = Globals.favoriteDataset.any((a) =>
+          a.type == favoriteType.word.index &&
+          a.content.toLowerCase() == widget.model.word.toLowerCase());
+    });
+  }
+
+  @override
+  initState() {
+    if (widget.index == -1) {
+      // source from dashboard auto-complete
+      widget.isFavorite = Globals.favoriteDataset.any((a) =>
+          a.type == favoriteType.word.index &&
+          a.content.toLowerCase() == widget.model.word.toLowerCase());
+      super.initState();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final String audioText = model.word + "..." + model.meaning;
+    final String audioText = widget.model.word + "..." + widget.model.meaning;
     final String shareContent =
-        "Word: ${model.word}\nMeaning: ${model.meaning}\n\nSource: ${AppInfo.FullName}";
+        "Word: ${widget.model.word}\nMeaning: ${widget.model.meaning}\n\nSource: ${AppInfo.FullName}";
 
     return Container(
         margin: EdgeInsets.all(15),
@@ -28,7 +66,7 @@ class WordDetailDialog extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      ContentSection(model),
+                      ContentSection(widget.model),
                     ],
                   ),
                 ),
@@ -40,8 +78,15 @@ class WordDetailDialog extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
-                child: ActionSection(favoriteType.word, model.word, audioText,
-                    shareContent, isFavorite, () => toggleFavorite))
+                child: ActionSection(
+                  favoriteType.word,
+                  widget.model.word,
+                  audioText,
+                  shareContent,
+                  widget.isFavorite,
+                  changeIndex: (next) => changeIndex(next),
+                  showNav: !widget.sourceIsFav,
+                ))
           ],
         ));
   }

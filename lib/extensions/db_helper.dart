@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -41,4 +43,43 @@ class DatabaseHelper {
         // },
         version: 1,
       );
+
+  static loadDatasets() async {
+    final db = await DatabaseHelper.loadDatabase();
+
+    // load words
+    List<Map<String, dynamic>> wMap =
+        await db.query(DictionarySchema.Words, orderBy: "Word asc");
+    Globals.wordDataset = List.generate(wMap.length, (i) {
+      return WordModel.create(
+          word: wMap[i]['Word'],
+          meaning: wMap[i]['Meaning'],
+          example: wMap[i]['Example'],
+          similar: wMap[i]['Similar'] ?? "...",
+          pronunciation: wMap[i]['Pronunciation'] ?? "...",
+          datestamp: wMap[i]['Datestamp']);
+    });
+    wMap = [];
+
+    // load sentences
+    List<Map<String, dynamic>> sMap =
+        await db.query(DictionarySchema.Sentences);
+    Globals.sentenceDataset = List.generate(sMap.length, (i) {
+      return SentenceModel.create(
+          category: sMap[i]['Category'],
+          sentence: sMap[i]['Sentence'],
+          translations: sMap[i]['Translations'],
+          datestamp: sMap[i]['Datestamp']);
+    });
+    sMap = [];
+
+    // load favorites
+    List<Map<String, dynamic>> fMap =
+        await db.query(DictionarySchema.Favorites, orderBy: "Content asc");
+
+    Globals.favoriteDataset = List.generate(fMap.length, (i) {
+      return FavoriteModel.create(
+          type: fMap[i]['Type'], content: fMap[i]['Content']);
+    });
+  }
 }
