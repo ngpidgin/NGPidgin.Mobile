@@ -40,8 +40,8 @@ class WordDetailDialog extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
-                child: ActionSection(
-                    audioText, shareContent, isFavorite, () => toggleFavorite))
+                child: ActionSection(favoriteType.word, model.word, audioText,
+                    shareContent, isFavorite, () => toggleFavorite))
           ],
         ));
   }

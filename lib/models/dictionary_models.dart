@@ -1,3 +1,9 @@
+class DictionarySchema {
+  static const String Words = "Words";
+  static const String Sentences = "SentenceTranslations";
+  static const String Favorites = "Favorites";
+}
+
 class WordModel {
   final String word;
   final String meaning;
@@ -16,6 +22,14 @@ class WordModel {
       required this.similar,
       required this.pronunciation,
       required this.datestamp});
+
+  WordModel.blank(
+      {this.word = "",
+      this.meaning = "",
+      this.example = "",
+      this.similar = "",
+      this.pronunciation = "",
+      this.datestamp = ""});
 
   Map<String, dynamic> toMap() {
     return {
@@ -60,6 +74,12 @@ class SentenceModel {
       required this.sentence,
       required this.translations,
       required this.datestamp});
+
+  SentenceModel.blank(
+      {this.category = 0,
+      this.sentence = "",
+      this.translations = "",
+      this.datestamp = ""});
 
   Map<String, dynamic> toMap() {
     return {

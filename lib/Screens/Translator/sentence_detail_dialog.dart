@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/content_section.dart';
-import 'package:ngpidgin/Screens/components/action_section.dart';
+import 'package:ngpidgin/Screens/Components/action_section.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
@@ -43,8 +43,13 @@ class SentenceDetailDialog extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
-                child: ActionSection(model.translations, shareContent,
-                    isFavorite, () => toggleFavorite))
+                child: ActionSection(
+                    favoriteType.sentence,
+                    model.sentence,
+                    model.translations,
+                    shareContent,
+                    isFavorite,
+                    () => toggleFavorite))
           ],
         ));
   }

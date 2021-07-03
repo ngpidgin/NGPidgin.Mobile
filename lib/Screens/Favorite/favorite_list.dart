@@ -27,12 +27,13 @@ class FavoriteList extends StatelessWidget {
                     // show dialog for item type
                     // first, fetch the item from the global list
                     if (data[index].type == favoriteType.word.index) {
-                      //try {} catch (ex) {}
-                      var item = Globals.wordDataset.where((a) =>
-                          a.word.toLowerCase() ==
-                          data[index].content.toLowerCase());
+                      WordModel item = Globals.wordDataset.firstWhere(
+                          (a) =>
+                              a.word.toLowerCase() ==
+                              data[index].content.toLowerCase(),
+                          orElse: () => WordModel.blank());
 
-                      if (item.length == 0) {
+                      if (item.word.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             Interactions.snacky("Word not found.."));
                       } else {
@@ -40,15 +41,16 @@ class FavoriteList extends StatelessWidget {
                             context: context,
                             barrierColor: Color(0x99000000),
                             builder: (BuildContext dialogContext) =>
-                                WordDetailDialog(item.elementAt(0),
-                                    isFavorite: true));
+                                WordDetailDialog(item, isFavorite: true));
                       }
                     } else {
-                      var item = Globals.sentenceDataset.where((a) =>
-                          a.sentence.toLowerCase() ==
-                          data[index].content.toLowerCase());
+                      SentenceModel item = Globals.sentenceDataset.firstWhere(
+                          (a) =>
+                              a.sentence.toLowerCase() ==
+                              data[index].content.toLowerCase(),
+                          orElse: () => SentenceModel.blank());
 
-                      if (item.length == 0) {
+                      if (item.sentence.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             Interactions.snacky("Sentence not found.."));
                       } else {
@@ -56,8 +58,7 @@ class FavoriteList extends StatelessWidget {
                             context: context,
                             barrierColor: Color(0x99000000),
                             builder: (BuildContext dialogContext) =>
-                                SentenceDetailDialog(item.elementAt(0),
-                                    isFavorite: true));
+                                SentenceDetailDialog(item, isFavorite: true));
                       }
                     }
                   });

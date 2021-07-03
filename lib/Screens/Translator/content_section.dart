@@ -44,14 +44,13 @@ class ContentSection extends StatelessWidget {
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            highlightColor: Colors.transparent,
-                            child: Icon(Icons.copy_outlined,
-                                size: 20, color: Palette.LightGray),
-                            onTap: () {
-                              Clipboard.setData(ClipboardData(
-                                  text: stripHtml(model.translations)));
-                            },
-                          ),
+                              highlightColor: Colors.transparent,
+                              child: Icon(Icons.copy_outlined,
+                                  size: 20, color: Palette.LightGray),
+                              onTap: () {
+                                Clipboard.setData(ClipboardData(
+                                    text: stripHtml(model.translations)));
+                              }),
                         ),
                       )
                     ]),

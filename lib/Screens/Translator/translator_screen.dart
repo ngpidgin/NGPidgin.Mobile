@@ -39,14 +39,14 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
       backgroundColor: Palette.PrimaryColor,
       appBar: AppBar(
           backgroundColor: Palette.PrimaryColor,
-          title: Row(
-            children: [
-              Text("Translator"),
-              SizedBox(width: 10),
-              Text("Social",
-                  style: TextStyle(fontSize: 13, color: Palette.Lavendar))
-            ],
-          ),
+          title: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Translator"),
+                Text(SentenceModel.getCategoryDesc(widget.category),
+                    style: TextStyle(fontSize: 13, color: Palette.Lavendar))
+              ]),
           elevation: 0,
           actions: [
             IconButton(

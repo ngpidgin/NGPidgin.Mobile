@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       if (dbExist) {
         final db = await DatabaseHelper.loadDatabase();
         List<Map<String, dynamic>> wMap =
-            await db.query('Words', orderBy: "Word asc");
+            await db.query(DictionarySchema.Words, orderBy: "Word asc");
 
         Globals.wordDataset = List.generate(wMap.length, (i) {
           return WordModel.create(
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
         wMap = [];
 
         List<Map<String, dynamic>> sMap =
-            await db.query('SentenceTranslations');
+            await db.query(DictionarySchema.Sentences);
         Globals.sentenceDataset = List.generate(sMap.length, (i) {
           return SentenceModel.create(
               category: sMap[i]['Category'],

@@ -5,17 +5,23 @@ import 'package:ngpidgin/constants.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:ngpidgin/extensions/db_helper.dart';
+import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:share/share.dart';
+import 'package:sqflite/sqflite.dart';
 
 enum TtsState { playing, stopped, paused, continued }
 
 class ActionSection extends StatefulWidget {
+  final favoriteType type;
+  final String contentKey;
   final String audioReaderContent;
   final String shareContent;
   bool isFav;
   final Function toggleFavorite;
-  ActionSection(this.audioReaderContent, this.shareContent, this.isFav,
-      this.toggleFavorite);
+  ActionSection(this.type, this.contentKey, this.audioReaderContent,
+      this.shareContent, this.isFav, this.toggleFavorite);
 
   @override
   _ActionSectionState createState() => _ActionSectionState();
@@ -26,11 +32,22 @@ class _ActionSectionState extends State<ActionSection> {
   TtsState ttsState = TtsState.stopped;
   FlutterTts flutterTts = FlutterTts();
 
-  void toggleFavorite() {
+  void toggleFavorite() async {
+    final db = await DatabaseHelper.loadDatabase();
+
     if (widget.isFav) {
-      // remove
+      db.delete(DictionarySchema.Favorites,
+          where: "Content = " + "'${widget.contentKey}'");
+      Globals.favoriteDataset.removeWhere(
+          (a) => a.content.toLowerCase() == widget.contentKey.toLowerCase());
     } else {
-      // add
+      var item = {
+        "Type": widget.type.index,
+        "Content": "'${widget.contentKey}'"
+      };
+      db.insert(DictionarySchema.Favorites, item);
+      Globals.favoriteDataset
+          .add(FavoriteModel(widget.type.index, widget.contentKey));
     }
 
     setState(() {

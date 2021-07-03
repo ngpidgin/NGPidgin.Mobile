@@ -19,7 +19,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     if (Globals.favoriteDataset.length == 0) {
       final db = await DatabaseHelper.loadDatabase();
       List<Map<String, dynamic>> fMap =
-          await db.query('Favorites', orderBy: "Content asc");
+          await db.query(DictionarySchema.Favorites, orderBy: "Content asc");
 
       Globals.favoriteDataset = List.generate(fMap.length, (i) {
         return FavoriteModel.create(
