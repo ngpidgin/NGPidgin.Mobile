@@ -7,7 +7,6 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:share/share.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DailyTipSection extends StatefulWidget {
   const DailyTipSection({Key? key}) : super(key: key);
