@@ -13,6 +13,7 @@ import 'package:share/share.dart';
 enum TtsState { playing, stopped, paused, continued }
 
 class ActionSection extends StatefulWidget {
+  final int index;
   final favoriteType type;
   final String contentKey;
   final String audioReaderContent;
@@ -20,7 +21,7 @@ class ActionSection extends StatefulWidget {
   bool isFav;
   bool showNav;
   final Function(bool next)? changeIndex;
-  ActionSection(this.type, this.contentKey, this.audioReaderContent,
+  ActionSection(this.index, this.type, this.contentKey, this.audioReaderContent,
       this.shareContent, this.isFav,
       {this.changeIndex, this.showNav = true});
 
@@ -29,23 +30,111 @@ class ActionSection extends StatefulWidget {
 }
 
 class _ActionSectionState extends State<ActionSection> {
-  // bool isFav = false;
   TtsState ttsState = TtsState.stopped;
   FlutterTts flutterTts = FlutterTts();
 
   void toggleFavorite() async {
     final db = await DatabaseHelper.loadDatabase();
 
+    // get item from global
+    // update isFavorite
+    // update on database
+
     if (widget.isFav) {
-      db.delete(DictionarySchema.Favorites,
-          where: "Content = " + "'${widget.contentKey}'");
-      Globals.favoriteDataset.removeWhere(
-          (a) => a.content.toLowerCase() == widget.contentKey.toLowerCase());
+      // remove
+      if (widget.type == favoriteType.word) {
+        WordModel item;
+        if (widget.index == -1) {
+          // source = fav. No index is supplied
+          // pick using contentKey
+          item = Globals.wordDataset
+              .firstWhere((a) => a.word == widget.contentKey);
+        } else {
+          // pick using index
+          item = Globals.wordDataset[widget.index];
+        }
+
+        item.isFavorite = 0;
+        db.update(DictionarySchema.Words, item.toMap(),
+            where: "Word = '${widget.contentKey}'");
+
+        if (widget.index == -1)
+          Globals.wordDataset
+              .firstWhere((a) => a.word == widget.contentKey)
+              .isFavorite = 0;
+        else
+          Globals.wordDataset[widget.index].isFavorite = 0;
+      } else {
+        SentenceModel item;
+        if (widget.index == -1) {
+          // source = fav. No index is supplied
+          // pick using contentKey
+          item = Globals.sentenceDataset
+              .firstWhere((a) => a.sentence == widget.contentKey);
+        } else {
+          // pick using index
+          item = Globals.sentenceDataset[widget.index];
+        }
+
+        item.isFavorite = 0;
+        db.update(DictionarySchema.Sentences, item.toMap(),
+            where: "Sentence = '${widget.contentKey}'");
+
+        if (widget.index == -1)
+          Globals.sentenceDataset
+              .firstWhere((a) => a.sentence == widget.contentKey)
+              .isFavorite = 0;
+        else
+          Globals.sentenceDataset[widget.index].isFavorite = 0;
+      }
     } else {
-      var item = {"Type": widget.type.index, "Content": "${widget.contentKey}"};
-      db.insert(DictionarySchema.Favorites, item);
-      Globals.favoriteDataset
-          .add(FavoriteModel(widget.type.index, widget.contentKey));
+      // add
+      if (widget.type == favoriteType.word) {
+        WordModel item;
+        if (widget.index == -1) {
+          // source = fav. No index is supplied
+          // pick using contentKey
+          item = Globals.wordDataset
+              .firstWhere((a) => a.word == widget.contentKey);
+        } else {
+          // pick using index
+          item = Globals.wordDataset[widget.index];
+        }
+
+        item.isFavorite = 1;
+        db.update(DictionarySchema.Words, item.toMap(),
+            where: "Word = '${widget.contentKey}'");
+
+        if (widget.index == -1)
+          Globals.wordDataset
+              .firstWhere((a) => a.word == widget.contentKey)
+              .isFavorite = 1;
+        else
+          Globals.wordDataset[widget.index].isFavorite = 1;
+      } else {
+        SentenceModel item;
+        if (widget.index == -1) {
+          // source = fav. No index is supplied
+          // pick using contentKey
+          item = Globals.sentenceDataset
+              .firstWhere((a) => a.sentence == widget.contentKey);
+        } else {
+          // pick using index
+          item = Globals.sentenceDataset[widget.index];
+        }
+
+        item = Globals.sentenceDataset[widget.index];
+        item.isFavorite = 1;
+        db.update(DictionarySchema.Sentences, item.toMap(),
+            where: "Sentence = '${widget.contentKey}'");
+
+        if (widget.index == -1)
+          Globals.sentenceDataset
+              .firstWhere((a) => a.sentence == widget.contentKey)
+              .isFavorite = 1;
+        else
+          Globals.sentenceDataset[widget.index].isFavorite = 1;
+      }
     }
 
     setState(() {
@@ -66,10 +155,11 @@ class _ActionSectionState extends State<ActionSection> {
                 backgroundColor: Color(0x80000000),
                 elevation: 0,
                 content: Text(
-                    widget.isFav
-                        ? Globals.languageKit.favoriteAdded
-                        : Globals.languageKit.favoriteRemoved,
-                    style: TextStyle(color: Colors.white, fontSize: 12))));
+                  widget.isFav
+                      ? Globals.languageKit.favoriteAdded
+                      : Globals.languageKit.favoriteRemoved,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                )));
       },
     );
   }

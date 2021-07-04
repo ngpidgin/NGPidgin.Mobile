@@ -60,7 +60,9 @@ class SearchSection extends StatelessWidget {
                     context: context,
                     barrierColor: Color(0x99000000),
                     builder: (BuildContext context) {
-                      return WordDetailDialog(selection, -1, sourceIsFav: true);
+                      return WordDetailDialog(selection, -1,
+                          isFavorite: selection.isFavorite == 1 ? true : false,
+                          sourceIsFav: true);
                     });
               },
               displayStringForOption: (item) => item.word,

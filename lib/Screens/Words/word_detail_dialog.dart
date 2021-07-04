@@ -20,21 +20,21 @@ class WordDetailDialog extends StatefulWidget {
 class _WordDetailDialogState extends State<WordDetailDialog> {
   changeIndex(bool next) {
     setState(() {
-      if (next) if (widget.index == Globals.wordDataset.length - 1)
-        widget.index = 0;
-      else
-        widget.index++;
-      else {
+      if (next) {
+        if (widget.index == Globals.wordDataset.length - 1)
+          // reset index to first item
+          widget.index = 0;
+        else
+          widget.index++;
+      } else {
         if (widget.index == 0)
+          // reset index to last item
           widget.index = Globals.wordDataset.length - 1;
         else
           widget.index--;
       }
 
       widget.model = Globals.wordDataset[widget.index];
-      widget.isFavorite = Globals.favoriteDataset.any((a) =>
-          a.type == favoriteType.word.index &&
-          a.content.toLowerCase() == widget.model.word.toLowerCase());
     });
   }
 
@@ -42,9 +42,9 @@ class _WordDetailDialogState extends State<WordDetailDialog> {
   initState() {
     if (widget.index == -1) {
       // source from dashboard auto-complete
-      widget.isFavorite = Globals.favoriteDataset.any((a) =>
-          a.type == favoriteType.word.index &&
-          a.content.toLowerCase() == widget.model.word.toLowerCase());
+      // widget.isFavorite = Globals.favoriteDataset.any((a) =>
+      //     a.type == favoriteType.word.index &&
+      //     a.content.toLowerCase() == widget.model.word.toLowerCase());
       super.initState();
     }
   }
@@ -79,6 +79,7 @@ class _WordDetailDialogState extends State<WordDetailDialog> {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
                 child: ActionSection(
+                  widget.index,
                   favoriteType.word,
                   widget.model.word,
                   audioText,

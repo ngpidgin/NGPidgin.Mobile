@@ -12,12 +12,15 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   List<FavoriteModel> data = [];
+  List<WordModel> words = [];
+  List<SentenceModel> sentences = [];
   bool firstLoadComplete = false;
 
   Future<void> loadDataset() async {
     if (!firstLoadComplete) {
-      data = Globals.favoriteDataset
-          .where((a) => a.type == favoriteType.word.index)
+      data = Globals.wordDataset
+          .where((a) => a.isFavorite == 1)
+          .map((e) => FavoriteModel(favoriteType.word.index, e.word))
           .toList();
       firstLoadComplete = true;
     }
@@ -53,7 +56,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 onPressed: () {
                   setState(() {
                     if (sortAsc) {
-                      data.sort((a, b) => a.content.compareTo(b.content));
+                      if (wordTabActive)
+                        words.sort((a, b) => a.word.compareTo(b.word));
+                      else
+                        sentences
+                            .sort((a, b) => a.sentence.compareTo(b.sentence));
+
                       sortAsc = false;
                     }
                     // } else {
@@ -79,8 +87,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         setState(() {
                           wordTabActive = true;
                           sentenceTabActive = false;
-                          data = Globals.favoriteDataset
-                              .where((a) => a.type == favoriteType.word.index)
+                          data = Globals.wordDataset
+                              .where((a) => a.isFavorite == 1)
+                              .map((e) => FavoriteModel(
+                                  favoriteType.word.index, e.word))
                               .toList();
                         });
                       },
@@ -99,9 +109,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         setState(() {
                           wordTabActive = false;
                           sentenceTabActive = true;
-                          data = Globals.favoriteDataset
-                              .where(
-                                  (a) => a.type == favoriteType.sentence.index)
+                          data = Globals.sentenceDataset
+                              .where((a) => a.isFavorite == 1)
+                              .map((e) => FavoriteModel(
+                                  favoriteType.sentence.index, e.sentence))
                               .toList();
                         });
                       },

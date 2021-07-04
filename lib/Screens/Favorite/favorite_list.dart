@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/sentence_detail_dialog.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
-import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/globals.dart';
@@ -87,19 +86,16 @@ class FavoriteList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Wetin you dey find like this?",
+                    "You never save anything",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(height: 30),
                   Image.asset("assets/imgs/osita_confused_01.jpg"),
                   SizedBox(height: 20),
                   Text(
-                    "But you fit suggest am sha!",
+                    "You fit tap the favorite/heart shape to save",
                     style: TextStyle(color: Palette.PaleGreen),
-                  ),
-                  ButtonPill("Suggest", () {},
-                      bgColor: Palette.PaleGreen,
-                      textStyle: TextStyle(color: Colors.white))
+                  )
                 ],
               ),
             ),

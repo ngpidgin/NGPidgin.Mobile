@@ -12,7 +12,7 @@ class WordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return data.length > 0
         ? ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
+            //physics: const AlwaysScrollableScrollPhysics(),
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
@@ -24,10 +24,14 @@ class WordList extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
-                        // barrierDismissible: true,
                         barrierColor: Color(0x99000000),
                         builder: (BuildContext context) {
-                          return WordDetailDialog(data[index], index);
+                          return WordDetailDialog(
+                            data[index],
+                            index,
+                            isFavorite:
+                                data[index].isFavorite == 1 ? true : false,
+                          );
                         });
                   });
             },

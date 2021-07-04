@@ -1,7 +1,7 @@
 class DictionarySchema {
   static const String Words = "Words";
   static const String Sentences = "SentenceTranslations";
-  static const String Favorites = "Favorites";
+  static const String Tips = "Tips";
 }
 
 class WordModel {
@@ -11,9 +11,10 @@ class WordModel {
   final String similar;
   final String pronunciation;
   final String datestamp;
+  int isFavorite;
 
   WordModel(this.word, this.meaning, this.example, this.similar,
-      this.pronunciation, this.datestamp);
+      this.pronunciation, this.datestamp, this.isFavorite);
 
   WordModel.create(
       {required this.word,
@@ -21,7 +22,8 @@ class WordModel {
       required this.example,
       required this.similar,
       required this.pronunciation,
-      required this.datestamp});
+      required this.datestamp,
+      required this.isFavorite});
 
   WordModel.blank(
       {this.word = "",
@@ -29,7 +31,8 @@ class WordModel {
       this.example = "",
       this.similar = "",
       this.pronunciation = "",
-      this.datestamp = ""});
+      this.datestamp = "",
+      this.isFavorite = 1});
 
   Map<String, dynamic> toMap() {
     return {
@@ -39,6 +42,7 @@ class WordModel {
       'similar': similar,
       'pronunciation': pronunciation,
       'datestamp': datestamp,
+      'isFavorite': isFavorite
     };
   }
 
@@ -65,21 +69,24 @@ class SentenceModel {
   final String sentence;
   final String translations;
   final String datestamp;
+  int isFavorite;
 
-  SentenceModel(
-      this.category, this.sentence, this.translations, this.datestamp);
+  SentenceModel(this.category, this.sentence, this.translations, this.datestamp,
+      this.isFavorite);
 
   SentenceModel.create(
       {required this.category,
       required this.sentence,
       required this.translations,
-      required this.datestamp});
+      required this.datestamp,
+      required this.isFavorite});
 
   SentenceModel.blank(
       {this.category = 0,
       this.sentence = "",
       this.translations = "",
-      this.datestamp = ""});
+      this.datestamp = "",
+      this.isFavorite = 0});
 
   Map<String, dynamic> toMap() {
     return {
@@ -87,6 +94,7 @@ class SentenceModel {
       'sentence': sentence,
       'translations': translations,
       'datestamp': datestamp,
+      'isFavorite': isFavorite,
     };
   }
 
@@ -131,6 +139,34 @@ class FavoriteModel {
 
   Map<String, dynamic> toMap() {
     return {'type': type, 'content': content};
+  }
+}
+
+class TipModel {
+  final int? id;
+  String title;
+  String content;
+  String datestamp;
+
+  TipModel(this.id, this.title, this.content, this.datestamp);
+
+  TipModel.create(
+      {required this.id,
+      required this.title,
+      required this.content,
+      required this.datestamp});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'content': content,
+      'datestamp': datestamp
+    };
+  }
+
+  static fromJson(Map<String, dynamic> json) {
+    return TipModel(null, json["title"], json["content"], json["datestamp"]);
   }
 }
 

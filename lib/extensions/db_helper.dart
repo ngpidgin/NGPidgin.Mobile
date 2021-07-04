@@ -57,7 +57,8 @@ class DatabaseHelper {
           example: wMap[i]['Example'],
           similar: wMap[i]['Similar'] ?? "...",
           pronunciation: wMap[i]['Pronunciation'] ?? "...",
-          datestamp: wMap[i]['Datestamp']);
+          datestamp: wMap[i]['Datestamp'],
+          isFavorite: wMap[i]['IsFavorite'] ?? 0);
     });
     wMap = [];
 
@@ -69,17 +70,9 @@ class DatabaseHelper {
           category: sMap[i]['Category'],
           sentence: sMap[i]['Sentence'],
           translations: sMap[i]['Translations'],
-          datestamp: sMap[i]['Datestamp']);
+          datestamp: sMap[i]['Datestamp'],
+          isFavorite: sMap[i]['IsFavorite'] ?? 0);
     });
     sMap = [];
-
-    // load favorites
-    List<Map<String, dynamic>> fMap =
-        await db.query(DictionarySchema.Favorites, orderBy: "Content asc");
-
-    Globals.favoriteDataset = List.generate(fMap.length, (i) {
-      return FavoriteModel.create(
-          type: fMap[i]['Type'], content: fMap[i]['Content']);
-    });
   }
 }

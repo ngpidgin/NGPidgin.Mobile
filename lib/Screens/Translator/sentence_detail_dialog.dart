@@ -20,21 +20,21 @@ class SentenceDetailDialog extends StatefulWidget {
 class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
   changeIndex(bool next) {
     setState(() {
-      if (next) if (widget.index == Globals.sentenceDataset.length - 1)
-        widget.index = 0;
-      else
-        widget.index++;
-      else {
+      if (next) {
+        if (widget.index == Globals.sentenceDataset.length - 1)
+          // reset index to first item
+          widget.index = 0;
+        else
+          widget.index++;
+      } else {
         if (widget.index == 0)
+          // reset index to last item
           widget.index = Globals.sentenceDataset.length - 1;
         else
           widget.index--;
       }
 
       widget.model = Globals.sentenceDataset[widget.index];
-      widget.isFavorite = Globals.favoriteDataset.any((a) =>
-          a.type == favoriteType.sentence.index &&
-          a.content.toLowerCase() == widget.model.sentence.toLowerCase());
     });
   }
 
@@ -72,6 +72,7 @@ class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
                 child: ActionSection(
+                  widget.index,
                   favoriteType.sentence,
                   widget.model.sentence,
                   widget.model.translations,

@@ -8,5 +8,6 @@ class Globals {
 
   static List<WordModel> wordDataset = <WordModel>[];
   static List<SentenceModel> sentenceDataset = <SentenceModel>[];
-  static List<FavoriteModel> favoriteDataset = <FavoriteModel>[];
+  static List<TipModel> tipDataset = <TipModel>[];
+  static bool tipFetchComplete = false;
 }
