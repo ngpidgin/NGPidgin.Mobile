@@ -28,6 +28,6 @@ class Palette {
 
 class SettingKeys {
   static const LanguagePreference = "lang_pref";
-  static const DailyTipTitle = "daily_tip_title";
-  static const DailyTipContent = "daily_tip_content";
+  static const dailyTipTitle = "daily_tip_title";
+  static const dailyTipContent = "daily_tip_content";
 }

@@ -143,30 +143,15 @@ class FavoriteModel {
 }
 
 class TipModel {
-  final int? id;
   String title;
   String content;
-  String datestamp;
 
-  TipModel(this.id, this.title, this.content, this.datestamp);
+  TipModel(this.title, this.content);
 
-  TipModel.create(
-      {required this.id,
-      required this.title,
-      required this.content,
-      required this.datestamp});
+  TipModel.create({required this.title, required this.content});
 
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'title': title,
-      'content': content,
-      'datestamp': datestamp
-    };
-  }
-
-  static fromJson(Map<String, dynamic> json) {
-    return TipModel(null, json["title"], json["content"], json["datestamp"]);
+    return {'title': title, 'content': content};
   }
 }
 
