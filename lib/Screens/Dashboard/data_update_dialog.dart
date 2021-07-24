@@ -1,12 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Components/action_section.dart';
-import 'package:ngpidgin/Screens/Words/content_section.dart';
+import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';
-import 'package:ngpidgin/models/dictionary_models.dart';
+
+enum updateProgress { downloading, updating, completed }
 
 // ignore: must_be_immutable
-class DataUpdateDialog extends StatelessWidget {
+class DataUpdateDialog extends StatefulWidget {
+  @override
+  _DataUpdateDialogState createState() => _DataUpdateDialogState();
+}
+
+class _DataUpdateDialogState extends State<DataUpdateDialog> {
+  updateProgress progress = updateProgress.downloading;
+  String progressTitle = "Downloading data updates..";
+
+  @override
+  void initState() {
+    super.initState();
+
+    download().then((value) {
+      if (value) {
+        setState(() {
+          progress = updateProgress.updating;
+          progressTitle = "Updating database..";
+        });
+
+        update().then((value) {
+          if (value) {
+            setState(() {
+              progress = updateProgress.completed;
+              progressTitle = "Update completed!";
+            });
+
+            SharedPreferencesUtil.setInt(SettingKeys.databaseUpdateVersion,
+                Globals.dataUpdate!.updateVersion);
+          }
+        });
+      }
+    });
+  }
+
+  Future<bool> download() async {
+    await Future.delayed(Duration(seconds: 5));
+    return true;
+  }
+
+  Future<bool> update() async {
+    await Future.delayed(Duration(seconds: 5));
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,18 +62,60 @@ class DataUpdateDialog extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.downloading_outlined,
-                color: Palette.PrimaryColor, size: 60),
+            if (progress == updateProgress.downloading ||
+                progress == updateProgress.updating)
+              CircularProgressIndicator(color: Palette.PrimaryColor)
+            else
+              Icon(Icons.check_circle_rounded,
+                  color: Palette.PrimaryColor, size: 60),
             SizedBox(height: 15),
-            Text("Downloading data updates..",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Text(progressTitle, style: TextStyle(fontSize: 16)),
             SizedBox(height: 30),
-            Text("New words: ${Globals.dataUpdate!.words}"),
-            Text("New sentences: ${Globals.dataUpdate!.sentences}"),
+            Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      UpdateItem("Words", Globals.dataUpdate!.words),
+                      UpdateItem("Sentences", Globals.dataUpdate!.sentences),
+                    ],
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        UpdateItem("Stickers", Globals.dataUpdate!.stickers),
+                      ])
+                ])),
             SizedBox(height: 50),
-            Text("Please wait for update to complete",
-                style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+            if (progress == updateProgress.completed)
+              ButtonPill("Close", () {
+                Navigator.of(context).pop(true);
+              }, bgColor: Palette.Lavendar, textColor: Colors.grey, width: 80)
+            else
+              Text("Please wait for update to complete",
+                  style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic))
           ],
         ));
+  }
+}
+
+class UpdateItem extends StatelessWidget {
+  final String title;
+  final int count;
+  const UpdateItem(this.title, this.count);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(title, style: TextStyle(color: Palette.PaleGreen)),
+        Text(count.toString(),
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
+      ],
+    );
   }
 }
