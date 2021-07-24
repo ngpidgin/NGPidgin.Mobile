@@ -145,14 +145,23 @@ class FavoriteModel {
 class TipModel {
   String title;
   String content;
-
+  bool isLoaded() => content.isEmpty == false;
   TipModel(this.title, this.content);
-
-  TipModel.create({required this.title, required this.content});
 
   Map<String, dynamic> toMap() {
     return {'title': title, 'content': content};
   }
+}
+
+class DataUpdateModel {
+  bool hasUpdate;
+  int words;
+  int sentences;
+  int count;
+  String downloadUrl;
+
+  DataUpdateModel(
+      this.hasUpdate, this.words, this.sentences, this.count, this.downloadUrl);
 }
 
 String nullCleanup(String data) => data.isEmpty ? "N/A" : data;

@@ -12,6 +12,7 @@ import 'package:share/share.dart';
 
 enum TtsState { playing, stopped, paused, continued }
 
+// ignore: must_be_immutable
 class ActionSection extends StatefulWidget {
   final int index;
   final favoriteType type;

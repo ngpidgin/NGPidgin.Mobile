@@ -2,12 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/Dashboard/card_frame.dart';
+import 'package:ngpidgin/Screens/Dashboard/data_update_dialog.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/globals.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'package:ngpidgin/models/dictionary_models.dart';
 
-class QuickLinkSection extends StatelessWidget {
+class QuickLinkSection extends StatefulWidget {
+  @override
+  _QuickLinkSectionState createState() => _QuickLinkSectionState();
+}
+
+class _QuickLinkSectionState extends State<QuickLinkSection> {
+  int dataUpdateCount = 0;
   final Size cardSize = new Size(110, 130);
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (Globals.dataUpdate == null) {
+      updateCheck().then((value) {
+        setState(() {
+          if (value != null) {
+            dataUpdateCount = value.count;
+          }
+        });
+      });
+    } else {
+      dataUpdateCount = Globals.dataUpdate!.count;
+    }
+  }
+
+  Future<DataUpdateModel?> updateCheck() async {
+    bool hasError = false;
+
+    try {
+      http.Response response =
+          await http.get(Uri.parse(ServiceEndpoints.UpdateCheck));
+      if (response.statusCode == 200) {
+        var decodedData = convert.jsonDecode(response.body)["data"];
+        int w = decodedData["words"];
+        int s = decodedData["sentences"];
+        int count = w + s;
+        if (count > 0) {
+          Globals.dataUpdate =
+              DataUpdateModel(true, w, s, count, decodedData["downloadUrl"]);
+        }
+      }
+    } catch (e) {
+      hasError = true;
+    }
+
+    if (hasError) return null;
+    return Globals.dataUpdate;
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -20,22 +72,35 @@ class QuickLinkSection extends StatelessWidget {
             height: cardSize.height + 10,
             alignment: Alignment.center,
             child: ListView(scrollDirection: Axis.horizontal, children: [
-              DashboardCardFrame(
-                  cardSize,
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Aa",
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.PaleGreen)),
-                        SizedBox(height: 10),
-                        Text(Globals.languageKit.dashboardSyncDesc,
-                            style: TextStyle(fontSize: 10))
-                      ]),
-                  "Synchronize",
-                  titleAlignment: Alignment.centerLeft),
+              dataUpdateCount > 0
+                  ? DashboardCardFrame(
+                      cardSize,
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Aa",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Palette.PaleGreen)),
+                            SizedBox(height: 10),
+                            Text(
+                                Globals.languageKit.dashboardSyncDesc
+                                    .replaceAll(
+                                        "{0}", dataUpdateCount.toString()),
+                                style: TextStyle(fontSize: 10))
+                          ]),
+                      "Synchronize",
+                      titleAlignment: Alignment.centerLeft, onPressed: () {
+                      showDialog(
+                          context: context,
+                          barrierColor: Color(0x80000000),
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return DataUpdateDialog();
+                          });
+                    })
+                  : Container(),
               DashboardCardFrame(
                   cardSize,
                   Image.asset("assets/icons/twitter_outline.png"),

@@ -5,6 +5,7 @@ import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
+// ignore: must_be_immutable
 class SentenceDetailDialog extends StatefulWidget {
   SentenceModel model;
   int index;

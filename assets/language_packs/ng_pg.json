@@ -3,7 +3,7 @@
     "welcomeBtnText": "Oya na..",
     "dashboardSearchPlaceholder": "wetin you dey find?",
     "dashboardDailyTips": "Daily Aproko",
-    "dashboardSyncDesc": "We don add 83 new words",    
+    "dashboardSyncDesc": "We don add {0} new words",    
     "translatorCategoryDesc": "Find translations to confirm pidgin wen dem dey speak all over Naija, come blend with slangs and humor",
     "favoriteAdded": "Word don join favorites",
     "favoriteRemoved": "Word don comot from favorites"

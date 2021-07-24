@@ -5,8 +5,6 @@ import 'package:ngpidgin/Screens/Dashboard/link_cards.dart';
 import 'package:ngpidgin/Screens/Dashboard/search_section.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

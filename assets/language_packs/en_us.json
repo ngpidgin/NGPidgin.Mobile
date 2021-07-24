@@ -3,7 +3,7 @@
     "welcomeBtnText": "Let's go..",
     "dashboardSearchPlaceholder": "What 'you looking for?",
     "dashboardDailyTips": "Daily Tips",
-    "dashboardSyncDesc": "We've added 83 new words",
+    "dashboardSyncDesc": "We've added {0} new words",
     "translatorCategoryDesc": "Find translations to every day pidgin spoken all over Nigeria, with a mix of slangs and humor",
     "favoriteAdded": "Word added to favorites",
     "favoriteRemoved": "Word removed from favorites"
