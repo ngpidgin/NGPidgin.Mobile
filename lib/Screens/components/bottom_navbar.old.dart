@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
-import 'package:ngpidgin/Screens/Words/words_screen.dart';
+import 'package:ngpidgin/Screens/Words/word_screen.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/palette_helper.dart';
 
@@ -26,7 +26,7 @@ class _BottomNavState extends State<BottomNavOld> {
             page = DashboardScreen();
             break;
           case 1:
-            page = WordsScreen();
+            page = WordScreen();
             break;
         }
 

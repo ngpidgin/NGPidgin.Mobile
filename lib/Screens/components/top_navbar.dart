@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/Screens/Settings/settings_screen.dart';
 
 class TopNav extends StatelessWidget implements PreferredSizeWidget {
   const TopNav({Key? key}) : super(key: key);
@@ -10,29 +10,25 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      leading: IconButton(
-        icon: Icon(Icons.list),
-        onPressed: () => {},
-      ),
-      title: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(children: [
-            TextSpan(
-                text: "9ja",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Palette.PrimaryLightColor)),
-            TextSpan(
-                text: "Pidgin",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.lime))
-          ])),
-      actions: [Icon(Icons.settings), SizedBox(width: 20)],
-    );
+    return Container(
+        padding: EdgeInsets.fromLTRB(25, 40, 15, 0),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                clipBehavior: Clip.antiAlias,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(6)),
+                child: Image.asset("assets/icons/app_icon.png", width: 40)),
+            IconButton(
+                icon: Icon(Icons.settings, color: Colors.white),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return SettingsScreen();
+                  }));
+                })
+          ],
+        ));
   }
 }

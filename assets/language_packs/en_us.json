@@ -1,0 +1,17 @@
+{
+    "welcomeIntro": "Learn our pidgin english and slangs\nfrom experts that understands it perfectly",
+    "welcomeBtnText": "Let's go..",
+    "dashboardSearchPlaceholder": "What 'you looking for?",
+    "dailyTips": "Daily Tips",
+    "dailyTipsLoading": "Loading daily tip..",
+    "dailyTipsFetchFailed": "Failed to fetch tips. Make sure you are connected to the internet to get fresh tips daily!",
+    "dashboardSyncDesc": "We've added {0} new words",
+    "translatorCategoryDesc": "Find translations to every day pidgin spoken all over Nigeria, with a mix of slangs and humor",
+    "favoriteAdded": "Word added to favorites",
+    "favoriteRemoved": "Word removed from favorites",
+    "dataUpdateFooterDesc": "Please wait for update to complete",
+    "dataUpdateDownloading": "Downloading data update..",
+    "dataUpdateUpdating": "Updating database..",
+    "dataUpdateCompleted": "Update completed!",
+    "dataUpdateFailed": "Update failed!"
+}

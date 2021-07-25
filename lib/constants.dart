@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum Language { none, pidgin, english }
+
 class AppInfo {
   static const Version = "2.0.0";
   static const VersionName = "FadaLang 2.0 (beta)";
@@ -22,5 +24,16 @@ class Palette {
   static const Lavendar = Color(0xFFE3E7F1);
   static const LightGray = Color(0xFFE3E3E3);
   static const PaleGreen = Colors.blueGrey;
-  static const DryPurple = Color(0xFF423250);
+}
+
+class SettingKeys {
+  static const LanguagePreference = "lang_pref";
+  static const dailyTipTitle = "daily_tip_title";
+  static const dailyTipContent = "daily_tip_content";
+  static const databaseUpdateVersion = "database_version";
+}
+
+class ServiceEndpoints {
+  static const DailyTip = "https://jsonkeeper.com/b/2CFJ";
+  static const UpdateCheck = "https://jsonkeeper.com/b/YQGH";
 }

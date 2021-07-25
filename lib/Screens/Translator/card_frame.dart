@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:ngpidgin/constants.dart';
 
-class DashboardCardFrame extends StatelessWidget {
-  final Size size;
-  final Widget body;
+class TranslatorCategoryCardFrame extends StatelessWidget {
+  final IconData icon;
   final String title;
   final Alignment? titleAlignment;
   final Function()? onPressed;
-  DashboardCardFrame(this.size, this.body, this.title,
+  TranslatorCategoryCardFrame(this.icon, this.title,
       {this.titleAlignment, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
+    final Size size = new Size(150, 150);
+
     return Container(
       height: size.height,
       width: size.width,
+      margin: EdgeInsets.all(6),
       padding: EdgeInsets.only(right: 5),
       child: Card(
           child: InkWell(
@@ -27,7 +30,11 @@ class DashboardCardFrame extends StatelessWidget {
               Container(
                   alignment: Alignment.center,
                   height: size.height * 0.6,
-                  child: body),
+                  child: Icon(
+                    icon,
+                    color: Palette.PaleGreen,
+                    size: 70,
+                  )),
               Container(
                   alignment: titleAlignment ?? Alignment.center,
                   height: size.height * 0.125,

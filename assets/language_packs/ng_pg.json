@@ -1,0 +1,17 @@
+{
+    "welcomeIntro": "Learn our pidgin english and slangs\nfrom people wey sabi",
+    "welcomeBtnText": "Oya na..",
+    "dashboardSearchPlaceholder": "wetin you dey find?",
+    "dailyTips": "Daily Aproko",
+    "dailyTipsLoading": "Daily aproko dey load..",
+    "dailyTipsFetchFailed": "Tips no fit load now. Make sure you dey connected to internet so that you fit dey receive fresh tips daily!",
+    "dashboardSyncDesc": "We don add {0} new words",    
+    "translatorCategoryDesc": "Find translations to confirm pidgin wen dem dey speak all over Naija, come blend with slangs and humor",
+    "favoriteAdded": "Word don join favorites",
+    "favoriteRemoved": "Word don comot from favorites",
+    "dataUpdateFooterDesc": "Abeg wait for the update to complete",
+    "dataUpdateDownloading": "Data update dey download..",
+    "dataUpdateUpdating": "Database dey update..",
+    "dataUpdateCompleted": "Update don finish!",
+    "dataUpdateFailed": "Update don fail!"
+}

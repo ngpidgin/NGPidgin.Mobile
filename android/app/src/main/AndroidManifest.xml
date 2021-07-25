@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ngpidgin">
    <application
-        android:label="ngpidgin"
-        android:icon="@mipmap/ic_launcher">
+        android:label="9ja Pidgin"
+        android:icon="@drawable/app_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

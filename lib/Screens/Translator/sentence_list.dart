@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
+import 'package:ngpidgin/Screens/Translator/sentence_detail_dialog.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
-class WordList extends StatelessWidget {
-  final List<WordModel> data;
-  const WordList(this.data);
+class SentenceList extends StatelessWidget {
+  final List<SentenceModel> data;
+  const SentenceList(this.data);
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +19,13 @@ class WordList extends StatelessWidget {
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                      child: Text(data[index].word)),
+                      child: Text(data[index].sentence)),
                   onTap: () {
                     showDialog(
                         context: context,
                         barrierColor: Color(0x99000000),
                         builder: (BuildContext context) {
-                          return WordDetailDialog(
-                            data[index],
-                            index,
-                            isFavorite:
-                                data[index].isFavorite == 1 ? true : false,
-                          );
+                          return SentenceDetailDialog(data[index], index);
                         });
                   });
             },

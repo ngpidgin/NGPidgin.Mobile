@@ -2,8 +2,9 @@ import 'package:ngpidgin/constants.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class Button extends StatelessWidget {
+class ButtonIconRight extends StatelessWidget {
   final String text;
+  final Widget? icon;
   final double width;
   final Color bgColor;
   final Color textColor;
@@ -18,8 +19,9 @@ class Button extends StatelessWidget {
   TextStyle? textStyle;
   final Function() onClick;
 
-  Button(this.text, this.onClick,
+  ButtonIconRight(this.text, this.onClick,
       {Key? key,
+      this.icon,
       this.width = 150,
       this.bgColor = Palette.PrimaryColor,
       this.textColor = Colors.white,
@@ -52,7 +54,12 @@ class Button extends StatelessWidget {
                             horizontal: paddingHorizontal)),
                     backgroundColor: MaterialStateProperty.all<Color>(bgColor)),
                 onPressed: onClick,
-                child: Text(text,
-                    style: textStyle ?? TextStyle(color: textColor)))));
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(text, style: textStyle ?? TextStyle(color: textColor)),
+                    icon ?? SizedBox()
+                  ],
+                ))));
   }
 }

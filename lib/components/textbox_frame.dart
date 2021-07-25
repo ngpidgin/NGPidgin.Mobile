@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class TextBoxField extends StatelessWidget {
-  final TextInputType type;
-  final String placeholder;
+class TextBoxFrame extends StatelessWidget {
+  final Widget content;
   final double width;
   final Color bgColor;
   final Color textColor;
@@ -17,15 +16,12 @@ class TextBoxField extends StatelessWidget {
   final double marginTop;
   final double marginRight;
   final double marginBottom;
-  final bool isPassword;
   ValueChanged<String>? onChange;
 
-  TextBoxField(
+  TextBoxFrame(this.content,
       {Widget? icon,
       Widget? suffixIcon,
-      this.type = TextInputType.text,
-      this.placeholder = "",
-      this.width = 300,
+      this.width = double.infinity,
       this.bgColor = Colors.white,
       this.textColor = Colors.black,
       this.rounded = false,
@@ -35,9 +31,7 @@ class TextBoxField extends StatelessWidget {
       this.marginLeft = 5,
       this.marginTop = 5,
       this.marginRight = 5,
-      this.marginBottom = 5,
-      this.isPassword = false,
-      this.onChange}) {
+      this.marginBottom = 5}) {
     this.icon = icon;
     this.suffixIcon = suffixIcon;
   }
@@ -53,15 +47,6 @@ class TextBoxField extends StatelessWidget {
         decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(rounded ? borderRadius : 6)),
-        child: TextField(
-            obscureText: isPassword,
-            obscuringCharacter: "•",
-            onChanged: onChange,
-            decoration: InputDecoration(
-                hintText: placeholder,
-                hintStyle: TextStyle(color: Colors.grey),
-                border: InputBorder.none,
-                icon: icon,
-                suffixIcon: suffixIcon)));
+        child: content);
   }
 }
