@@ -12,7 +12,6 @@ class WordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return data.length > 0
         ? ListView.separated(
-            //physics: const AlwaysScrollableScrollPhysics(),
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(

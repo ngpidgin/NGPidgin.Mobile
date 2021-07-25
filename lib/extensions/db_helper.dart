@@ -53,7 +53,7 @@ class DatabaseHelper {
       return WordModel.create(
           word: wMap[i]['Word'],
           meaning: wMap[i]['Meaning'],
-          example: wMap[i]['Example'] ?? "N/A",
+          example: wMap[i]['Example'],
           similar: wMap[i]['Similar'] ?? "...",
           pronunciation: wMap[i]['Pronunciation'] ?? "...",
           datestamp: wMap[i]['Datestamp'] ?? "today",

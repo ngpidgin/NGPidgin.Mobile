@@ -26,7 +26,7 @@ class DataUpdateDialog extends StatefulWidget {
 
 class _DataUpdateDialogState extends State<DataUpdateDialog> {
   updateProgress progress = updateProgress.downloading;
-  String progressTitle = "Downloading data updates..";
+  String progressTitle = Globals.languageKit.dataUpdateDownloading;
 
   @override
   void initState() {
@@ -36,24 +36,25 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
       if (content != null) {
         setState(() {
           progress = updateProgress.updating;
-          progressTitle = "Updating database..";
+          progressTitle = Globals.languageKit.dataUpdateUpdating;
         });
 
         update(content).then((value) {
           if (value) {
-            setState(() {
-              progress = updateProgress.completed;
-              progressTitle = "Update completed!";
-            });
-
             SharedPreferencesUtil.setInt(SettingKeys.databaseUpdateVersion,
                 Globals.dataUpdate!.updateVersion);
+            DatabaseHelper.loadDatasets();
+
+            setState(() {
+              progress = updateProgress.completed;
+              progressTitle = Globals.languageKit.dataUpdateCompleted;
+            });
           }
         });
       } else {
         setState(() {
           progress = updateProgress.failed;
-          progressTitle = "Update failed";
+          progressTitle = Globals.languageKit.dataUpdateFailed;
         });
       }
     });
@@ -164,7 +165,7 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
                 Navigator.of(context).pop(true);
               }, bgColor: Palette.Lavendar, textColor: Colors.grey, width: 80)
             else
-              Text("Please wait for update to complete",
+              Text(Globals.languageKit.dataUpdateFooterDesc,
                   style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic))
           ],
         ));

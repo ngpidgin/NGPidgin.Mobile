@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/extensions/palette_helper.dart';
 import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
 import 'package:ngpidgin/Screens/Translator/translator_category_screen.dart';
@@ -69,10 +68,8 @@ class AppNavigatorState extends State<AppNavigator> {
                 )),
             BottomNavigationBarItem(
                 label: "Favorites",
-                icon: Icon(
-                  Icons.favorite_border_outlined,
-                  color: fromHex("#FF5050"),
-                ))
+                icon: Icon(Icons.favorite_border_outlined,
+                    color: Color(0xFFFF5050)))
           ],
         ));
   }

@@ -32,7 +32,6 @@ class _MyAppState extends State<MyApp> {
 
   Future initApp() async {
     await loadDataset();
-    //await Future.delayed(Duration(seconds: 10));
 
     // get language choice
     final _lang =

@@ -3,7 +3,7 @@ import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';
-import 'dart:convert' as convert;
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:share/share.dart';
@@ -51,7 +51,7 @@ class _DailyTipSectionState extends State<DailyTipSection> {
       http.Response response =
           await http.get(Uri.parse(ServiceEndpoints.DailyTip));
       if (response.statusCode == 200) {
-        var decodedData = convert.jsonDecode(response.body)["data"];
+        var decodedData = jsonDecode(response.body)["data"];
         Globals.dailyTip =
             TipModel(decodedData["title"], decodedData["content"]);
         SharedPreferencesUtil.setString(
@@ -99,7 +99,7 @@ class _DailyTipSectionState extends State<DailyTipSection> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Globals.languageKit.dashboardDailyTips,
+            Globals.languageKit.dailyTips,
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.left,
           ),
@@ -112,10 +112,22 @@ class _DailyTipSectionState extends State<DailyTipSection> {
                     return Container(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         width: double.infinity,
-                        child: Text("Loading daily tip..",
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.grey)));
+                        child: Row(
+                          children: [
+                            SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Palette.PrimaryAltColor,
+                                )),
+                            SizedBox(width: 15),
+                            Text(Globals.languageKit.dailyTipsLoading,
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey))
+                          ],
+                        ));
                   } else {
                     if (snapshot.hasData) {
                       return DailyTipMainSection(
@@ -125,10 +137,10 @@ class _DailyTipSectionState extends State<DailyTipSection> {
                     return Container(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         width: double.infinity,
-                        child: Text("Unable to get daily tip..",
+                        child: Text(Globals.languageKit.dailyTipsFetchFailed,
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Colors.red)));
+                                color: Color(0xFF1800306))));
                   }
                 })
           ])
@@ -153,10 +165,7 @@ class DailyTipMainSection extends StatelessWidget {
                       fontWeight: FontWeight.w600, color: Palette.PaleGreen)),
               SelectableText(model.content, style: TextStyle(fontSize: 14)),
             ])
-          : Text(
-              "No saved tip found. Make sure you are connected to the internet to get fresh tips daily!",
-              style:
-                  TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
+          : Container(),
       SizedBox(height: 10),
       Row(
         children: [

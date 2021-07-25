@@ -12,21 +12,34 @@ class LanguageKit {
   String welcomeIntro = "";
   String welcomeBtnText = "";
   String dashboardSearchPlaceholder = "";
-  String dashboardDailyTips = "";
+  String dailyTips = "";
+  String dailyTipsLoading = "";
+  String dailyTipsFetchFailed = "";
   String dashboardSyncDesc = "";
   String translatorCategoryDesc = "";
   String favoriteAdded = "";
   String favoriteRemoved = "";
+  String dataUpdateFooterDesc = "";
+  String dataUpdateDownloading = "";
+  String dataUpdateUpdating = "";
+  String dataUpdateCompleted = "";
+  String dataUpdateFailed = "";
 
   LanguageKit.fromJson(Map<String, dynamic> json)
       : welcomeIntro = json['welcomeIntro'],
         welcomeBtnText = json['welcomeBtnText'],
         dashboardSearchPlaceholder = json['dashboardSearchPlaceholder'],
-        dashboardDailyTips = json['dashboardDailyTips'],
+        dailyTips = json['dailyTips'],
+        dailyTipsLoading = json['dailyTipsLoading'],
+        dailyTipsFetchFailed = json['dailyTipsFetchFailed'],
         dashboardSyncDesc = json['dashboardSyncDesc'],
         favoriteAdded = json['favoriteAdded'],
         favoriteRemoved = json['favoriteRemoved'],
-        translatorCategoryDesc = json['translatorCategoryDesc'];
+        translatorCategoryDesc = json['translatorCategoryDesc'],
+        dataUpdateDownloading = json['dataUpdateDownloading'],
+        dataUpdateUpdating = json['dataUpdateUpdating'],
+        dataUpdateCompleted = json['dataUpdateCompleted'],
+        dataUpdateFailed = json['dataUpdateFailed'];
 
   static Future<LanguageKit> initialize(Language lang) async {
     final content = await loadAsset(

@@ -54,7 +54,7 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
         int words = decodedData["words"] ?? 0;
         int sentences = decodedData["sentences"] ?? 0;
         int stickers = decodedData["stickers"] ?? 0;
-        int version = 11; //decodedData["updateVersion"];
+        int version = decodedData["updateVersion"] ?? 1;
         int count = words + sentences + stickers;
 
         if (version > Globals.dataUpdateVersion! && count > 0) {
@@ -131,7 +131,7 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                 titleAlignment: Alignment.centerLeft,
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      Interactions.snacky("We still dey cook this feature.. "));
+                      Interactions.snacky("We still dey cook this feature.."));
                 },
               ),
               DashboardCardFrame(

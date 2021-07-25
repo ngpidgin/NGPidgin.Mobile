@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
 class ContentSection extends StatelessWidget {
@@ -44,6 +45,8 @@ class ContentSection extends StatelessWidget {
                                   onTap: () {
                                     Clipboard.setData(
                                         ClipboardData(text: model.word));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        Interactions.snacky("Copied"));
                                   })))
                     ]),
                 SizedBox(height: 5),
