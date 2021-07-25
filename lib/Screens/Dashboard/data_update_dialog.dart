@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:sqflite/sqflite.dart';
 
-enum updateProgress { downloading, updating, completed }
+enum updateProgress { downloading, updating, completed, failed }
 
 class UpdateMap {
   final List<WordModel> words;
@@ -50,32 +50,44 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
                 Globals.dataUpdate!.updateVersion);
           }
         });
+      } else {
+        setState(() {
+          progress = updateProgress.failed;
+          progressTitle = "Update failed";
+        });
       }
     });
   }
 
   Future<UpdateMap?> download() async {
+    bool hasError = false;
     late List<WordModel> words = [];
     late List<SentenceModel> sentences = [];
 
-    http.Response response =
-        await http.get(Uri.parse(Globals.dataUpdate!.downloadUrl));
-    if (response.statusCode == 200) {
-      var wordStr = jsonDecode(response.body)["words"];
-      if (wordStr != null) {
-        var wMap = wordStr.cast<Map<String, dynamic>>();
-        words =
-            wMap.map<WordModel>((json) => WordModel.fromJson(json)).toList();
-      }
+    try {
+      http.Response response =
+          await http.get(Uri.parse(Globals.dataUpdate!.downloadUrl));
+      if (response.statusCode == 200) {
+        var wordStr = jsonDecode(response.body)["words"];
+        if (wordStr != null) {
+          var wMap = wordStr.cast<Map<String, dynamic>>();
+          words =
+              wMap.map<WordModel>((json) => WordModel.fromJson(json)).toList();
+        }
 
-      var sentenceStr = jsonDecode(response.body)["sentences"];
-      if (sentenceStr != null) {
-        var sMap = sentenceStr.cast<Map<String, dynamic>>();
-        sentences = sMap
-            .map<SentenceModel>((json) => SentenceModel.fromJson(json))
-            .toList();
+        var sentenceStr = jsonDecode(response.body)["sentences"];
+        if (sentenceStr != null) {
+          var sMap = sentenceStr.cast<Map<String, dynamic>>();
+          sentences = sMap
+              .map<SentenceModel>((json) => SentenceModel.fromJson(json))
+              .toList();
+        }
       }
+    } catch (ex) {
+      hasError = true;
     }
+
+    if (hasError) return null;
 
     if (words.length > 0 || sentences.length > 0)
       return UpdateMap(words, sentences);
@@ -118,6 +130,8 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
             if (progress == updateProgress.downloading ||
                 progress == updateProgress.updating)
               CircularProgressIndicator(color: Palette.PrimaryColor)
+            else if (progress == updateProgress.failed)
+              Icon(Icons.remove_circle_rounded, color: Colors.red, size: 60)
             else
               Icon(Icons.check_circle_rounded,
                   color: Palette.PrimaryColor, size: 60),
@@ -144,7 +158,8 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
                       ])
                 ])),
             SizedBox(height: 50),
-            if (progress == updateProgress.completed)
+            if (progress == updateProgress.completed ||
+                progress == updateProgress.failed)
               ButtonPill("Close", () {
                 Navigator.of(context).pop(true);
               }, bgColor: Palette.Lavendar, textColor: Colors.grey, width: 80)

@@ -54,7 +54,7 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
         int words = decodedData["words"] ?? 0;
         int sentences = decodedData["sentences"] ?? 0;
         int stickers = decodedData["stickers"] ?? 0;
-        int version = decodedData["updateVersion"] ?? 8;
+        int version = 11; //decodedData["updateVersion"];
         int count = words + sentences + stickers;
 
         if (version > Globals.dataUpdateVersion! && count > 0) {
