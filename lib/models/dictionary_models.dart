@@ -34,6 +34,15 @@ class WordModel {
       this.datestamp = "",
       this.isFavorite = 1});
 
+  factory WordModel.fromJson(Map<String, dynamic> json) => WordModel(
+      json['word'],
+      json['meaning'],
+      json['example'],
+      json['similar'],
+      json['pronunciation'],
+      json['datestamp'],
+      0);
+
   Map<String, dynamic> toMap() {
     return {
       'word': word,
@@ -87,6 +96,13 @@ class SentenceModel {
       this.translations = "",
       this.datestamp = "",
       this.isFavorite = 0});
+
+  factory SentenceModel.fromJson(Map<String, dynamic> json) => SentenceModel(
+      json['category'],
+      json['sentence'],
+      json['translations'],
+      json['datestamp'],
+      0);
 
   Map<String, dynamic> toMap() {
     return {
@@ -157,11 +173,13 @@ class DataUpdateModel {
   bool hasUpdate;
   int words;
   int sentences;
+  int stickers;
   int count;
+  int updateVersion;
   String downloadUrl;
 
-  DataUpdateModel(
-      this.hasUpdate, this.words, this.sentences, this.count, this.downloadUrl);
+  DataUpdateModel(this.hasUpdate, this.words, this.sentences, this.stickers,
+      this.count, this.updateVersion, this.downloadUrl);
 }
 
 String nullCleanup(String data) => data.isEmpty ? "N/A" : data;

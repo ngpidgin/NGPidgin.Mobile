@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
@@ -54,10 +53,10 @@ class DatabaseHelper {
       return WordModel.create(
           word: wMap[i]['Word'],
           meaning: wMap[i]['Meaning'],
-          example: wMap[i]['Example'],
+          example: wMap[i]['Example'] ?? "N/A",
           similar: wMap[i]['Similar'] ?? "...",
           pronunciation: wMap[i]['Pronunciation'] ?? "...",
-          datestamp: wMap[i]['Datestamp'],
+          datestamp: wMap[i]['Datestamp'] ?? "today",
           isFavorite: wMap[i]['IsFavorite'] ?? 0);
     });
     wMap = [];

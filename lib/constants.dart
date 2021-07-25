@@ -30,9 +30,10 @@ class SettingKeys {
   static const LanguagePreference = "lang_pref";
   static const dailyTipTitle = "daily_tip_title";
   static const dailyTipContent = "daily_tip_content";
+  static const databaseUpdateVersion = "database_version";
 }
 
 class ServiceEndpoints {
   static const DailyTip = "https://jsonkeeper.com/b/2CFJ";
-  static const UpdateCheck = "https://jsonkeeper.com/b/MABQ";
+  static const UpdateCheck = "https://jsonkeeper.com/b/YQGH";
 }

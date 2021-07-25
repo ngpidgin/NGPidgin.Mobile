@@ -16,6 +16,7 @@ class QuickLinkSection extends StatefulWidget {
 }
 
 class _QuickLinkSectionState extends State<QuickLinkSection> {
+  bool dataUpdateAvailable = false;
   int dataUpdateCount = 0;
   final Size cardSize = new Size(110, 130);
 
@@ -27,11 +28,17 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
       updateCheck().then((value) {
         setState(() {
           if (value != null) {
+            dataUpdateAvailable =
+                value.updateVersion > Globals.dataUpdateVersion! &&
+                    value.count > 0;
             dataUpdateCount = value.count;
           }
         });
       });
     } else {
+      dataUpdateAvailable =
+          Globals.dataUpdate!.updateVersion > Globals.dataUpdateVersion! &&
+              Globals.dataUpdate!.count > 0;
       dataUpdateCount = Globals.dataUpdate!.count;
     }
   }
@@ -44,12 +51,15 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
           await http.get(Uri.parse(ServiceEndpoints.UpdateCheck));
       if (response.statusCode == 200) {
         var decodedData = convert.jsonDecode(response.body)["data"];
-        int w = decodedData["words"];
-        int s = decodedData["sentences"];
-        int count = w + s;
-        if (count > 0) {
-          Globals.dataUpdate =
-              DataUpdateModel(true, w, s, count, decodedData["downloadUrl"]);
+        int words = decodedData["words"] ?? 0;
+        int sentences = decodedData["sentences"] ?? 0;
+        int stickers = decodedData["stickers"] ?? 0;
+        int version = decodedData["updateVersion"] ?? 8;
+        int count = words + sentences + stickers;
+
+        if (version > Globals.dataUpdateVersion! && count > 0) {
+          Globals.dataUpdate = DataUpdateModel(true, words, sentences, stickers,
+              count, version, decodedData["downloadUrl"]);
         }
       }
     } catch (e) {
@@ -72,7 +82,7 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
             height: cardSize.height + 10,
             alignment: Alignment.center,
             child: ListView(scrollDirection: Axis.horizontal, children: [
-              dataUpdateCount > 0
+              dataUpdateAvailable
                   ? DashboardCardFrame(
                       cardSize,
                       Column(
@@ -98,7 +108,11 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                           barrierDismissible: false,
                           builder: (BuildContext context) {
                             return DataUpdateDialog();
-                          });
+                          }).then((value) {
+                        setState(() {
+                          dataUpdateAvailable = !value;
+                        });
+                      });
                     })
                   : Container(),
               DashboardCardFrame(

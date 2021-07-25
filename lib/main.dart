@@ -48,6 +48,11 @@ class _MyAppState extends State<MyApp> {
     Globals.languageKit =
         await LanguageKit.initialize(Globals.languagePreference);
 
+    // other settings
+    Globals.dataUpdateVersion =
+        await SharedPreferencesUtil.getInt(SettingKeys.databaseUpdateVersion) ??
+            1;
+
     if (Globals.languagePreference == Language.none)
       return LanguageScreen();
     else

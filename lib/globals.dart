@@ -10,5 +10,5 @@ class Globals {
   static List<SentenceModel> sentenceDataset = <SentenceModel>[];
   static TipModel? dailyTip;
   static DataUpdateModel? dataUpdate;
-  static bool tipFetchComplete = false;
+  static int? dataUpdateVersion;
 }
