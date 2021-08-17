@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/Dashboard/card_frame.dart';
 import 'package:ngpidgin/Screens/Dashboard/data_update_dialog.dart';
+import 'package:ngpidgin/Screens/Dashboard/suggestion_dialog.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/globals.dart';
@@ -135,10 +136,19 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                 },
               ),
               DashboardCardFrame(
-                  cardSize,
-                  Icon(Icons.add,
-                      size: cardSize.width * 0.6, color: Palette.PaleGreen),
-                  "Suggest"),
+                cardSize,
+                Icon(Icons.add,
+                    size: cardSize.width * 0.6, color: Palette.PaleGreen),
+                "Suggest",
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      barrierColor: Color(0x99000000),
+                      builder: (BuildContext context) {
+                        return SuggestionDialog();
+                      });
+                },
+              ),
               DashboardCardFrame(
                   cardSize,
                   Icon(Icons.money,

@@ -60,6 +60,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
+
     return FutureBuilder(
         future: initApp(),
         builder: (context, snapshot) {
@@ -72,6 +74,8 @@ class _MyAppState extends State<MyApp> {
                 theme: ThemeData(
                     backgroundColor: Colors.white,
                     // primarySwatch: Colors.yellow,
+                    colorScheme: theme.colorScheme
+                        .copyWith(primary: Palette.PrimaryLightColor),
                     accentColor: Palette.PrimaryAltColor,
                     canvasColor: Palette.Lavendar,
                     appBarTheme: AppBarTheme(color: Colors.transparent),
