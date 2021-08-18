@@ -141,12 +141,17 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                     size: cardSize.width * 0.6, color: Palette.PaleGreen),
                 "Suggest",
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      barrierColor: Color(0x99000000),
-                      builder: (BuildContext context) {
-                        return SuggestionDialog();
-                      });
+                  // showDialog(
+                  //     context: context,
+                  //     barrierColor: Color(0x99000000),
+                  //     builder: (BuildContext context) {
+                  //       return MyApp();
+                  //     });
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SuggestionScreen()));
                 },
               ),
               DashboardCardFrame(

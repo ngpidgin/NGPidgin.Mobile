@@ -3,153 +3,123 @@ import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/components/form_input.dart';
 import 'package:ngpidgin/constants.dart';
-import 'package:ngpidgin/globals.dart';
 
 // ignore: must_be_immutable
-class SuggestionDialog extends StatefulWidget {
-  @override
-  _SuggestionDialogState createState() => _SuggestionDialogState();
-}
-
-class _SuggestionDialogState extends State<SuggestionDialog> {
-  final _formKey = GlobalKey<FormState>();
-
-  bool isSent = false;
-
-  void sendData(bool state) {
-    setState(() {
-      isSent = state;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle titleStyle =
-        TextStyle(fontWeight: FontWeight.w500, color: Palette.PaleGreen);
-
-    return Container(
-        margin: EdgeInsets.all(15),
-        child: isSent
-            ? SuggestionResult()
-            : SuggestionEntry(
-                formKey: _formKey,
-                titleStyle: titleStyle,
-                action: sendData(true)));
-  }
-}
-
-class SuggestionEntry extends StatelessWidget {
-  const SuggestionEntry(
-      {Key? key,
-      required GlobalKey<FormState> formKey,
-      required this.titleStyle,
-      required this.action})
-      : _formKey = formKey,
-        super(key: key);
-
-  final GlobalKey<FormState> _formKey;
-  final TextStyle titleStyle;
-  final void action;
-
+class SuggestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.fromLTRB(25, 25, 17, 15),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Make a Suggestion",
-                                      style: TextStyle(fontSize: 18)),
-                                  Text(
-                                      "Your suggestion will be reviewed and may be added on the next data update.",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Palette.PaleGreen)),
-                                  SizedBox(height: 20),
-                                  Text("Word / Sentence", style: titleStyle),
-                                  SizedBox(height: 5),
-                                  FormInput("Enter a word in pidgin or english",
-                                      requiredValidationMessage:
-                                          "Please enter a word"),
-                                  SizedBox(height: 15),
-                                  Text("Meaning / Translation",
-                                      style: titleStyle),
-                                  SizedBox(height: 5),
-                                  FormInput(
-                                      "Meaning or translation of the word",
-                                      requiredValidationMessage:
-                                          "Please enter meaning",
-                                      lines: 3),
-                                  SizedBox(height: 15),
-                                  Text("Extra Information", style: titleStyle),
-                                  SizedBox(height: 5),
-                                  FormInput(
-                                    "Related words, pronunciation etc..",
-                                    lines: 3,
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Palette.PrimaryColor,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10))),
-                  child: Button(
-                    'Send Suggestion',
-                    () {
-                      if (_formKey.currentState!.validate()) {
-                        action;
-                      }
-                    },
-                    bgColor: Palette.PrimaryLightColor,
-                    textColor: Palette.PrimaryColor,
-                    width: 170,
-                    paddingHorizontal: 0,
-                    paddingVertical: 5,
-                    textStyle: TextStyle(
-                        fontSize: 15, color: Palette.PrimaryDarkColor),
-                  ))
-            ],
-          ),
-        ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Palette.PrimaryColor,
+        title: const Text("Make a Suggestion"),
       ),
+      body: const SuggestionForm(),
     );
+  }
+}
+
+class SuggestionForm extends StatefulWidget {
+  const SuggestionForm({Key? key}) : super(key: key);
+  @override
+  _SuggestionFormState createState() => _SuggestionFormState();
+}
+
+class _SuggestionFormState extends State<SuggestionForm> {
+  final TextStyle titleStyle = TextStyle(color: Palette.PaleGreen);
+  final _formKey = GlobalKey<FormState>();
+
+  var isSent = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return !isSent
+        ? SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  "Your suggestion will be reviewed and may be added on the next data update.",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Palette.PaleGreen)),
+                              SizedBox(height: 20),
+                              FormInput(
+                                  placeholder:
+                                      "Enter a word in pidgin or english",
+                                  label: "Word / Sentence",
+                                  requiredValidationMessage:
+                                      "Please enter a word"),
+                              FormInput(
+                                  placeholder:
+                                      "Meaning or translation of the word",
+                                  label: "Meaning / Translation",
+                                  requiredValidationMessage:
+                                      "Please enter meaning",
+                                  lines: 2),
+                              FormInput(
+                                  placeholder:
+                                      "Related words, pronunciation etc..",
+                                  label: "Extra Information",
+                                  lines: 2,
+                                  required: false),
+                              SizedBox(height: 5)
+                            ],
+                          ),
+                        ),
+                        Divider(height: 1),
+                        Container(
+                            padding: EdgeInsets.fromLTRB(25, 25, 25, 10),
+                            decoration: BoxDecoration(color: Palette.Lavendar),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Tell us a little about you!"),
+                                FormInput(
+                                    placeholder: "What's your name?",
+                                    requiredValidationMessage:
+                                        "Please enter your name"),
+                                FormInput(
+                                    placeholder: "Your location (optional)",
+                                    required: false),
+                                Center(
+                                  child: Button('Send Suggestion', () {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        isSent = true;
+                                      });
+                                    }
+                                  },
+                                      width: double.infinity,
+                                      paddingHorizontal: 0,
+                                      paddingVertical: 10,
+                                      textStyle: TextStyle(
+                                          fontSize: 15,
+                                          color:
+                                              Palette.PrimaryLightBrightColor)),
+                                )
+                              ],
+                            )),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        : SuggestionResult();
   }
 }
 
@@ -171,18 +141,15 @@ class SuggestionResult extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (1 == 2)
-                Icon(Icons.remove_circle_rounded, color: Colors.red, size: 60)
-              else
-                Icon(Icons.check_circle_rounded,
-                    color: Palette.PrimaryColor, size: 60),
+              Icon(Icons.check_circle_rounded,
+                  color: Palette.PrimaryColor, size: 60),
               SizedBox(height: 15),
               Text("Thank You!", style: TextStyle(fontSize: 18)),
               Text(
                 "Your suggestion has been sent for review.",
                 style: TextStyle(fontSize: 12, color: Palette.PaleGreen),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 60),
               ButtonPill("Close", () {
                 Navigator.of(context).pop(true);
               }, bgColor: Palette.Lavendar, textColor: Colors.grey, width: 80)
