@@ -4,7 +4,6 @@ import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/components/form_input.dart';
 import 'package:ngpidgin/constants.dart';
 
-// ignore: must_be_immutable
 class SuggestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

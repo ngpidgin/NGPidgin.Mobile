@@ -40,6 +40,9 @@ class FormInput extends StatelessWidget {
                     isDense: true,
                     contentPadding: padding ?? EdgeInsets.all(12),
                     border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                    ),
                     filled: true,
                     fillColor: bgColor,
                     hintStyle:
