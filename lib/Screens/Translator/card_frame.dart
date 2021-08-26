@@ -24,26 +24,21 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  alignment: Alignment.center,
-                  height: size.height * 0.6,
-                  child: Icon(
-                    icon,
-                    color: Palette.PaleGreen,
-                    size: 70,
-                  )),
-              Container(
-                  alignment: titleAlignment ?? Alignment.center,
-                  height: size.height * 0.125,
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-                  )),
-            ],
-          ),
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    alignment: Alignment.center,
+                    height: size.height * 0.6,
+                    child: Icon(icon,
+                        size: 70,
+                        color: Theme.of(context).textTheme.headline5!.color)),
+                Container(
+                    alignment: titleAlignment ?? Alignment.center,
+                    height: size.height * 0.125,
+                    child: Text(title,
+                        style: Theme.of(context).textTheme.headline5!)),
+              ]),
         ),
       )),
     );

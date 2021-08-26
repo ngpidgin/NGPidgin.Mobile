@@ -4,6 +4,7 @@ import 'package:ngpidgin/Screens/Components/action_section.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
+import 'package:ngpidgin/theme_extension.dart';
 
 // ignore: must_be_immutable
 class SentenceDetailDialog extends StatefulWidget {
@@ -52,7 +53,7 @@ class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).dialogColor1,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10))),
@@ -68,7 +69,7 @@ class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
             ),
             Container(
                 decoration: BoxDecoration(
-                    color: Palette.PrimaryColor,
+                    color: Theme.of(context).primaryColorDark,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),

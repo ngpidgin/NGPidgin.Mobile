@@ -8,12 +8,12 @@ import 'package:http/http.dart' as http;
 import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:share/share.dart';
 
-class DailyTipSection extends StatefulWidget {
+class DailyTipSectionOld extends StatefulWidget {
   @override
   _DailyTipSectionState createState() => _DailyTipSectionState();
 }
 
-class _DailyTipSectionState extends State<DailyTipSection> {
+class _DailyTipSectionState extends State<DailyTipSectionOld> {
   Future<TipModel?> _future = Future<TipModel?>.value(Globals.dailyTip);
 
   @override
@@ -81,63 +81,70 @@ class _DailyTipSectionState extends State<DailyTipSection> {
     final Size size = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
-      child: Card(
-        child: Container(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Globals.languageKit.dailyTips,
-                style: Theme.of(context).textTheme.headline4,
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(height: 5),
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                FutureBuilder(
-                    future: _future,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                    width: 15,
-                                    height: 15,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: Palette.PrimaryAltColor,
-                                    )),
-                                SizedBox(width: 15),
-                                Text(Globals.languageKit.dailyTipsLoading,
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.grey))
-                              ],
-                            ));
-                      } else {
-                        if (snapshot.hasData) {
-                          return DailyTipMainSection(
-                              snapshot.data as TipModel, refreshData);
-                        }
-
-                        return Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            width: double.infinity,
-                            child: Text(
-                                Globals.languageKit.dailyTipsFetchFailed,
+      alignment: Alignment.center,
+      width: size.width,
+      padding: EdgeInsets.fromLTRB(25, 20, 25, 15),
+      decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25)),
+          boxShadow: [
+            BoxShadow(
+                color: Color(0x408F8F8F),
+                blurRadius: 3,
+                offset: Offset.fromDirection(1, 3))
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            Globals.languageKit.dailyTips,
+            style: Theme.of(context).textTheme.headline4,
+            textAlign: TextAlign.left,
+          ),
+          SizedBox(height: 5),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        width: double.infinity,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Palette.PrimaryAltColor,
+                                )),
+                            SizedBox(width: 15),
+                            Text(Globals.languageKit.dailyTipsLoading,
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color(0xFF1800306))));
-                      }
-                    })
-              ])
-            ],
-          ),
-        ),
+                                    color: Colors.grey))
+                          ],
+                        ));
+                  } else {
+                    if (snapshot.hasData) {
+                      return DailyTipMainSection(
+                          snapshot.data as TipModel, refreshData);
+                    }
+
+                    return Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        width: double.infinity,
+                        child: Text(Globals.languageKit.dailyTipsFetchFailed,
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Color(0xFF1800306))));
+                  }
+                })
+          ])
+        ],
       ),
     );
   }

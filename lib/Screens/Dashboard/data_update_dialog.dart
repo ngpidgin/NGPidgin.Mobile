@@ -181,7 +181,7 @@ class UpdateItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(title, style: TextStyle(color: Palette.PaleGreen)),
+        Text(title, style: TextStyle(color: Palette.Pale)),
         Text(count.toString(),
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
       ],

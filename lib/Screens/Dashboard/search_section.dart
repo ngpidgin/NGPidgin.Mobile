@@ -16,13 +16,15 @@ class SearchSection extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(25, 0, 25, 50),
       width: size.width,
       height: size.height * 0.35,
-      decoration: BoxDecoration(
-          color: Palette.PrimaryColor,
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment(1.5, 5.5),
-              colors: <Color>[Palette.PrimaryColor, Colors.black],
-              tileMode: TileMode.repeated)),
+      decoration: Theme.of(context).brightness == Brightness.light
+          ? BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(1.5, 5.5),
+                  colors: <Color>[Theme.of(context).primaryColor, Colors.black],
+                  tileMode: TileMode.repeated))
+          : BoxDecoration(),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,15 +35,11 @@ class SearchSection extends StatelessWidget {
                     children: [
                   TextSpan(
                       text: " Search ",
-                      style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white)),
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.w400)),
                   TextSpan(
                       text: "for words and sentences",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.LightGray))
+                      style: TextStyle(fontWeight: FontWeight.w300))
                 ])),
             SizedBox(height: 10),
             TextBoxFrame(Autocomplete<WordModel>(

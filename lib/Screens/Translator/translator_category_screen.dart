@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/card_frame.dart';
 import 'package:ngpidgin/Screens/Translator/translator_screen.dart';
-import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
@@ -17,7 +16,7 @@ class TranslatorCategoryScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Palette.PrimaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +37,7 @@ class TranslatorCategoryScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Palette.Lavendar,
+                    color: Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
                         topRight: Radius.circular(25))),

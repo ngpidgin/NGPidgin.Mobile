@@ -30,7 +30,7 @@ class FormInput extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             label != null
-                ? Text(label!, style: TextStyle(color: Palette.PaleGreen))
+                ? Text(label!, style: TextStyle(color: Palette.Pale))
                 : SizedBox(height: 0),
             SizedBox(height: label != null ? 5 : 0),
             TextFormField(

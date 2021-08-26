@@ -22,7 +22,7 @@ class DashboardScreen extends StatelessWidget {
                   DailyTipSection(),
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                     child: QuickLinkSection(),
                   ),
                 ],

@@ -15,7 +15,6 @@ class SentenceList extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
-                  highlightColor: Colors.white,
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -51,10 +50,10 @@ class SentenceList extends StatelessWidget {
                   SizedBox(height: 20),
                   Text(
                     "But you fit suggest am sha!",
-                    style: TextStyle(color: Palette.PaleGreen),
+                    style: TextStyle(color: Palette.Pale),
                   ),
                   ButtonPill("Suggest", () {},
-                      bgColor: Palette.PaleGreen,
+                      bgColor: Palette.Pale,
                       textStyle: TextStyle(color: Colors.white))
                 ],
               ),

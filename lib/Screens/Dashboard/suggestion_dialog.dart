@@ -25,7 +25,7 @@ class SuggestionForm extends StatefulWidget {
 }
 
 class _SuggestionFormState extends State<SuggestionForm> {
-  final TextStyle titleStyle = TextStyle(color: Palette.PaleGreen);
+  final TextStyle titleStyle = TextStyle(color: Palette.Pale);
   final _formKey = GlobalKey<FormState>();
 
   var isSent = false;
@@ -52,7 +52,7 @@ class _SuggestionFormState extends State<SuggestionForm> {
                               Text(
                                   "Your suggestion will be reviewed and may be added on the next data update.",
                                   style: TextStyle(
-                                      fontSize: 12, color: Palette.PaleGreen)),
+                                      fontSize: 12, color: Palette.Pale)),
                               SizedBox(height: 20),
                               FormInput(
                                   placeholder:
@@ -146,7 +146,7 @@ class SuggestionResult extends StatelessWidget {
               Text("Thank You!", style: TextStyle(fontSize: 18)),
               Text(
                 "Your suggestion has been sent for review.",
-                style: TextStyle(fontSize: 12, color: Palette.PaleGreen),
+                style: TextStyle(fontSize: 12, color: Palette.Pale),
               ),
               SizedBox(height: 60),
               ButtonPill("Close", () {

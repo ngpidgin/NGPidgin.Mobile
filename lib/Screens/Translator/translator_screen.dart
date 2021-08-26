@@ -36,16 +36,16 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Palette.PrimaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-          backgroundColor: Palette.PrimaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Translator"),
                 Text(SentenceModel.getCategoryDesc(widget.category),
-                    style: TextStyle(fontSize: 13, color: Palette.Lavendar))
+                    style: TextStyle(fontSize: 11, color: Palette.Lavendar))
               ]),
           elevation: 0,
           actions: [
@@ -96,7 +96,7 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
           Expanded(
               child: Container(
                   decoration: BoxDecoration(
-                      color: Palette.Lavendar,
+                      color: Theme.of(context).canvasColor,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),

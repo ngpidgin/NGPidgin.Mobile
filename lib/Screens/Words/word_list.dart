@@ -15,7 +15,6 @@ class WordList extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
-                  highlightColor: Colors.white,
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -23,7 +22,7 @@ class WordList extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
-                        barrierColor: Color(0x99000000),
+                        barrierColor: Colors.black.withOpacity(0.8),
                         builder: (BuildContext context) {
                           return WordDetailDialog(
                             data[index],
@@ -35,10 +34,7 @@ class WordList extends StatelessWidget {
                   });
             },
             separatorBuilder: (context, index) {
-              return Divider(
-                color: Colors.grey,
-                height: 1,
-              );
+              return Divider(color: Colors.grey, height: 1);
             },
           )
         : Container(
@@ -56,10 +52,10 @@ class WordList extends StatelessWidget {
                   SizedBox(height: 20),
                   Text(
                     "But you fit suggest am sha!",
-                    style: TextStyle(color: Palette.PaleGreen),
+                    style: TextStyle(color: Palette.Pale),
                   ),
                   ButtonPill("Suggest", () {},
-                      bgColor: Palette.PaleGreen,
+                      bgColor: Palette.Pale,
                       textStyle: TextStyle(color: Colors.white))
                 ],
               ),

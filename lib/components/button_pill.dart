@@ -7,6 +7,7 @@ class ButtonPill extends StatelessWidget {
   final double width;
   final Color bgColor;
   final Color textColor;
+  final double fontSize;
   final double paddingVertical;
   final double paddingHorizontal;
   final double marginLeft;
@@ -21,6 +22,7 @@ class ButtonPill extends StatelessWidget {
       this.width = 150,
       this.bgColor = Palette.PrimaryColor,
       this.textColor = Colors.white,
+      this.fontSize = 11,
       this.paddingVertical = 5,
       this.paddingHorizontal = 0,
       this.marginLeft = 5,
@@ -28,9 +30,7 @@ class ButtonPill extends StatelessWidget {
       this.marginRight = 5,
       this.marginBottom = 5,
       TextStyle? textStyle})
-      : super(key: key) {
-    this.textStyle = textStyle ?? TextStyle(fontSize: 11, color: Colors.black);
-  }
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,7 @@ class ButtonPill extends StatelessWidget {
                         horizontal: paddingHorizontal)),
                 onPressed: onClick,
                 child: Text(text,
-                    style: textStyle ?? TextStyle(color: textColor)))));
+                    style: textStyle ??
+                        TextStyle(fontSize: fontSize, color: textColor)))));
   }
 }

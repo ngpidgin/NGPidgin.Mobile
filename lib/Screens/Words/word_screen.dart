@@ -25,9 +25,9 @@ class _WordScreenState extends State<WordScreen> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        backgroundColor: Palette.PrimaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          backgroundColor: Palette.PrimaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text("Words"),
           elevation: 0,
           leading: null,
@@ -80,7 +80,7 @@ class _WordScreenState extends State<WordScreen> {
             Expanded(
                 child: Container(
                     decoration: BoxDecoration(
-                        color: Palette.Lavendar,
+                        color: Theme.of(context).canvasColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25))),

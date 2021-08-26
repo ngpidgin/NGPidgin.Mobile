@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
+import 'package:ngpidgin/theme_extension.dart';
 
 class ContentSection extends StatelessWidget {
   final SentenceModel model;
@@ -10,12 +11,14 @@ class ContentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle titleStyle =
-        TextStyle(fontWeight: FontWeight.w500, color: Palette.PaleGreen);
+    final TextStyle titleStyle = Theme.of(context)
+        .textTheme
+        .subtitle1!
+        .copyWith(color: Theme.of(context).titleColor1);
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).dialogColor1,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10))),
       child: Column(
@@ -29,7 +32,7 @@ class ContentSection extends StatelessWidget {
               children: [
                 Text("Sentence", style: titleStyle),
                 SizedBox(height: 5),
-                SelectableText(model.sentence, style: TextStyle(fontSize: 18)),
+                SelectableText(model.sentence, style: TextStyle(fontSize: 16)),
                 SizedBox(height: 20),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +70,7 @@ class ContentSection extends StatelessWidget {
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontSize: FontSize.small.size,
-                        color: Palette.PaleGreen))
+                        color: Palette.Pale))
               ],
             ),
           )

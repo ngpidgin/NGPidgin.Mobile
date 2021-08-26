@@ -7,6 +7,7 @@ import 'package:ngpidgin/extensions/db_helper.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/language_kit.dart';
+import 'package:ngpidgin/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,8 +61,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
-
     return FutureBuilder(
         future: initApp(),
         builder: (context, snapshot) {
@@ -71,15 +70,9 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
                 title: AppInfo.FullName,
                 debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                    backgroundColor: Colors.white,
-                    // primarySwatch: Colors.yellow,
-                    colorScheme: theme.colorScheme
-                        .copyWith(primary: Palette.PrimaryLightColor),
-                    accentColor: Palette.PrimaryAltColor,
-                    canvasColor: Palette.Lavendar,
-                    appBarTheme: AppBarTheme(color: Colors.transparent),
-                    fontFamily: Fonts.Default),
+                theme: AppThemes.lightTheme,
+                darkTheme: AppThemes.darkTheme,
+                themeMode: ThemeMode.dark,
                 home: snapshot.data as Widget);
           }
         });

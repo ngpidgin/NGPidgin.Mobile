@@ -46,7 +46,7 @@ class LanguageScreen extends StatelessWidget {
                 textStyle: btnStyle),
             ButtonIconRight("English", () => selectLang(Language.english),
                 width: double.infinity,
-                bgColor: Palette.PaleGreen,
+                bgColor: Palette.Pale,
                 textStyle: btnStyle),
           ],
         ),

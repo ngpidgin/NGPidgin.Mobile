@@ -17,7 +17,6 @@ class FavoriteList extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
-                  highlightColor: Colors.white,
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -94,7 +93,7 @@ class FavoriteList extends StatelessWidget {
                   SizedBox(height: 20),
                   Text(
                     "You fit tap the favorite/heart shape to save",
-                    style: TextStyle(color: Palette.PaleGreen),
+                    style: TextStyle(color: Palette.Pale),
                   )
                 ],
               ),

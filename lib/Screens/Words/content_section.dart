@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
+import 'package:ngpidgin/theme_extension.dart';
 
 class ContentSection extends StatelessWidget {
   final WordModel model;
@@ -11,12 +12,14 @@ class ContentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle titleStyle =
-        TextStyle(fontWeight: FontWeight.w500, color: Palette.PaleGreen);
+    final TextStyle titleStyle = Theme.of(context)
+        .textTheme
+        .subtitle1!
+        .copyWith(color: Theme.of(context).titleColor1);
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).dialogColor1,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10))),
       child: Column(
@@ -67,13 +70,13 @@ class ContentSection extends StatelessWidget {
           ),
           Divider(height: 0),
           Container(
-            decoration: BoxDecoration(color: Color(0xFFF8F8F8)),
+            color: Theme.of(context).dialogColor2,
             child: Column(
               children: [
                 Container(
                     width: double.infinity,
                     margin: EdgeInsets.only(top: 20),
-                    padding: EdgeInsets.fromLTRB(25, 0, 17, 5),
+                    padding: EdgeInsets.fromLTRB(25, 0, 17, 10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -87,32 +90,42 @@ class ContentSection extends StatelessWidget {
                             }),
                           )
                         ])),
-                Divider(),
-                Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                model.similar.isNotEmpty
+                    ? Column(
                         children: [
-                          Text(
-                            "Similar words",
-                            style: titleStyle,
-                            textAlign: TextAlign.start,
-                          ),
-                          SizedBox(height: 5),
-                          SelectableText(nullCleanup(model.similar)),
-                        ])),
-                Divider(),
-                Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.fromLTRB(25, 5, 25, 20),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Pronunciation", style: titleStyle),
-                          SizedBox(height: 5),
-                          Text(nullCleanup(model.pronunciation))
-                        ]))
+                          Divider(),
+                          Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.fromLTRB(25, 5, 25, 10),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Similar words",
+                                      style: titleStyle,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(height: 5),
+                                    SelectableText(nullCleanup(model.similar)),
+                                  ]))
+                        ],
+                      )
+                    : Container(),
+                model.pronunciation.isNotEmpty
+                    ? Column(children: [
+                        Divider(),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.fromLTRB(25, 5, 25, 20),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Pronunciation", style: titleStyle),
+                                  SizedBox(height: 5),
+                                  Text(nullCleanup(model.pronunciation))
+                                ]))
+                      ])
+                    : Container()
               ],
             ),
           )

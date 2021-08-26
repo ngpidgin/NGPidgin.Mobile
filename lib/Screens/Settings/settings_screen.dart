@@ -17,16 +17,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.PrimaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
           title: Text("Settings"),
-          backgroundColor: Palette.PrimaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0),
       body: Container(
           width: double.infinity,
           margin: EdgeInsets.only(top: 15),
           decoration: BoxDecoration(
-              color: Palette.Lavendar,
+              color: Theme.of(context).canvasColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: Column(
@@ -36,8 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
                   child: Text("MANAGE NOTIFICATIONS",
                       style: TextStyle(
-                          color: Palette.PaleGreen,
-                          fontWeight: FontWeight.w500))),
+                          color: Palette.Pale, fontWeight: FontWeight.w500))),
               ItemRow(
                   "Subscribe to daily tips notifications",
                   Switch(
@@ -62,10 +61,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
                   child: Text("APP PREFERENCES",
                       style: TextStyle(
-                          color: Palette.PaleGreen,
-                          fontWeight: FontWeight.w500))),
+                          color: Palette.Pale, fontWeight: FontWeight.w500))),
               ItemRow(
-                  "Preferred language of interaction",
+                  "Preferred language",
                   DropdownButton<String>(
                     hint: Text("Pidgin"),
                     items: <String>["Pidgin", "English"].map((String value) {

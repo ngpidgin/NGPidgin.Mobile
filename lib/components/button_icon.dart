@@ -1,13 +1,11 @@
-import 'package:ngpidgin/constants.dart';
 import 'package:flutter/material.dart';
 
 class ButtonIcon extends StatelessWidget {
   final Widget icon;
-  final Color bgColor;
+  final Color? bgColor;
   final Function() onClick;
 
-  ButtonIcon(this.icon, this.onClick,
-      {Key? key, this.bgColor = Palette.PrimaryDarkColor})
+  ButtonIcon(this.icon, this.onClick, {Key? key, this.bgColor})
       : super(key: key);
 
   @override
@@ -20,7 +18,8 @@ class ButtonIcon extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             child: TextButton(
                 style: TextButton.styleFrom(
-                    backgroundColor: bgColor, alignment: Alignment.center),
+                    backgroundColor: bgColor ?? Theme.of(context).primaryColor,
+                    alignment: Alignment.center),
                 onPressed: onClick,
                 child: icon)));
   }

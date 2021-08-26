@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Components/action_section.dart';
 import 'package:ngpidgin/Screens/Words/content_section.dart';
@@ -57,39 +59,40 @@ class _WordDetailDialogState extends State<WordDetailDialog> {
         "Word: ${widget.model.word}\nMeaning: ${widget.model.meaning}\n\nSource: ${AppInfo.FullName}";
 
     return Container(
-        margin: EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: SingleChildScrollView(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ContentSection(widget.model),
-                    ],
-                  ),
+      margin: EdgeInsets.all(15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ContentSection(widget.model),
+                  ],
                 ),
               ),
             ),
-            Container(
-                decoration: BoxDecoration(
-                    color: Palette.PrimaryColor,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10))),
-                child: ActionSection(
-                  widget.index,
-                  favoriteType.word,
-                  widget.model.word,
-                  audioText,
-                  shareContent,
-                  widget.isFavorite,
-                  changeIndex: (next) => changeIndex(next),
-                  showNav: !widget.sourceIsFav,
-                ))
-          ],
-        ));
+          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorDark,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))),
+              child: ActionSection(
+                widget.index,
+                favoriteType.word,
+                widget.model.word,
+                audioText,
+                shareContent,
+                widget.isFavorite,
+                changeIndex: (next) => changeIndex(next),
+                showNav: !widget.sourceIsFav,
+              ))
+        ],
+      ),
+    );
   }
 }
