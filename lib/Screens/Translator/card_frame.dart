@@ -35,7 +35,9 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
                 Container(
                     alignment: titleAlignment ?? Alignment.center,
                     height: size.height * 0.125,
-                    child: Text(title, style: theme.textTheme.headline6!)),
+                    child: Text(title,
+                        style:
+                            theme.textTheme.headline6!.copyWith(fontSize: 14))),
               ]),
         ),
       )),

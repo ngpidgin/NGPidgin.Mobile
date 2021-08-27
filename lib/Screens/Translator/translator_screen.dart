@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/sentence_list.dart';
+import 'package:ngpidgin/components/search_filter.dart';
 import 'package:ngpidgin/components/textbox_field.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
@@ -34,7 +35,6 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: theme.primaryColor,
@@ -77,22 +77,17 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           showSearch
-              ? Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextBoxField(
-                      placeholder: "filter sentences sharp sharp",
-                      icon: Icon(Icons.search),
-                      paddingVertical: 0,
-                      width: size.width * 0.85,
-                      onChange: (text) {
-                        setState(() {
-                          data = Globals.sentenceDataset
-                              .where((e) => e.sentence
-                                  .toLowerCase()
-                                  .contains(text.toLowerCase()))
-                              .toList();
-                        });
-                      }))
+              ? SearchFilterInput(
+                  hintText: "filter sentences sharp sharp",
+                  onChange: (text) {
+                    setState(() {
+                      data = Globals.sentenceDataset
+                          .where((e) => e.sentence
+                              .toLowerCase()
+                              .contains(text.toLowerCase()))
+                          .toList();
+                    });
+                  })
               : Container(),
           Expanded(
               child: Container(

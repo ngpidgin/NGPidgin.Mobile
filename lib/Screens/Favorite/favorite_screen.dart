@@ -40,10 +40,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
 
-    Color activeSelectionBg = Palette.Green;
-    Color inactiveSelectionBg = theme.primaryColorLight;
-    Color activeSelectionText = Colors.white;
-    Color inactiveSelectionText = Palette.GreenLight;
+    Color activeSelectionBg = theme.primaryColorLight;
+    Color inactiveSelectionBg = Palette.GreenDark;
+    Color activeSelectionText = Palette.GreenDark;
+    Color inactiveSelectionText = Palette.PrimaryLightColor;
 
     return Scaffold(
         backgroundColor: theme.primaryColor,

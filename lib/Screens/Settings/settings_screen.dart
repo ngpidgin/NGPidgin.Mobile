@@ -68,6 +68,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ItemRow(
                   "Subscribe to daily tips notifications",
                   Switch(
+                      activeColor: Palette.Green,
+                      inactiveTrackColor: Colors.grey,
+                      focusColor: Palette.GreenLight,
                       value: stateDailyTip,
                       onChanged: (x) {
                         setState(() {
@@ -78,6 +81,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ItemRow(
                   "Auto-download content updates",
                   Switch(
+                      activeColor: Palette.Green,
+                      inactiveTrackColor: Colors.grey,
                       value: stateAutoSync,
                       onChanged: (x) {
                         setState(() {

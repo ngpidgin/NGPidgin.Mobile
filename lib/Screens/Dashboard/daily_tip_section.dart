@@ -114,6 +114,7 @@ class _DailyTipSectionState extends State<DailyTipSection> {
                                 SizedBox(width: 15),
                                 Text(Globals.languageKit.dailyTipsLoading,
                                     style: TextStyle(
+                                        fontSize: 12,
                                         fontStyle: FontStyle.italic,
                                         color: Colors.grey))
                               ],

@@ -128,7 +128,7 @@ class SentenceModel {
       case sentenceCategory.social:
         return "Social";
       case sentenceCategory.business:
-        return "Business & Trade";
+        return "Business";
       case sentenceCategory.sports:
         return "Sports";
       case sentenceCategory.religion:

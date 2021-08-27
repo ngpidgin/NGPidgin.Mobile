@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
+import 'package:ngpidgin/components/search_filter.dart';
 import 'package:ngpidgin/components/textbox_frame.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
@@ -68,19 +69,12 @@ class SearchSection extends StatelessWidget {
                 },
                 displayStringForOption: (item) => item.word,
                 fieldViewBuilder: (context, controller, focusNode, onSumbit) {
-                  return TextFormField(
+                  return SearchFilterInput(
+                      hintText: Globals.languageKit.dashboardSearchPlaceholder,
                       controller: controller,
                       focusNode: focusNode,
-                      decoration: InputDecoration(
-                          hintStyle:
-                              TextStyle(fontSize: 16, color: Colors.grey),
-                          hintText:
-                              Globals.languageKit.dashboardSearchPlaceholder,
-                          border: InputBorder.none,
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          )));
+                      isTransparent: true,
+                      setBoxModel: false);
                 }))
           ]),
     );

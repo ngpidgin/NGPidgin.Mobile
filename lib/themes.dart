@@ -3,7 +3,7 @@ import 'constants.dart';
 
 class AppThemes {
 // ----------------------------------
-// DARK THEME
+// LIGHT THEME
 // ----------------------------------
 
   static final ColorScheme lightColorScheme = ColorScheme(
@@ -36,10 +36,7 @@ class AppThemes {
           backgroundColor: Palette.Green,
           actionTextColor: Palette.GreenLightBright,
           contentTextStyle: TextStyle(color: Colors.white)),
-      buttonTheme: ButtonThemeData(
-          splashColor: Colors.red,
-          buttonColor: Colors.red,
-          textTheme: ButtonTextTheme.accent),
+      buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.accent),
       dividerColor: Colors.grey[300],
       appBarTheme: AppBarTheme(color: Colors.transparent),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(

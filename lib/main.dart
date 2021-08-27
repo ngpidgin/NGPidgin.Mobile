@@ -23,7 +23,36 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<void> loadDataset() async {
+  MaterialApp app(Widget homeWidget) => MaterialApp(
+      title: AppInfo.FullName,
+      debugShowCheckedModeBanner: false,
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      themeMode: Globals.themeMode,
+      home: homeWidget);
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.showLoader) {
+      return FutureBuilder(
+          future: Initiator.initApp(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SplashLoader();
+            } else {
+              return app(snapshot.data as Widget);
+            }
+          });
+    } else {
+      return app(AppNavigator());
+    }
+  }
+}
+
+// Future<Widget> _isolate(Function _) async => Initiator.initApp();
+
+class Initiator {
+  static Future<void> loadDataset() async {
     await DatabaseHelper.initializeDb().then((dbExist) async {
       if (dbExist) {
         await DatabaseHelper.loadDatasets();
@@ -34,8 +63,14 @@ class _MyAppState extends State<MyApp> {
     }).onError((error, stackTrace) => null);
   }
 
-  Future initApp() async {
+  static Future<Widget> initApp() async {
+    await Future.delayed(Duration(seconds: 1));
     await loadDataset();
+
+    // load theme preference
+    int theme = await SharedPreferencesUtil.getInt(SettingKeys.themeMode) ??
+        ThemeMode.light.index;
+    Globals.themeMode = ThemeMode.values[theme];
 
     // get language choice
     final _lang =
@@ -56,38 +91,9 @@ class _MyAppState extends State<MyApp> {
         await SharedPreferencesUtil.getInt(SettingKeys.databaseUpdateVersion) ??
             1;
 
-    int theme = await SharedPreferencesUtil.getInt(SettingKeys.themeMode) ??
-        ThemeMode.light.index;
-    Globals.themeMode = ThemeMode.values[theme];
-
     if (Globals.languagePreference == Language.none)
       return LanguageScreen();
     else
       return AppNavigator();
-  }
-
-  MaterialApp app(Widget homeWidget) => MaterialApp(
-      title: AppInfo.FullName,
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: Globals.themeMode,
-      home: homeWidget);
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.showLoader) {
-      return FutureBuilder(
-          future: initApp(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SplashLoader();
-            } else {
-              return app(snapshot.data as Widget);
-            }
-          });
-    } else {
-      return app(AppNavigator());
-    }
   }
 }
