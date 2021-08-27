@@ -7,7 +7,7 @@ class SplashLoader extends StatelessWidget {
     return Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(color: Palette.PrimaryDarkColor),
+        decoration: BoxDecoration(color: Palette.Green),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

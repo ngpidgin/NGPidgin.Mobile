@@ -42,6 +42,7 @@ class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
     final String shareContent =
         "Sentence: ${widget.model.sentence}\nTranslations: ${widget.model.translations}\n\nSource: ${AppInfo.FullName}";
@@ -53,7 +54,7 @@ class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context).dialogColor1,
+                  color: theme.dialogColor1,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10))),
@@ -69,7 +70,7 @@ class _SentenceDetailDialogState extends State<SentenceDetailDialog> {
             ),
             Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
+                    color: theme.primaryColorDark,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),

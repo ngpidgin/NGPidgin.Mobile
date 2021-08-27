@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Settings/item_row.dart';
+import 'package:ngpidgin/components/button_icon.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/sharedpref_util.dart';
+import 'package:ngpidgin/globals.dart';
+import 'package:ngpidgin/main.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -12,21 +16,46 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool stateDailyTip = false;
   bool stateAutoSync = false;
-  String theme = "default";
+  String themeLabel = "Theme ";
+  ThemeMode theme = Globals.themeMode!;
+
+  @override
+  void initState() {
+    themeLabel += theme == ThemeMode.light ? "(Light)" : "(Dark)";
+    super.initState();
+  }
+
+  void setTheme() async {
+    setState(() {
+      if (theme == ThemeMode.system || theme == ThemeMode.light) {
+        theme = ThemeMode.dark;
+      } else if (theme == ThemeMode.dark) {
+        theme = ThemeMode.light;
+      }
+    });
+    Globals.themeMode = theme;
+    await SharedPreferencesUtil.setInt(SettingKeys.themeMode, theme.index);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp(showLoader: false)),
+        (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: theme.primaryColor,
       appBar: AppBar(
           title: Text("Settings"),
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: theme.primaryColor,
           elevation: 0),
       body: Container(
           width: double.infinity,
           margin: EdgeInsets.only(top: 15),
           decoration: BoxDecoration(
-              color: Theme.of(context).canvasColor,
+              color: theme.canvasColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: Column(
@@ -34,9 +63,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               Container(
                   padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
-                  child: Text("MANAGE NOTIFICATIONS",
-                      style: TextStyle(
-                          color: Palette.Pale, fontWeight: FontWeight.w500))),
+                  child:
+                      Text("NOTIFICATIONS", style: theme.textTheme.headline5)),
               ItemRow(
                   "Subscribe to daily tips notifications",
                   Switch(
@@ -56,12 +84,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           stateAutoSync = x;
                         });
                       })),
-              Divider(height: 1),
               Container(
                   padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
                   child: Text("APP PREFERENCES",
-                      style: TextStyle(
-                          color: Palette.Pale, fontWeight: FontWeight.w500))),
+                      style: theme.textTheme.headline5)),
               ItemRow(
                   "Preferred language",
                   DropdownButton<String>(
@@ -76,17 +102,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   )),
               Divider(height: 1),
               ItemRow(
-                  "Theme",
+                  themeLabel,
                   TextButton(
-                      child: Icon(theme == "default"
+                      child: Icon(Globals.themeMode == ThemeMode.dark
                           ? Icons.light_mode_outlined
                           : Icons.dark_mode_outlined),
-                      onPressed: () {
-                        setState(() {
-                          theme = theme == "default" ? "dark" : "default";
-                        });
-                      })),
-              Divider(height: 1),
+                      onPressed: () => setTheme())),
             ],
           )),
     );

@@ -27,7 +27,7 @@ class LanguageScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Palette.Lavendar,
+      backgroundColor: Theme.of(context).canvasColor,
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.all(50),

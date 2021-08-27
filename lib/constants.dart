@@ -46,6 +46,7 @@ class SettingKeys {
   static const dailyTipTitle = "daily_tip_title";
   static const dailyTipContent = "daily_tip_content";
   static const databaseUpdateVersion = "database_version";
+  static const themeMode = "theme_mode";
 }
 
 class ServiceEndpoints {

@@ -15,6 +15,9 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  final bool showLoader;
+  MyApp({this.showLoader = true});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -53,28 +56,38 @@ class _MyAppState extends State<MyApp> {
         await SharedPreferencesUtil.getInt(SettingKeys.databaseUpdateVersion) ??
             1;
 
+    int theme = await SharedPreferencesUtil.getInt(SettingKeys.themeMode) ??
+        ThemeMode.light.index;
+    Globals.themeMode = ThemeMode.values[theme];
+
     if (Globals.languagePreference == Language.none)
       return LanguageScreen();
     else
       return AppNavigator();
   }
 
+  MaterialApp app(Widget homeWidget) => MaterialApp(
+      title: AppInfo.FullName,
+      debugShowCheckedModeBanner: false,
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      themeMode: Globals.themeMode,
+      home: homeWidget);
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: initApp(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return SplashLoader();
-          } else {
-            return MaterialApp(
-                title: AppInfo.FullName,
-                debugShowCheckedModeBanner: false,
-                theme: AppThemes.lightTheme,
-                darkTheme: AppThemes.darkTheme,
-                themeMode: ThemeMode.dark,
-                home: snapshot.data as Widget);
-          }
-        });
+    if (widget.showLoader) {
+      return FutureBuilder(
+          future: initApp(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SplashLoader();
+            } else {
+              return app(snapshot.data as Widget);
+            }
+          });
+    } else {
+      return app(AppNavigator());
+    }
   }
 }

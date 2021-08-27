@@ -33,12 +33,13 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: theme.primaryColor,
       appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: theme.primaryColor,
           title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +97,7 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
           Expanded(
               child: Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).canvasColor,
+                      color: theme.canvasColor,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),

@@ -78,6 +78,7 @@ class _DailyTipSectionState extends State<DailyTipSectionOld> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -85,7 +86,7 @@ class _DailyTipSectionState extends State<DailyTipSectionOld> {
       width: size.width,
       padding: EdgeInsets.fromLTRB(25, 20, 25, 15),
       decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: theme.backgroundColor,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(25),
               bottomRight: Radius.circular(25)),
@@ -100,7 +101,7 @@ class _DailyTipSectionState extends State<DailyTipSectionOld> {
         children: [
           Text(
             Globals.languageKit.dailyTips,
-            style: Theme.of(context).textTheme.headline4,
+            style: theme.textTheme.headline4,
             textAlign: TextAlign.left,
           ),
           SizedBox(height: 5),
@@ -131,7 +132,7 @@ class _DailyTipSectionState extends State<DailyTipSectionOld> {
                   } else {
                     if (snapshot.hasData) {
                       return DailyTipMainSection(
-                          snapshot.data as TipModel, refreshData);
+                          theme, snapshot.data as TipModel, refreshData);
                     }
 
                     return Container(
@@ -151,19 +152,19 @@ class _DailyTipSectionState extends State<DailyTipSectionOld> {
 }
 
 class DailyTipMainSection extends StatelessWidget {
+  final ThemeData theme;
   final TipModel model;
   final Function refreshAction;
-  const DailyTipMainSection(this.model, this.refreshAction);
+  const DailyTipMainSection(this.theme, this.model, this.refreshAction);
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       model.isLoaded()
           ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(model.title, style: Theme.of(context).textTheme.subtitle1),
+              Text(model.title, style: theme.textTheme.subtitle1),
               SizedBox(height: 5),
-              SelectableText(model.content,
-                  style: Theme.of(context).textTheme.bodyText1)
+              SelectableText(model.content, style: theme.textTheme.bodyText1)
             ])
           : Container(),
       SizedBox(height: 10),
@@ -174,16 +175,13 @@ class DailyTipMainSection extends StatelessWidget {
                   "Share",
                   () => Share.share(
                       "Daily Tip: ${model.title}\n${model.content}\n\nSource: ${AppInfo.FullName}"),
-                  bgColor: Theme.of(context).canvasColor,
+                  bgColor: theme.canvasColor,
                   textColor: Colors.grey,
                   width: 80)
               : Container(),
           ButtonPill("Refresh", () {
             refreshAction();
-          },
-              bgColor: Theme.of(context).canvasColor,
-              textColor: Colors.grey,
-              width: 80)
+          }, bgColor: theme.canvasColor, textColor: Colors.grey, width: 80)
         ],
       )
     ]);

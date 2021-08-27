@@ -7,7 +7,7 @@ import 'package:ngpidgin/models/dictionary_models.dart';
 class TranslatorCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Color textColor = Colors.white;
+    final theme = Theme.of(context);
 
     void showList(sentenceCategory category) {
       Navigator.push(context, MaterialPageRoute(builder: (bc) {
@@ -16,7 +16,7 @@ class TranslatorCategoryScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: theme.primaryColor,
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,18 +26,20 @@ class TranslatorCategoryScreen extends StatelessWidget {
                 child: Column(children: [
                   Text(
                     "Translator",
-                    style: TextStyle(fontSize: 25, color: textColor),
+                    style: theme.textTheme.headline1!
+                        .copyWith(color: theme.colorScheme.onPrimary),
                   ),
                   Text(
                     Globals.languageKit.translatorCategoryDesc,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: textColor),
+                    style: theme.textTheme.bodyText1!
+                        .copyWith(color: theme.colorScheme.onPrimary),
                   ),
                 ])),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).canvasColor,
+                    color: theme.canvasColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
                         topRight: Radius.circular(25))),

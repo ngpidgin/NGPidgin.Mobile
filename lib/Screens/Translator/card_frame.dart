@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/constants.dart';
 
 class TranslatorCategoryCardFrame extends StatelessWidget {
   final IconData icon;
@@ -11,6 +10,7 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = new Size(150, 150);
 
     return Container(
@@ -31,13 +31,11 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
                     alignment: Alignment.center,
                     height: size.height * 0.6,
                     child: Icon(icon,
-                        size: 70,
-                        color: Theme.of(context).textTheme.headline5!.color)),
+                        size: 70, color: theme.textTheme.headline6!.color)),
                 Container(
                     alignment: titleAlignment ?? Alignment.center,
                     height: size.height * 0.125,
-                    child: Text(title,
-                        style: Theme.of(context).textTheme.headline5!)),
+                    child: Text(title, style: theme.textTheme.headline6!)),
               ]),
         ),
       )),

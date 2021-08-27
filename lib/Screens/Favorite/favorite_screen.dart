@@ -37,17 +37,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
 
     Color activeSelectionBg = Palette.Green;
-    Color inactiveSelectionBg = Theme.of(context).primaryColorLight;
+    Color inactiveSelectionBg = theme.primaryColorLight;
     Color activeSelectionText = Colors.white;
     Color inactiveSelectionText = Palette.GreenLight;
 
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: theme.primaryColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: theme.primaryColor,
           title: Text("Favorites"),
           elevation: 0,
           leading: null,
@@ -130,7 +131,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   Expanded(
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Theme.of(context).canvasColor,
+                              color: theme.canvasColor,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(25))),

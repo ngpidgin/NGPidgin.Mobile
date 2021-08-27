@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ngpidgin/Screens/Dashboard/card_frame.dart';
 import 'package:ngpidgin/Screens/Dashboard/data_update_dialog.dart';
-import 'package:ngpidgin/Screens/Dashboard/suggestion_dialog.dart';
+import 'package:ngpidgin/Screens/Dashboard/suggestion_screen.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/globals.dart';
@@ -19,7 +19,7 @@ class QuickLinkSection extends StatefulWidget {
 class _QuickLinkSectionState extends State<QuickLinkSection> {
   bool dataUpdateAvailable = false;
   int dataUpdateCount = 0;
-  final Size cardSize = new Size(110, 130);
+  final Size cardSize = new Size(115, 130);
 
   @override
   void initState() {
@@ -99,7 +99,8 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                                 Globals.languageKit.dashboardSyncDesc
                                     .replaceAll(
                                         "{0}", dataUpdateCount.toString()),
-                                style: TextStyle(fontSize: 10))
+                                style:
+                                    TextStyle(fontSize: 10, color: Colors.grey))
                           ]),
                       "Synchronize",
                       titleAlignment: Alignment.centerLeft, onPressed: () {
@@ -126,7 +127,7 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                   SvgPicture.asset("assets/icons/happy_sticker.svg"),
                   SizedBox(height: 10),
                   Text("Plenty memes & stickers",
-                      style: TextStyle(fontSize: 10))
+                      style: TextStyle(fontSize: 10, color: Colors.grey))
                 ]),
                 "Sticky box",
                 titleAlignment: Alignment.centerLeft,
