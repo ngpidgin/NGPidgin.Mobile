@@ -15,7 +15,7 @@ class AppThemes {
       error: Color(0xffb00020),
       background: Colors.white,
       onError: Colors.white,
-      onSecondary: Colors.white,
+      onSecondary: Palette.PaleDark,
       onBackground: Color(0xff292929),
       onPrimary: Colors.white,
       onSurface: Color(0xff292929),

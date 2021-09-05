@@ -47,24 +47,26 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
   Future<DataUpdateModel?> updateCheck() async {
     bool hasError = false;
 
-    try {
-      http.Response response =
-          await http.get(Uri.parse(ServiceEndpoints.UpdateCheck));
-      if (response.statusCode == 200) {
-        var decodedData = convert.jsonDecode(response.body)["data"];
-        int words = decodedData["words"] ?? 0;
-        int sentences = decodedData["sentences"] ?? 0;
-        int stickers = decodedData["stickers"] ?? 0;
-        int version = decodedData["updateVersion"] ?? 1;
-        int count = words + sentences + stickers;
+    if (await Interactions.hasInternetConnection()) {
+      try {
+        http.Response response =
+            await http.get(Uri.parse(ServiceEndpoints.UpdateCheck));
+        if (response.statusCode == 200) {
+          var decodedData = convert.jsonDecode(response.body)["data"];
+          int words = decodedData["words"] ?? 0;
+          int sentences = decodedData["sentences"] ?? 0;
+          int stickers = decodedData["stickers"] ?? 0;
+          int version = decodedData["updateVersion"] ?? 1;
+          int count = words + sentences + stickers;
 
-        if (version > Globals.dataUpdateVersion! && count > 0) {
-          Globals.dataUpdate = DataUpdateModel(true, words, sentences, stickers,
-              count, version, decodedData["downloadUrl"]);
+          if (version > Globals.dataUpdateVersion! && count > 0) {
+            Globals.dataUpdate = DataUpdateModel(true, words, sentences,
+                stickers, count, version, decodedData["downloadUrl"]);
+          }
         }
+      } catch (e) {
+        hasError = true;
       }
-    } catch (e) {
-      hasError = true;
     }
 
     if (hasError) return null;
@@ -103,18 +105,25 @@ class _QuickLinkSectionState extends State<QuickLinkSection> {
                                     TextStyle(fontSize: 10, color: Colors.grey))
                           ]),
                       "Synchronize",
-                      titleAlignment: Alignment.centerLeft, onPressed: () {
-                      showDialog(
-                          context: context,
-                          barrierColor: Color(0x80000000),
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return DataUpdateDialog();
-                          }).then((value) {
-                        setState(() {
-                          dataUpdateAvailable = !value;
+                      titleAlignment: Alignment.centerLeft,
+                      onPressed: () async {
+                      if (await Interactions.hasInternetConnection()) {
+                        showDialog(
+                            context: context,
+                            barrierColor: Color(0x80000000),
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return DataUpdateDialog();
+                            }).then((value) {
+                          setState(() {
+                            dataUpdateAvailable = !value;
+                          });
                         });
-                      });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            Interactions.snacky(
+                                Globals.languageKit.noInternetConnection));
+                      }
                     })
                   : Container(),
               DashboardCardFrame(

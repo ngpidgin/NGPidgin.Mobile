@@ -3,14 +3,16 @@ import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/components/form_input.dart';
 import 'package:ngpidgin/constants.dart';
+import 'package:ngpidgin/extensions/sharedpref_util.dart';
 
 class SuggestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.canvasColor,
       appBar: AppBar(
-        backgroundColor: Palette.PrimaryColor,
+        backgroundColor: theme.primaryColor,
         title: const Text("Make a Suggestion"),
       ),
       body: const SuggestionForm(),
@@ -27,11 +29,31 @@ class SuggestionForm extends StatefulWidget {
 class _SuggestionFormState extends State<SuggestionForm> {
   final TextStyle titleStyle = TextStyle(color: Palette.Pale);
   final _formKey = GlobalKey<FormState>();
+  final wordCtrl = TextEditingController();
+  final meaningCtrl = TextEditingController();
+  final exampleCtrl = TextEditingController();
+  final nameCtrl = TextEditingController();
+  final locationCtrl = TextEditingController();
 
   var isSent = false;
 
+  loadUserInfo() async {
+    nameCtrl.text =
+        await SharedPreferencesUtil.getString(SettingKeys.appUserName);
+    locationCtrl.text =
+        await SharedPreferencesUtil.getString(SettingKeys.appUserLocation);
+  }
+
+  @override
+  void initState() {
+    loadUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return !isSent
         ? SingleChildScrollView(
             child: Form(
@@ -40,79 +62,88 @@ class _SuggestionFormState extends State<SuggestionForm> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(25),
+                    child: Column(children: [
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(25),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "Your suggestion will be reviewed and may be added on the next data update.",
+                                style: theme.textTheme.bodyText1!.copyWith(
+                                    color: theme.colorScheme.onSecondary)),
+                            SizedBox(height: 20),
+                            FormInput(
+                              placeholder: "Enter a word in pidgin or english",
+                              label: "Word / Sentence",
+                              requiredValidationMessage: "Please enter a word",
+                              controller: wordCtrl,
+                            ),
+                            FormInput(
+                              placeholder: "Meaning or translation of the word",
+                              label: "Meaning / Translation",
+                              requiredValidationMessage: "Please enter meaning",
+                              lines: 2,
+                              controller: meaningCtrl,
+                            ),
+                            FormInput(
+                              placeholder: "Related words, pronunciation etc..",
+                              label: "Extra Information",
+                              lines: 2,
+                              required: false,
+                              controller: exampleCtrl,
+                            ),
+                            SizedBox(height: 5)
+                          ],
+                        ),
+                      ),
+                      Divider(height: 1),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(25, 25, 25, 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                  "Your suggestion will be reviewed and may be added on the next data update.",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Palette.Pale)),
-                              SizedBox(height: 20),
+                              Text("Tell us a little about you!"),
                               FormInput(
-                                  placeholder:
-                                      "Enter a word in pidgin or english",
-                                  label: "Word / Sentence",
-                                  requiredValidationMessage:
-                                      "Please enter a word"),
+                                placeholder: "What's your name?",
+                                requiredValidationMessage:
+                                    "Please enter your name",
+                                controller: nameCtrl,
+                              ),
                               FormInput(
-                                  placeholder:
-                                      "Meaning or translation of the word",
-                                  label: "Meaning / Translation",
-                                  requiredValidationMessage:
-                                      "Please enter meaning",
-                                  lines: 2),
-                              FormInput(
-                                  placeholder:
-                                      "Related words, pronunciation etc..",
-                                  label: "Extra Information",
-                                  lines: 2,
-                                  required: false),
-                              SizedBox(height: 5)
+                                placeholder: "Your location (optional)",
+                                required: false,
+                                controller: locationCtrl,
+                              ),
+                              Center(
+                                child: Button('Share', () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // save user info for next suggestion
+                                    SharedPreferencesUtil.setString(
+                                        SettingKeys.appUserName, nameCtrl.text);
+                                    SharedPreferencesUtil.setString(
+                                        SettingKeys.appUserLocation,
+                                        locationCtrl.text);
+
+                                    setState(() {
+                                      isSent = true;
+                                    });
+                                  }
+                                },
+                                    width: double.infinity,
+                                    paddingHorizontal: 0,
+                                    paddingVertical: 10,
+                                    textStyle: TextStyle(
+                                        fontSize: 15,
+                                        color:
+                                            Palette.PrimaryLightBrightColor)),
+                              )
                             ],
-                          ),
-                        ),
-                        Divider(height: 1),
-                        Container(
-                            padding: EdgeInsets.fromLTRB(25, 25, 25, 10),
-                            decoration: BoxDecoration(color: Palette.Lavendar),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Tell us a little about you!"),
-                                FormInput(
-                                    placeholder: "What's your name?",
-                                    requiredValidationMessage:
-                                        "Please enter your name"),
-                                FormInput(
-                                    placeholder: "Your location (optional)",
-                                    required: false),
-                                Center(
-                                  child: Button('Send Suggestion', () {
-                                    if (_formKey.currentState!.validate()) {
-                                      setState(() {
-                                        isSent = true;
-                                      });
-                                    }
-                                  },
-                                      width: double.infinity,
-                                      paddingHorizontal: 0,
-                                      paddingVertical: 10,
-                                      textStyle: TextStyle(
-                                          fontSize: 15,
-                                          color:
-                                              Palette.PrimaryLightBrightColor)),
-                                )
-                              ],
-                            )),
-                      ],
-                    ),
+                          )),
+                    ]),
                   )
                 ],
               ),
@@ -127,15 +158,14 @@ class SuggestionResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          padding: EdgeInsets.fromLTRB(15, 50, 15, 15),
+          decoration: BoxDecoration(color: theme.canvasColor),
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -143,13 +173,16 @@ class SuggestionResult extends StatelessWidget {
               Icon(Icons.check_circle_rounded,
                   color: Palette.PrimaryColor, size: 60),
               SizedBox(height: 15),
-              Text("Thank You!", style: TextStyle(fontSize: 18)),
+              Text("Thank You!",
+                  style: theme.textTheme.headline1!
+                      .copyWith(color: theme.colorScheme.onSecondary)),
               Text(
                 "Your suggestion has been sent for review.",
-                style: TextStyle(fontSize: 12, color: Palette.Pale),
+                style: theme.textTheme.bodyText1!
+                    .copyWith(color: theme.colorScheme.onSecondary),
               ),
               SizedBox(height: 60),
-              ButtonPill("Close", () {
+              ButtonPill("Okay", () {
                 Navigator.of(context).pop(true);
               }, bgColor: Palette.Lavendar, textColor: Colors.grey, width: 80)
             ],

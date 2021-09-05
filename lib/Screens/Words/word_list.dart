@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ngpidgin/Screens/Words/search_result_empty.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
-import 'package:ngpidgin/components/button_pill.dart';
-import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
 class WordList extends StatelessWidget {
@@ -37,29 +36,6 @@ class WordList extends StatelessWidget {
               return Divider(color: Colors.grey, height: 1);
             },
           )
-        : Container(
-            alignment: Alignment.center,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Wetin you dey find like this?",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 30),
-                  Image.asset("assets/imgs/osita_confused_01.jpg"),
-                  SizedBox(height: 20),
-                  Text(
-                    "But you fit suggest am sha!",
-                    style: TextStyle(color: Palette.Pale),
-                  ),
-                  ButtonPill("Suggest", () {},
-                      bgColor: Palette.Pale,
-                      textStyle: TextStyle(color: Colors.white))
-                ],
-              ),
-            ),
-          );
+        : SearchResultEmpty();
   }
 }

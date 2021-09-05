@@ -13,5 +13,8 @@
     "dataUpdateDownloading": "Downloading data update..",
     "dataUpdateUpdating": "Updating database..",
     "dataUpdateCompleted": "Update completed!",
-    "dataUpdateFailed": "Update failed!"
+    "dataUpdateFailed": "Update failed!",
+    "searchResultEmpty": "What are you looking for?",
+    "searchResultSuggest": "But you can still suggest it",
+    "noInternetConnection": "No internet connection"
 }
