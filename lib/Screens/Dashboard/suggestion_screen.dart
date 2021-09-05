@@ -4,6 +4,7 @@ import 'package:ngpidgin/components/button_pill.dart';
 import 'package:ngpidgin/components/form_input.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
+import 'package:ngpidgin/globals.dart';
 
 class SuggestionScreen extends StatelessWidget {
   @override
@@ -70,8 +71,7 @@ class _SuggestionFormState extends State<SuggestionForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                                "Your suggestion will be reviewed and may be added on the next data update.",
+                            Text(Globals.languageKit.suggestionDesc,
                                 style: theme.textTheme.bodyText1!.copyWith(
                                     color: theme.colorScheme.onSecondary)),
                             SizedBox(height: 20),
