@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Settings/item_row.dart';
-import 'package:ngpidgin/components/button_icon.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';

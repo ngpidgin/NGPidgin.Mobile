@@ -52,6 +52,8 @@ class SettingKeys {
 }
 
 class ServiceEndpoints {
-  static const DailyTip = "https://jsonkeeper.com/b/2CFJ";
-  static const UpdateCheck = "https://jsonkeeper.com/b/YQGH";
+  static const DailyTip =
+      "https://firebasestorage.googleapis.com/v0/b/ngpidgindictionary.appspot.com/o/content%2Fdaily_tip.json?alt=media&token=d7517663-0521-44c0-8948-63c474ef18d2";
+  static const UpdateCheck =
+      "https://firebasestorage.googleapis.com/v0/b/ngpidgindictionary.appspot.com/o/content%2Fdata_update.json?alt=media&token=53581748-de35-4b69-93ee-bb8b4116024f";
 }

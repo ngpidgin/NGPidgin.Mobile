@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/components/button.dart';
 import 'package:ngpidgin/components/button_pill.dart';
@@ -38,6 +40,9 @@ class _SuggestionFormState extends State<SuggestionForm> {
 
   var isSent = false;
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late CollectionReference? _collection;
+
   loadUserInfo() async {
     nameCtrl.text =
         await SharedPreferencesUtil.getString(SettingKeys.appUserName);
@@ -48,12 +53,15 @@ class _SuggestionFormState extends State<SuggestionForm> {
   @override
   void initState() {
     loadUserInfo();
+
+    _collection = _firestore.collection('suggestions');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final platform = Platform.isAndroid ? "Android" : "iOS";
 
     return !isSent
         ? SingleChildScrollView(
@@ -119,7 +127,7 @@ class _SuggestionFormState extends State<SuggestionForm> {
                                 controller: locationCtrl,
                               ),
                               Center(
-                                child: Button('Share', () {
+                                child: Button('Share', () async {
                                   if (_formKey.currentState!.validate()) {
                                     // save user info for next suggestion
                                     SharedPreferencesUtil.setString(
@@ -127,6 +135,25 @@ class _SuggestionFormState extends State<SuggestionForm> {
                                     SharedPreferencesUtil.setString(
                                         SettingKeys.appUserLocation,
                                         locationCtrl.text);
+
+                                    // save
+                                    DocumentReference documentReferencer =
+                                        _collection!.doc();
+
+                                    Map<String, dynamic> data =
+                                        <String, dynamic>{
+                                      "word": wordCtrl.text,
+                                      "meaning": meaningCtrl.text,
+                                      "example": exampleCtrl.text,
+                                      "user_name": nameCtrl.text,
+                                      "user_location": locationCtrl.text,
+                                      "platform": platform,
+                                      "datetime": DateTime.now().toString(),
+                                    };
+
+                                    await documentReferencer
+                                        .set(data)
+                                        .catchError((e) => print(e));
 
                                     setState(() {
                                       isSent = true;

@@ -10,6 +10,7 @@ class Globals {
   static List<WordModel> wordDataset = <WordModel>[];
   static List<SentenceModel> sentenceDataset = <SentenceModel>[];
   static TipModel? dailyTip;
+  static bool dailyTipFromNotication = false;
   static DataUpdateModel? dataUpdate;
   static int? dataUpdateVersion;
   static ThemeMode? themeMode;

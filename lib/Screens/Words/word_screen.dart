@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Words/word_list.dart';
 import 'package:ngpidgin/components/search_filter.dart';
-import 'package:ngpidgin/components/textbox_field.dart';
-import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
@@ -24,7 +22,6 @@ class _WordScreenState extends State<WordScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
         backgroundColor: theme.primaryColor,

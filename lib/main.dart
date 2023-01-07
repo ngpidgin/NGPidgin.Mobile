@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Start/language_screen.dart';
 import 'package:ngpidgin/Screens/Start/splash_loader.dart';
@@ -7,12 +9,15 @@ import 'package:ngpidgin/extensions/db_helper.dart';
 import 'package:ngpidgin/extensions/sharedpref_util.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/language_kit.dart';
+import 'package:ngpidgin/models/dictionary_models.dart';
 import 'package:ngpidgin/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
+
+late FirebaseMessaging messaging;
 
 class MyApp extends StatefulWidget {
   final bool showLoader;
@@ -35,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     if (widget.showLoader) {
       return FutureBuilder(
-          future: Initiator.initApp(),
+          future: Initiator.initApp(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SplashLoader();
@@ -49,8 +54,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-// Future<Widget> _isolate(Function _) async => Initiator.initApp();
-
 class Initiator {
   static Future<void> loadDataset() async {
     await DatabaseHelper.initializeDb().then((dbExist) async {
@@ -63,7 +66,54 @@ class Initiator {
     }).onError((error, stackTrace) => null);
   }
 
-  static Future<Widget> initApp() async {
+  static Future<void> _messageHandler(RemoteMessage message) async {
+    print('x-> ----------- background message ${message.notification!.body}');
+  }
+
+  static Future<void> initializeFirebase(BuildContext context) async {
+    await Firebase.initializeApp();
+    messaging = FirebaseMessaging.instance;
+    // messaging.getToken().then((value) {
+    //   // print("Firebase device token");
+    //   // print(value);
+    // });
+
+    FirebaseMessaging.onBackgroundMessage(_messageHandler);
+
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        print(
+            'XXXXXXXXXXXXXXXXXXXXXXXXXXX background message ${message.notification!.body}');
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      Globals.dailyTip = TipModel(event.notification!.title.toString(),
+          event.notification!.body.toString());
+
+      SharedPreferencesUtil.setString(
+          SettingKeys.dailyTipTitle, Globals.dailyTip!.title);
+      SharedPreferencesUtil.setString(
+          SettingKeys.dailyTipContent, Globals.dailyTip!.content);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data.isNotEmpty) {
+        if (message.data.containsKey("type")) {
+          if (message.data["type"] == "daily_tip")
+            Globals.dailyTipFromNotication = true;
+        }
+      }
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) =>
+      //             DashboardScreen(dailyTip: Globals.dailyTip!)));
+    });
+  }
+
+  static Future<Widget> initApp(BuildContext context) async {
     await Future.delayed(Duration(seconds: 1));
     await loadDataset();
 
@@ -90,6 +140,8 @@ class Initiator {
     Globals.dataUpdateVersion =
         await SharedPreferencesUtil.getInt(SettingKeys.databaseUpdateVersion) ??
             1;
+
+    await initializeFirebase(context);
 
     if (Globals.languagePreference == Language.none)
       return LanguageScreen();

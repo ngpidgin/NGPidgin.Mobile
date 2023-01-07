@@ -14,20 +14,27 @@ class DailyTipSection extends StatefulWidget {
 }
 
 class _DailyTipSectionState extends State<DailyTipSection> {
-  Future<TipModel?> _future = Future<TipModel?>.value(Globals.dailyTip);
+  late Future<TipModel?> _future;
 
   @override
   void initState() {
     super.initState();
 
-    setState(() {
-      // load data only if local/online data has never been loaded
-      if (Globals.dailyTip == null || !Globals.dailyTip!.isLoaded()) {
-        _future = getOnlineTip();
-      } else {
-        _future = Future<TipModel?>.value(Globals.dailyTip);
-      }
-    });
+    _future = Future<TipModel?>.value(Globals.dailyTip);
+
+    if (!Globals.dailyTipFromNotication) {
+      setState(() {
+        // load data only if local/online data has never been loaded
+        if (Globals.dailyTip == null || !Globals.dailyTip!.isLoaded()) {
+          _future = getOnlineTip();
+        } else {
+          _future = Future<TipModel?>.value(Globals.dailyTip);
+        }
+      });
+    } else {
+      // save tip from push notification
+      saveLocal(Globals.dailyTip!);
+    }
   }
 
   Future<TipModel?> getLocalTip() async {
@@ -54,10 +61,8 @@ class _DailyTipSectionState extends State<DailyTipSection> {
         var decodedData = jsonDecode(response.body)["data"];
         Globals.dailyTip =
             TipModel(decodedData["title"], decodedData["content"]);
-        SharedPreferencesUtil.setString(
-            SettingKeys.dailyTipTitle, Globals.dailyTip!.title);
-        SharedPreferencesUtil.setString(
-            SettingKeys.dailyTipContent, Globals.dailyTip!.content);
+
+        saveLocal(Globals.dailyTip!);
       } else {
         //return 'failed';
         return getLocalTip();
@@ -68,6 +73,11 @@ class _DailyTipSectionState extends State<DailyTipSection> {
 
     if (hasError) return getLocalTip();
     return Globals.dailyTip;
+  }
+
+  Future<void> saveLocal(TipModel model) async {
+    SharedPreferencesUtil.setString(SettingKeys.dailyTipTitle, model.title);
+    SharedPreferencesUtil.setString(SettingKeys.dailyTipContent, model.content);
   }
 
   Future<void> refreshData() async {

@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "1039695892101",
+    "firebase_url": "https://ngpidgindictionary.firebaseio.com",
+    "project_id": "ngpidgindictionary",
+    "storage_bucket": "ngpidgindictionary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039695892101:android:e024e966c484a7b8",
+        "android_client_info": {
+          "package_name": "in.dynamicbra.ngpidgin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039695892101-53pq38dlpsp080lk4k6ll2dardsia1l9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.dynamicbra.ngpidgin",
+            "certificate_hash": "fe363449f5381610b5bf722cbc57f4e9ed8e799a"
+          }
+        },
+        {
+          "client_id": "1039695892101-fc49h87ph1hqjqnie5d8tjgvd4d4lvoo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.dynamicbra.ngpidgin",
+            "certificate_hash": "012acd6ef7cecd0daf930e841cd559c370c11dde"
+          }
+        },
+        {
+          "client_id": "1039695892101-60e5j5uhu3kecq2bs2atoesf65f8bujf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDmEy68rdeZ43NwKiT89ktWP_KDbGk1x4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039695892101-60e5j5uhu3kecq2bs2atoesf65f8bujf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5803340804096155~3807033984"
+    }
+  ],
+  "configuration_version": "1"
+}
