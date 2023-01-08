@@ -44,10 +44,9 @@ class _SuggestionFormState extends State<SuggestionForm> {
   late CollectionReference? _collection;
 
   loadUserInfo() async {
-    nameCtrl.text =
-        await SharedPreferencesUtil.getString(SettingKeys.appUserName);
+    nameCtrl.text = await LocalStorage.getString(SettingKeys.appUserName);
     locationCtrl.text =
-        await SharedPreferencesUtil.getString(SettingKeys.appUserLocation);
+        await LocalStorage.getString(SettingKeys.appUserLocation);
   }
 
   @override
@@ -130,9 +129,9 @@ class _SuggestionFormState extends State<SuggestionForm> {
                                 child: Button('Share', () async {
                                   if (_formKey.currentState!.validate()) {
                                     // save user info for next suggestion
-                                    SharedPreferencesUtil.setString(
+                                    LocalStorage.setString(
                                         SettingKeys.appUserName, nameCtrl.text);
-                                    SharedPreferencesUtil.setString(
+                                    LocalStorage.setString(
                                         SettingKeys.appUserLocation,
                                         locationCtrl.text);
 

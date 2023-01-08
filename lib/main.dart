@@ -91,9 +91,9 @@ class Initiator {
       Globals.dailyTip = TipModel(event.notification!.title.toString(),
           event.notification!.body.toString());
 
-      SharedPreferencesUtil.setString(
+      LocalStorage.setString(
           SettingKeys.dailyTipTitle, Globals.dailyTip!.title);
-      SharedPreferencesUtil.setString(
+      LocalStorage.setString(
           SettingKeys.dailyTipContent, Globals.dailyTip!.content);
     });
 
@@ -118,13 +118,12 @@ class Initiator {
     await loadDataset();
 
     // load theme preference
-    int theme = await SharedPreferencesUtil.getInt(SettingKeys.themeMode) ??
+    int theme = await LocalStorage.getInt(SettingKeys.themeMode) ??
         ThemeMode.light.index;
     Globals.themeMode = ThemeMode.values[theme];
 
     // get language choice
-    final _lang =
-        await SharedPreferencesUtil.getInt(SettingKeys.LanguagePreference);
+    final _lang = await LocalStorage.getInt(SettingKeys.LanguagePreference);
 
     // ensure first-time user select a language
     if (_lang == null) {
@@ -138,8 +137,7 @@ class Initiator {
 
     // other settings
     Globals.dataUpdateVersion =
-        await SharedPreferencesUtil.getInt(SettingKeys.databaseUpdateVersion) ??
-            1;
+        await LocalStorage.getInt(SettingKeys.databaseUpdateVersion) ?? 1;
 
     await initializeFirebase(context);
 

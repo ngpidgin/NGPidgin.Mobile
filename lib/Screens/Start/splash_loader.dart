@@ -4,7 +4,7 @@ import 'package:ngpidgin/extensions/sharedpref_util.dart';
 
 class SplashLoader extends StatelessWidget {
   Future<ThemeMode> getTheme() async {
-    int theme = await SharedPreferencesUtil.getInt(SettingKeys.themeMode) ??
+    int theme = await LocalStorage.getInt(SettingKeys.themeMode) ??
         ThemeMode.light.index;
     return ThemeMode.values[theme];
   }

@@ -22,12 +22,10 @@ class LanguageScreen extends StatelessWidget {
     Color bodyColor = isLight ? Palette.Charcoal : Colors.white;
 
     void selectLang(Language lang) async {
-      await SharedPreferencesUtil.setInt(
-          SettingKeys.themeMode, ThemeMode.light.index);
+      await LocalStorage.setInt(SettingKeys.themeMode, ThemeMode.light.index);
       Globals.themeMode = themeMode;
 
-      await SharedPreferencesUtil.setInt(
-          SettingKeys.LanguagePreference, lang.index);
+      await LocalStorage.setInt(SettingKeys.LanguagePreference, lang.index);
 
       Globals.languagePreference = lang;
       Globals.languageKit =

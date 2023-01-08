@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }
     });
     Globals.themeMode = theme;
-    await SharedPreferencesUtil.setInt(SettingKeys.themeMode, theme.index);
+    await LocalStorage.setInt(SettingKeys.themeMode, theme.index);
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => MyApp(showLoader: false)),

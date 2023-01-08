@@ -41,7 +41,7 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
 
         update(content).then((value) {
           if (value) {
-            SharedPreferencesUtil.setInt(SettingKeys.databaseUpdateVersion,
+            LocalStorage.setInt(SettingKeys.databaseUpdateVersion,
                 Globals.dataUpdate!.updateVersion);
             DatabaseHelper.loadDatasets();
 

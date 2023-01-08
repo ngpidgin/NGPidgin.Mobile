@@ -39,10 +39,9 @@ class _DailyTipSectionState extends State<DailyTipSection> {
 
   Future<TipModel?> getLocalTip() async {
     if (Globals.dailyTip == null) {
-      String title =
-          await SharedPreferencesUtil.getString(SettingKeys.dailyTipTitle);
+      String title = await LocalStorage.getString(SettingKeys.dailyTipTitle);
       String content =
-          await SharedPreferencesUtil.getString(SettingKeys.dailyTipContent);
+          await LocalStorage.getString(SettingKeys.dailyTipContent);
 
       if (content.isEmpty == false) {
         Globals.dailyTip = TipModel(title, content);
@@ -76,8 +75,8 @@ class _DailyTipSectionState extends State<DailyTipSection> {
   }
 
   Future<void> saveLocal(TipModel model) async {
-    SharedPreferencesUtil.setString(SettingKeys.dailyTipTitle, model.title);
-    SharedPreferencesUtil.setString(SettingKeys.dailyTipContent, model.content);
+    LocalStorage.setString(SettingKeys.dailyTipTitle, model.title);
+    LocalStorage.setString(SettingKeys.dailyTipContent, model.content);
   }
 
   Future<void> refreshData() async {
