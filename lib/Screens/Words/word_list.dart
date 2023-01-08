@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ngpidgin/Screens/Words/search_result_empty.dart';
 import 'package:ngpidgin/Screens/Words/word_detail_dialog.dart';
-import 'package:ngpidgin/components/button_pill.dart';
-import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
 class WordList extends StatelessWidget {
@@ -15,7 +14,6 @@ class WordList extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               return InkWell(
-                  highlightColor: Colors.white,
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -23,7 +21,7 @@ class WordList extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
-                        barrierColor: Color(0x99000000),
+                        barrierColor: Colors.black.withOpacity(0.8),
                         builder: (BuildContext context) {
                           return WordDetailDialog(
                             data[index],
@@ -35,35 +33,9 @@ class WordList extends StatelessWidget {
                   });
             },
             separatorBuilder: (context, index) {
-              return Divider(
-                color: Colors.grey,
-                height: 1,
-              );
+              return Divider(color: Colors.grey, height: 1);
             },
           )
-        : Container(
-            alignment: Alignment.center,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Wetin you dey find like this?",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 30),
-                  Image.asset("assets/imgs/osita_confused_01.jpg"),
-                  SizedBox(height: 20),
-                  Text(
-                    "But you fit suggest am sha!",
-                    style: TextStyle(color: Palette.PaleGreen),
-                  ),
-                  ButtonPill("Suggest", () {},
-                      bgColor: Palette.PaleGreen,
-                      textStyle: TextStyle(color: Colors.white))
-                ],
-              ),
-            ),
-          );
+        : SearchResultEmpty();
   }
 }

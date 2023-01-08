@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ngpidgin/Screens/Translator/sentence_list.dart';
-import 'package:ngpidgin/components/textbox_field.dart';
+import 'package:ngpidgin/components/search_filter.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/globals.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
@@ -33,19 +33,19 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Palette.PrimaryColor,
+      backgroundColor: theme.primaryColor,
       appBar: AppBar(
-          backgroundColor: Palette.PrimaryColor,
+          backgroundColor: theme.primaryColor,
           title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Translator"),
                 Text(SentenceModel.getCategoryDesc(widget.category),
-                    style: TextStyle(fontSize: 13, color: Palette.Lavendar))
+                    style: TextStyle(fontSize: 11, color: Palette.Lavendar))
               ]),
           elevation: 0,
           actions: [
@@ -76,27 +76,22 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           showSearch
-              ? Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextBoxField(
-                      placeholder: "filter sentences sharp sharp",
-                      icon: Icon(Icons.search),
-                      paddingVertical: 0,
-                      width: size.width * 0.85,
-                      onChange: (text) {
-                        setState(() {
-                          data = Globals.sentenceDataset
-                              .where((e) => e.sentence
-                                  .toLowerCase()
-                                  .contains(text.toLowerCase()))
-                              .toList();
-                        });
-                      }))
+              ? SearchFilterInput(
+                  hintText: "filter sentences sharp sharp",
+                  onChange: (text) {
+                    setState(() {
+                      data = Globals.sentenceDataset
+                          .where((e) => e.sentence
+                              .toLowerCase()
+                              .contains(text.toLowerCase()))
+                          .toList();
+                    });
+                  })
               : Container(),
           Expanded(
               child: Container(
                   decoration: BoxDecoration(
-                      color: Palette.Lavendar,
+                      color: theme.canvasColor,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),

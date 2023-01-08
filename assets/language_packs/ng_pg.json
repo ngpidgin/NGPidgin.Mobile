@@ -13,5 +13,9 @@
     "dataUpdateDownloading": "Data update dey download..",
     "dataUpdateUpdating": "Database dey update..",
     "dataUpdateCompleted": "Update don finish!",
-    "dataUpdateFailed": "Update don fail!"
+    "dataUpdateFailed": "Update don fail!",
+    "searchResultEmpty": "Wetin you dey find like this?",
+    "searchResultSuggest": "But you fit suggest am sha",
+    "noInternetConnection": "You no get internet connection",
+    "suggestionDesc": "We go review your suggestion, and maybe add am for the next data update"
 }

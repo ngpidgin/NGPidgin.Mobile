@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/Screens/Dashboard/dashboard_screen.dart';
 import 'package:ngpidgin/Screens/Favorite/favorite_screen.dart';
 import 'package:ngpidgin/Screens/Translator/translator_category_screen.dart';
@@ -40,32 +39,16 @@ class AppNavigatorState extends State<AppNavigator> {
             child: _parentScreens[_currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
           currentIndex: _currentIndex,
           showUnselectedLabels: true,
-          fixedColor: Palette.PrimaryColor,
-          unselectedItemColor: Colors.blueGrey,
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
           onTap: onTabTapped,
           items: [
             BottomNavigationBarItem(
-                label: "Home",
-                icon: Icon(
-                  Icons.home_outlined,
-                  color: Colors.blueGrey,
-                )),
+                label: "Home", icon: Icon(Icons.home_outlined)),
             BottomNavigationBarItem(
-                label: "Words",
-                icon: Icon(
-                  Icons.book_outlined,
-                  color: Colors.blueGrey,
-                )),
+                label: "Words", icon: Icon(Icons.book_outlined)),
             BottomNavigationBarItem(
-                label: "Translator",
-                icon: Icon(
-                  Icons.volume_up_outlined,
-                  color: Colors.blueGrey,
-                )),
+                label: "Translator", icon: Icon(Icons.volume_up_outlined)),
             BottomNavigationBarItem(
                 label: "Favorites",
                 icon: Icon(Icons.favorite_border_outlined,

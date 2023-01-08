@@ -41,7 +41,7 @@ class _DataUpdateDialogState extends State<DataUpdateDialog> {
 
         update(content).then((value) {
           if (value) {
-            SharedPreferencesUtil.setInt(SettingKeys.databaseUpdateVersion,
+            LocalStorage.setInt(SettingKeys.databaseUpdateVersion,
                 Globals.dataUpdate!.updateVersion);
             DatabaseHelper.loadDatasets();
 
@@ -181,7 +181,7 @@ class UpdateItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(title, style: TextStyle(color: Palette.PaleGreen)),
+        Text(title, style: TextStyle(color: Palette.Pale)),
         Text(count.toString(),
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
       ],

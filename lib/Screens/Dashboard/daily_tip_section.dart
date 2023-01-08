@@ -14,28 +14,34 @@ class DailyTipSection extends StatefulWidget {
 }
 
 class _DailyTipSectionState extends State<DailyTipSection> {
-  Future<TipModel?> _future = Future<TipModel?>.value(Globals.dailyTip);
+  late Future<TipModel?> _future;
 
   @override
   void initState() {
     super.initState();
 
-    setState(() {
-      // load data only if local/online data has never been loaded
-      if (Globals.dailyTip == null || !Globals.dailyTip!.isLoaded()) {
-        _future = getOnlineTip();
-      } else {
-        _future = Future<TipModel?>.value(Globals.dailyTip);
-      }
-    });
+    _future = Future<TipModel?>.value(Globals.dailyTip);
+
+    if (!Globals.dailyTipFromNotication) {
+      setState(() {
+        // load data only if local/online data has never been loaded
+        if (Globals.dailyTip == null || !Globals.dailyTip!.isLoaded()) {
+          _future = getOnlineTip();
+        } else {
+          _future = Future<TipModel?>.value(Globals.dailyTip);
+        }
+      });
+    } else {
+      // save tip from push notification
+      saveLocal(Globals.dailyTip!);
+    }
   }
 
   Future<TipModel?> getLocalTip() async {
     if (Globals.dailyTip == null) {
-      String title =
-          await SharedPreferencesUtil.getString(SettingKeys.dailyTipTitle);
+      String title = await LocalStorage.getString(SettingKeys.dailyTipTitle);
       String content =
-          await SharedPreferencesUtil.getString(SettingKeys.dailyTipContent);
+          await LocalStorage.getString(SettingKeys.dailyTipContent);
 
       if (content.isEmpty == false) {
         Globals.dailyTip = TipModel(title, content);
@@ -54,10 +60,8 @@ class _DailyTipSectionState extends State<DailyTipSection> {
         var decodedData = jsonDecode(response.body)["data"];
         Globals.dailyTip =
             TipModel(decodedData["title"], decodedData["content"]);
-        SharedPreferencesUtil.setString(
-            SettingKeys.dailyTipTitle, Globals.dailyTip!.title);
-        SharedPreferencesUtil.setString(
-            SettingKeys.dailyTipContent, Globals.dailyTip!.content);
+
+        saveLocal(Globals.dailyTip!);
       } else {
         //return 'failed';
         return getLocalTip();
@@ -70,6 +74,11 @@ class _DailyTipSectionState extends State<DailyTipSection> {
     return Globals.dailyTip;
   }
 
+  Future<void> saveLocal(TipModel model) async {
+    LocalStorage.setString(SettingKeys.dailyTipTitle, model.title);
+    LocalStorage.setString(SettingKeys.dailyTipContent, model.content);
+  }
+
   Future<void> refreshData() async {
     setState(() {
       _future = getOnlineTip();
@@ -78,92 +87,86 @@ class _DailyTipSectionState extends State<DailyTipSection> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
 
     return Container(
-      alignment: Alignment.center,
-      width: size.width,
-      padding: EdgeInsets.fromLTRB(25, 20, 25, 15),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(25),
-              bottomRight: Radius.circular(25)),
-          boxShadow: [
-            BoxShadow(
-                color: Color(0x408F8F8F),
-                blurRadius: 3,
-                offset: Offset.fromDirection(1, 3))
-          ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            Globals.languageKit.dailyTips,
-            style: TextStyle(fontSize: 20),
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(height: 5),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            FutureBuilder(
-                future: _future,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        width: double.infinity,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                                width: 15,
-                                height: 15,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Palette.PrimaryAltColor,
-                                )),
-                            SizedBox(width: 15),
-                            Text(Globals.languageKit.dailyTipsLoading,
+      padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                Globals.languageKit.dailyTips,
+                style: theme.textTheme.headline3,
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 5),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                FutureBuilder(
+                    future: _future,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Container(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                    width: 15,
+                                    height: 15,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Palette.PrimaryAltColor,
+                                    )),
+                                SizedBox(width: 15),
+                                Text(Globals.languageKit.dailyTipsLoading,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.grey))
+                              ],
+                            ));
+                      } else {
+                        if (snapshot.hasData) {
+                          return DailyTipMainSection(
+                              theme, snapshot.data as TipModel, refreshData);
+                        }
+
+                        return Container(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            width: double.infinity,
+                            child: Text(
+                                Globals.languageKit.dailyTipsFetchFailed,
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Colors.grey))
-                          ],
-                        ));
-                  } else {
-                    if (snapshot.hasData) {
-                      return DailyTipMainSection(
-                          snapshot.data as TipModel, refreshData);
-                    }
-
-                    return Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        width: double.infinity,
-                        child: Text(Globals.languageKit.dailyTipsFetchFailed,
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color(0xFF1800306))));
-                  }
-                })
-          ])
-        ],
+                                    color: Color(0xFF1800306))));
+                      }
+                    })
+              ])
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
 class DailyTipMainSection extends StatelessWidget {
+  final ThemeData theme;
   final TipModel model;
   final Function refreshAction;
-  const DailyTipMainSection(this.model, this.refreshAction);
+  const DailyTipMainSection(this.theme, this.model, this.refreshAction);
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       model.isLoaded()
           ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(model.title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Palette.PaleGreen)),
-              SelectableText(model.content, style: TextStyle(fontSize: 14)),
+              Text(model.title, style: theme.textTheme.headline5),
+              SizedBox(height: 5),
+              SelectableText(model.content, style: theme.textTheme.bodyText1)
             ])
           : Container(),
       SizedBox(height: 10),
@@ -174,13 +177,13 @@ class DailyTipMainSection extends StatelessWidget {
                   "Share",
                   () => Share.share(
                       "Daily Tip: ${model.title}\n${model.content}\n\nSource: ${AppInfo.FullName}"),
-                  bgColor: Palette.Lavendar,
+                  bgColor: theme.canvasColor,
                   textColor: Colors.grey,
                   width: 80)
               : Container(),
           ButtonPill("Refresh", () {
             refreshAction();
-          }, bgColor: Palette.Lavendar, textColor: Colors.grey, width: 80),
+          }, bgColor: theme.canvasColor, textColor: Colors.grey, width: 80)
         ],
       )
     ]);

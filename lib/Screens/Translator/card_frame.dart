@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ngpidgin/constants.dart';
 
 class TranslatorCategoryCardFrame extends StatelessWidget {
   final IconData icon;
@@ -11,6 +10,7 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = new Size(150, 150);
 
     return Container(
@@ -24,26 +24,21 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  alignment: Alignment.center,
-                  height: size.height * 0.6,
-                  child: Icon(
-                    icon,
-                    color: Palette.PaleGreen,
-                    size: 70,
-                  )),
-              Container(
-                  alignment: titleAlignment ?? Alignment.center,
-                  height: size.height * 0.125,
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-                  )),
-            ],
-          ),
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    alignment: Alignment.center,
+                    height: size.height * 0.6,
+                    child: Icon(icon,
+                        size: 70, color: theme.textTheme.headline6!.color)),
+                Container(
+                    alignment: titleAlignment ?? Alignment.center,
+                    height: size.height * 0.125,
+                    child: Text(title,
+                        style:
+                            theme.textTheme.headline6!.copyWith(fontSize: 14))),
+              ]),
         ),
       )),
     );

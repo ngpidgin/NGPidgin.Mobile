@@ -30,11 +30,9 @@ class DashboardCardFrame extends StatelessWidget {
                   child: body),
               Container(
                   alignment: titleAlignment ?? Alignment.center,
-                  height: size.height * 0.125,
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-                  )),
+                  height: size.height * 0.130,
+                  child: Text(title,
+                      style: Theme.of(context).textTheme.headline6!))
             ],
           ),
         ),

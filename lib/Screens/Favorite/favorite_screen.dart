@@ -29,10 +29,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   bool sortAsc = true;
   bool wordTabActive = true;
   bool sentenceTabActive = false;
-  Color activeSelectionBg = Palette.PrimaryLightBrightColor;
-  Color inactiveSelectionBg = Palette.PrimaryDarkColor;
-  Color activeSelectionText = Palette.PaleGreen;
-  Color inactiveSelectionText = Palette.PrimaryLightBrightColor;
 
   var actionBtnStyle = ButtonStyle(
       padding: MaterialStateProperty.all<EdgeInsets>(
@@ -41,12 +37,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
 
+    Color activeSelectionBg = theme.primaryColorLight;
+    Color inactiveSelectionBg = Palette.GreenDark;
+    Color activeSelectionText = Palette.GreenDark;
+    Color inactiveSelectionText = Palette.PrimaryLightColor;
+
     return Scaffold(
-        backgroundColor: Palette.PrimaryColor,
+        backgroundColor: theme.primaryColor,
         appBar: AppBar(
-          backgroundColor: Palette.PrimaryColor,
+          backgroundColor: theme.primaryColor,
           title: Text("Favorites"),
           elevation: 0,
           leading: null,
@@ -129,7 +131,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   Expanded(
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Palette.Lavendar,
+                              color: theme.canvasColor,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(25))),

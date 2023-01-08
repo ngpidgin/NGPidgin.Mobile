@@ -24,6 +24,10 @@ class LanguageKit {
   String dataUpdateUpdating = "";
   String dataUpdateCompleted = "";
   String dataUpdateFailed = "";
+  String searchResultEmpty = "";
+  String searchResultSuggest = "";
+  String noInternetConnection = "";
+  String suggestionDesc = "";
 
   LanguageKit.fromJson(Map<String, dynamic> json)
       : welcomeIntro = json['welcomeIntro'],
@@ -39,7 +43,11 @@ class LanguageKit {
         dataUpdateDownloading = json['dataUpdateDownloading'],
         dataUpdateUpdating = json['dataUpdateUpdating'],
         dataUpdateCompleted = json['dataUpdateCompleted'],
-        dataUpdateFailed = json['dataUpdateFailed'];
+        dataUpdateFailed = json['dataUpdateFailed'],
+        searchResultEmpty = json['searchResultEmpty'],
+        searchResultSuggest = json['searchResultSuggest'],
+        noInternetConnection = json['noInternetConnection'],
+        suggestionDesc = json['suggestionDesc'];
 
   static Future<LanguageKit> initialize(Language lang) async {
     final content = await loadAsset(
