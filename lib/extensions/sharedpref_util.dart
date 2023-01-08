@@ -1,10 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesUtil {
-  SharedPreferencesUtil._privateConstructor();
+class LocalStorage {
+  LocalStorage._privateConstructor();
 
-  final SharedPreferencesUtil instance =
-      SharedPreferencesUtil._privateConstructor();
+  final LocalStorage instance = LocalStorage._privateConstructor();
 
   static Future<String> getString(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
@@ -13,12 +12,12 @@ class SharedPreferencesUtil {
 
   static Future<int?> getInt(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
-    return myPrefs.getInt(key) ?? null;
+    return myPrefs.getInt(key) ?? 0;
   }
 
   static Future<bool?> getBool(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
-    return myPrefs.getBool(key) ?? null;
+    return myPrefs.getBool(key) ?? false;
   }
 
   static setString(String key, String value) async {
