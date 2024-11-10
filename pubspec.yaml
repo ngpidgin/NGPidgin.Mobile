@@ -2,7 +2,7 @@ name: ngpidgin
 description: Nigerian Pidgin Dictionary.
 version: 1.0.0+1
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -15,7 +15,7 @@ dependencies:
   flutter_riverpod: ^2.1.3
   cupertino_icons: ^1.0.5 #todo: remove
   flutter_svg: ^0.23.0+1
-  flutter_tts: ^3.6.3 
+  flutter_tts: ^3.6.3
   share: ^2.0.4
   shared_preferences: ^2.0.15
   sqflite: ^2.2.2 #todo: remove
@@ -31,7 +31,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-
 
 # The following section is specific to Flutter.
 flutter:
