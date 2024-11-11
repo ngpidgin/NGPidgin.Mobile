@@ -79,7 +79,7 @@ class _SuggestionFormState extends State<SuggestionForm> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(Globals.languageKit.suggestionDesc,
-                                style: theme.textTheme.bodyText1!.copyWith(
+                                style: theme.textTheme.bodyLarge!.copyWith(
                                     color: theme.colorScheme.onSecondary)),
                             SizedBox(height: 20),
                             FormInput(
@@ -200,11 +200,11 @@ class SuggestionResult extends StatelessWidget {
                   color: Palette.PrimaryColor, size: 60),
               SizedBox(height: 15),
               Text("Thank You!",
-                  style: theme.textTheme.headline1!
+                  style: theme.textTheme.displayLarge!
                       .copyWith(color: theme.colorScheme.onSecondary)),
               Text(
                 "Your suggestion has been sent for review.",
-                style: theme.textTheme.bodyText1!
+                style: theme.textTheme.bodyLarge!
                     .copyWith(color: theme.colorScheme.onSecondary),
               ),
               SizedBox(height: 60),

@@ -26,13 +26,13 @@ class TranslatorCategoryScreen extends StatelessWidget {
                 child: Column(children: [
                   Text(
                     "Translator",
-                    style: theme.textTheme.headline1!
+                    style: theme.textTheme.displayLarge!
                         .copyWith(color: theme.colorScheme.onPrimary),
                   ),
                   Text(
                     Globals.languageKit.translatorCategoryDesc,
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyText1!
+                    style: theme.textTheme.bodyLarge!
                         .copyWith(color: theme.colorScheme.onPrimary),
                   ),
                 ])),

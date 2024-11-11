@@ -9,21 +9,15 @@ class AppThemes {
   static final ColorScheme lightColorScheme = ColorScheme(
       brightness: Brightness.light,
       primary: Palette.Green,
-      primaryVariant: Palette.GreenAlt,
       secondary: Colors.white,
-      secondaryVariant: Color(0xFFF8F8F8),
       error: Color(0xffb00020),
-      background: Colors.white,
       onError: Colors.white,
       onSecondary: Palette.PaleDark,
-      onBackground: Color(0xff292929),
       onPrimary: Colors.white,
       onSurface: Color(0xff292929),
       surface: Colors.white);
 
   static ThemeData lightTheme = ThemeData(
-      backgroundColor: Colors.white,
-      colorScheme: lightColorScheme,
       canvasColor: Palette.Lavendar,
       primaryColor: Palette.Green,
       primaryColorDark: Palette.GreenDark,
@@ -50,21 +44,22 @@ class AppThemes {
           unselectedIconTheme: IconThemeData(color: Palette.Pale)),
       fontFamily: Fonts.Default,
       textTheme: const TextTheme(
-          bodyText1: TextStyle(
+          bodyLarge: TextStyle(
               fontSize: 14, fontWeight: FontWeight.normal, color: Colors.black),
-          bodyText2: TextStyle(fontSize: 16),
-          headline1: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
-          headline2: TextStyle(fontSize: 25),
-          headline3: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          headline4: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
-          headline5: TextStyle(
+          bodyMedium: TextStyle(fontSize: 16),
+          displayLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+          displayMedium: TextStyle(fontSize: 25),
+          displaySmall: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+          headlineSmall: TextStyle(
               fontSize: 15, fontWeight: FontWeight.w500, color: Palette.Pale),
-          headline6: TextStyle(
+          titleLarge: TextStyle(
               fontSize: 12, fontWeight: FontWeight.w500, color: Palette.Pale),
-          subtitle1:
+          titleMedium:
               TextStyle(fontWeight: FontWeight.w500, color: Palette.Pale),
-          subtitle2: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.w500, color: Palette.Pale)));
+          titleSmall: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w500, color: Palette.Pale)),
+      colorScheme: lightColorScheme.copyWith(surface: Colors.white));
 
 // ----------------------------------
 // DARK THEME
@@ -73,21 +68,15 @@ class AppThemes {
   static final ColorScheme darkColorScheme = ColorScheme(
       brightness: Brightness.dark,
       primary: Palette.GreenAlt,
-      primaryVariant: Palette.GreenLight,
       secondary: Palette.CharcoalDark,
-      secondaryVariant: Palette.PaleDark.withOpacity(0.9),
       error: Color(0xffb00020),
-      background: Colors.white,
       onError: Colors.white,
       onSecondary: Colors.white,
-      onBackground: Color(0xff292929),
       onPrimary: Colors.white,
       onSurface: Color(0xff292929),
       surface: Colors.white);
 
   static ThemeData darkTheme = ThemeData(
-      backgroundColor: Palette.Charcoal,
-      colorScheme: darkColorScheme,
       canvasColor: Palette.Charcoal,
       primaryColor: Palette.CharcoalDark,
       primaryColorDark: Palette.Charcoal,
@@ -113,27 +102,28 @@ class AppThemes {
           unselectedIconTheme: IconThemeData(color: Colors.blueGrey[200])),
       fontFamily: Fonts.Default,
       textTheme: const TextTheme(
-          bodyText1: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-          bodyText2: TextStyle(fontSize: 16, color: Colors.white),
-          headline1: TextStyle(
+          bodyLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          bodyMedium: TextStyle(fontSize: 16, color: Colors.white),
+          displayLarge: TextStyle(
               fontSize: 30, fontWeight: FontWeight.w300, color: Colors.white),
-          headline2: TextStyle(fontSize: 25),
-          headline3: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          headline4: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
-          headline5: TextStyle(
+          displayMedium: TextStyle(fontSize: 25),
+          displaySmall: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+          headlineSmall: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Palette.GreenLight),
-          headline6: TextStyle(
+          titleLarge: TextStyle(
               fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
-          subtitle1: TextStyle(
+          titleMedium: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
               color: Palette.Charcoal),
-          subtitle2: TextStyle(
+          titleSmall: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: Palette.GreenLightBright)));
+              color: Palette.GreenLightBright)),
+      colorScheme: darkColorScheme.copyWith(surface: Palette.Charcoal));
   // .apply(
   //     bodyColor: Colors.white,
   //     displayColor: Palette.PrimaryLightBrightColor));

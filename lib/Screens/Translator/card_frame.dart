@@ -31,13 +31,13 @@ class TranslatorCategoryCardFrame extends StatelessWidget {
                     alignment: Alignment.center,
                     height: size.height * 0.6,
                     child: Icon(icon,
-                        size: 70, color: theme.textTheme.headline6!.color)),
+                        size: 70, color: theme.textTheme.titleLarge!.color)),
                 Container(
                     alignment: titleAlignment ?? Alignment.center,
                     height: size.height * 0.125,
                     child: Text(title,
-                        style:
-                            theme.textTheme.headline6!.copyWith(fontSize: 14))),
+                        style: theme.textTheme.titleLarge!
+                            .copyWith(fontSize: 14))),
               ]),
         ),
       )),

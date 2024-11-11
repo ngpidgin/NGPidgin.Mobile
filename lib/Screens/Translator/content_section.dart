@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
 
@@ -11,7 +11,7 @@ class ContentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final TextStyle titleStyle = theme.textTheme.subtitle2!;
+    final TextStyle titleStyle = theme.textTheme.titleSmall!;
 
     return Container(
       decoration: BoxDecoration(
@@ -55,18 +55,29 @@ class ContentSection extends StatelessWidget {
                 SizedBox(height: 5),
                 Container(
                   transform: Matrix4.translationValues(-8, 0, 0),
-                  child: Html(data: model.translations, style: {
-                    "li": Style(padding: EdgeInsets.only(left: 0)),
-                    "body": Style(
-                        fontSize: FontSize(15), lineHeight: LineHeight(1.5))
-                  }),
+                  child: HtmlWidget(
+                    model.translations,
+                    textStyle: TextStyle(
+                      fontSize: 15, // Set the font size for the entire content
+                      height:
+                          1.5, // Equivalent to line height in `flutter_html`
+                    ),
+                    customStylesBuilder: (element) {
+                      if (element.localName == 'li') {
+                        return {
+                          'padding-left': '0px'
+                        }; // Remove left padding for list items
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
                     "Category: ${SentenceModel.getCategoryDesc(sentenceCategory.values[model.category])}",
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
-                        fontSize: FontSize.small.size,
+                        fontSize: 14,
                         color: Palette.Pale))
               ],
             ),

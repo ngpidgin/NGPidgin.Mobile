@@ -28,9 +28,13 @@ class SplashLoader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        child: Center(
-                            child: Image.asset("assets/imgs/app_logo_text.png",
-                                width: double.infinity))),
+                      child: Center(
+                        child: Image.asset(
+                          "assets/imgs/app_logo_text.webp",
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 100),
                     Text("Abeg chilax!",
                         style: TextStyle(
