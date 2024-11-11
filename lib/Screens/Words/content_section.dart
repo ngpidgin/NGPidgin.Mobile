@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:ngpidgin/constants.dart';
 import 'package:ngpidgin/extensions/interactions.dart';
 import 'package:ngpidgin/models/dictionary_models.dart';
@@ -12,7 +12,7 @@ class ContentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final TextStyle titleStyle = theme.textTheme.subtitle2!;
+    final TextStyle titleStyle = theme.textTheme.bodySmall!;
 
     return Container(
       decoration: BoxDecoration(
@@ -55,19 +55,21 @@ class ContentSection extends StatelessWidget {
                 Text("Meaning", style: titleStyle),
                 SizedBox(height: 5),
                 Container(
-                    transform: Matrix4.translationValues(-8, 0, 0),
-                    child: Html(data: model.meaning, style: {
-                      "body": Style(
-                          fontSize: FontSize(15),
-                          lineHeight: LineHeight(1.5),
-                          textAlign: TextAlign.justify)
-                    }))
+                  transform: Matrix4.translationValues(-8, 0, 0),
+                  child: HtmlWidget(
+                    model.meaning,
+                    textStyle: TextStyle(
+                      fontSize: 15,
+                      height: 1.5,
+                    ),
+                  ),
+                )
               ],
             ),
           ),
           Divider(height: 0),
           Container(
-            color: theme.colorScheme.secondaryVariant,
+            color: theme.colorScheme.secondaryContainer,
             child: Column(
               children: [
                 Container(
@@ -81,10 +83,18 @@ class ContentSection extends StatelessWidget {
                           SizedBox(height: 5),
                           Container(
                             transform: Matrix4.translationValues(-8, 0, 0),
-                            child: Html(data: model.example, style: {
-                              "li": Style(padding: EdgeInsets.only(left: 0)),
-                              "body": Style(lineHeight: LineHeight(1.5))
-                            }),
+                            child: HtmlWidget(
+                              model.example,
+                              textStyle: TextStyle(
+                                height: 1.5,
+                              ),
+                              customStylesBuilder: (element) {
+                                if (element.localName == 'li') {
+                                  return {'padding-left': '0px'};
+                                }
+                                return null;
+                              },
+                            ),
                           )
                         ])),
                 model.similar.isNotEmpty

@@ -10,8 +10,14 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    double topPadding = MediaQuery.of(context).padding.top + 10;
     return Container(
-        padding: EdgeInsets.fromLTRB(25, 40, 15, 0),
+        padding: EdgeInsets.fromLTRB(
+          25,
+          topPadding,
+          15,
+          0,
+        ),
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

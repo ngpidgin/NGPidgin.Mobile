@@ -99,7 +99,7 @@ class _DailyTipSectionState extends State<DailyTipSection> {
             children: [
               Text(
                 Globals.languageKit.dailyTips,
-                style: theme.textTheme.headline3,
+                style: theme.textTheme.displaySmall,
                 textAlign: TextAlign.left,
               ),
               SizedBox(height: 5),
@@ -164,9 +164,9 @@ class DailyTipMainSection extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       model.isLoaded()
           ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(model.title, style: theme.textTheme.headline5),
+              Text(model.title, style: theme.textTheme.headlineSmall),
               SizedBox(height: 5),
-              SelectableText(model.content, style: theme.textTheme.bodyText1)
+              SelectableText(model.content, style: theme.textTheme.bodyLarge)
             ])
           : Container(),
       SizedBox(height: 10),

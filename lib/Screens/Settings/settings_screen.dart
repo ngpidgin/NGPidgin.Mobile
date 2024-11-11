@@ -62,8 +62,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               Container(
                   padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
-                  child:
-                      Text("NOTIFICATIONS", style: theme.textTheme.headline5)),
+                  child: Text("NOTIFICATIONS",
+                      style: theme.textTheme.headlineSmall)),
               ItemRow(
                   "Subscribe to daily tips notifications",
                   Switch(
@@ -91,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Container(
                   padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
                   child: Text("APP PREFERENCES",
-                      style: theme.textTheme.headline5)),
+                      style: theme.textTheme.headlineSmall)),
               ItemRow(
                   "Preferred language",
                   DropdownButton<String>(
